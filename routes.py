@@ -17,3 +17,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+#user progile should have name, email, list of friends, status
