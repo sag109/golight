@@ -5,5 +5,9 @@ api_version: 1
 threadsafe: no
 
 handlers:
+- url: /
+  script: routes.app
+  login: required
+
 - url: /.*
   script: routes.app
