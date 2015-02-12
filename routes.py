@@ -6,10 +6,9 @@ from google.appengine.ext.webapp import template
 
 
 app = webapp2.WSGIApplication([
-        #('/','controllers.home.RenderHome'), Kept until we clarify main v. home
-        ('/','controllers.main.RenderMain'), 
         ('/friends','controllers.friends.RenderFriends'), 
-        ('/login','controllers.login.RenderLogin'),      
+        ('/login','controllers.login.RenderLogin'),
+        ('/','controllers.home.RenderHome'),      
     ], debug=True)
 
 def main():
