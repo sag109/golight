@@ -8,7 +8,8 @@ from google.appengine.ext.webapp import template
 app = webapp2.WSGIApplication([
         ('/friends','controllers.friends.RenderFriends'), 
         ('/login','controllers.login.RenderLogin'),
-        ('/','controllers.home.RenderHome'),      
+        ('/','controllers.home.RenderHome'),  
+        ('/account','controllers.Account.Render_user'),    
     ], debug=True)
 
 def main():
