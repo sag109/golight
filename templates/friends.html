@@ -6,8 +6,16 @@
 <body>
 	<ul>
 		{%for friend in friends%}
-			<li>{{friend.name}}: {{friend.availability}}</li>
+			<li>{{friend.name}} 
+				{%if friend.availability == 'Success'%}
+					Available!
+				{%else%}
+					Not available.
+				{%endif%}
+			</li>
+			
 		{%endfor%}
 	</ul>
+	<p><a href="{{logout_link}}">Logout</a></p>
 </body>
 </html>
