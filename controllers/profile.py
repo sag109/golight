@@ -25,7 +25,7 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.name= user.nickname()
                 newUser.email= user.email()
                 newUser.friendList.append(user.email())
-                newUser.friendList.append("dontbelonely@pitt.edu")
+                newUser.friendList.append("golight.app@gmail.com")
                 newUser.availability= "Success"
                 newUser.put()
 
