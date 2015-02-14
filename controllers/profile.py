@@ -12,7 +12,7 @@ class RenderProfile(webapp2.RequestHandler):
        # self.response.out.write(template.render("templates/test.html",{"controller": controller}))
        user= users.get_current_user()
        if user:
-            self.response.out.write('<html><body>')
+            #self.response.out.write('<html><body>')
             allUsers= user_info.all()
             userExists= False
             newUser = user_info()
@@ -21,7 +21,7 @@ class RenderProfile(webapp2.RequestHandler):
                     userExists= True
                     newUser= person
             if not userExists:
-                self.response.out.write('making a new user')
+                #self.response.out.write('making a new user')
                 newUser.name= user.nickname()
                 newUser.email= user.email()
                 newUser.friendList.append(user.email())
@@ -30,12 +30,5 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.put()
 
             
-            self.response.out.write('Hello, ' + user.nickname() + '!<br><br>')
-            self.response.out.write(newUser.email+'<br>')
-
-            for pal in newUser.friendList:
-                self.response.out.write(pal+'<br>')
-            self.response.out.write('</body></html>')
-
 
 
