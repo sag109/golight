@@ -9,7 +9,7 @@ app = webapp2.WSGIApplication([
         ('/friends','controllers.friends.RenderFriends'), 
         ('/login','controllers.login.RenderLogin'),
         ('/','controllers.home.RenderHome'),  
-        ('/account','controllers.Account.Render_user'),    
+        ('/profile','controllers.profile.RenderProfile'),    
     ], debug=True)
 
 def main():
