@@ -34,5 +34,8 @@ class RenderFriends(webapp2.RequestHandler):
                         friends.append(person)
             #for pal in friends:
              #   self.response.out.write(pal.name+'<br>')
-            self.response.out.write(template.render("templates/friends.html",{"friends": friends}))
+            self.response.out.write(template.render("templates/friends.html",{
+                "friends": friends,
+                "logout_link": users.create_logout_url('/')
+            }))
 
