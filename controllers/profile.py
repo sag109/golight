@@ -29,7 +29,7 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.put()
 
             template_params = {
-                "usernickname": newUser.name()
+                "usernickname": newUser.name
                 "status": newUser.availability
             }
             render_template(self, 'output.html', template_params)
@@ -68,7 +68,7 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.put()
                 
             template_params = {
-                "usernickname": newUser.nickname()
+                "usernickname": newUser.name
                 "status": newUser.availability
             }
             render_template(self, 'output.html', template_params)
