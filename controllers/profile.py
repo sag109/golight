@@ -59,7 +59,7 @@ class RenderProfile(webapp2.RequestHandler):
                 elif newUser.availability == "danger":
                     newUser.availability= "success"
                 else:
-                    newUser.availability= "default"
+                    newUser.availability= "success"
                 newUser.put()
         template_params = {
             "usernickname": newUser.name,
