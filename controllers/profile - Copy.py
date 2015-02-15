@@ -8,6 +8,8 @@ from google.appengine.api import users
 
 class RenderProfile(webapp2.RequestHandler):
     def get(self):
+        # controller = "profile.py"
+        # self.response.out.write(template.render("templates/test.html",{"controller": controller}))
         user= users.get_current_user()
         if user:
             allUsers= user_info.all()
@@ -25,13 +27,18 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.friendList.append("dontbelonely@pitt.edu")
                 newUser.availability= "Success"
                 newUser.put()
-        template_params = {
-            "usernickname": newUser.name,
-            "status": newUser.availability            
-        }
-        self.response.out.write(template.render("templates/profile.html", template_params))
 
+            template_params = {
+                "usernickname": newUser.name
+                "status": newUser.availability
+            }
+            self.response.out.write(template.render(self, 'templates/profile.html', template_params))
+        else:
+            self.response.out.write("<html><body>!user</body></html>")
+            
     def post(self):
+        # controller = "profile.py"
+        # self.response.out.write(template.render("templates/test.html",{"controller": controller}))
         user= users.get_current_user()
         if user:
             allUsers= user_info.all()
@@ -47,22 +54,25 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.email= user.email()
                 newUser.friendList.append(user.email())
                 newUser.friendList.append("dontbelonely@pitt.edu")
-                newUser.availability= "success"
+                newUser.availability= "Success"
                 newUser.put()
 
             input= self.request.get("status");
-            if input == "update":
-                if newUser.availability == "success":
-                    newUser.availability= "warning"
-                elif newUser.availability == "warning":
-                    newUser.availability= "danger"
-                elif newUser.availability == "danger":
-                    newUser.availability= "success"
-                else:
-                    newUser.availability= "default"
+            if(input == "update")
+                if(newUser.availability() == "Success")
+                    newUser.availability = "Danger"
+                else if(newUser.availability() == "Danger")
+                    newUser.availability = "Warning"
+                else if(newUser.availability() == "Warning")
+                    newUser.availability = "Success"
+                else
+                    newUser.availability = "Default"
                 newUser.put()
-        template_params = {
-            "usernickname": newUser.name,
-            "status": newUser.availability            
-        }
-        self.response.out.write(template.render("templates/profile.html", template_params))
+                
+            template_params = {
+                "usernickname": newUser.name
+                "status": newUser.availability
+            }
+            render_template(self, 'templates/profile.html', template_params)
+        else:
+            self.out.write("<html><body>!user</body></html>")
