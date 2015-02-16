@@ -17,15 +17,19 @@ class RenderEdit(webapp2.RequestHandler):
         if user:
             newFriend= self.request.get('newFriend')
             allUsers= user_info.all()
+            #addUser= user_info()
             currUser= user_info()
+            for person in allUsers:
+                if person.email == user.email():
+                    currUser=person
+
             friendExist = False
             
             reply_info = {
                 'logout_link': users.create_logout_url('/')
             }
             for person in allUsers:
-                if person.email == newFriend.email():
-                    currUser= person
+                if person.email == newFriend:
                     currUser.friendList.append(newFriend)
                     currUser.put()
                     friendExist = True
