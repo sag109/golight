@@ -24,7 +24,7 @@ class RenderEdit(webapp2.RequestHandler):
                 'logout_link': users.create_logout_url('/')
             }
             for person in allUsers:
-                if person.email == user.email():
+                if person.email == newFriend.email():
                     currUser= person
                     currUser.friendList.append(newFriend)
                     currUser.put()

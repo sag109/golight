@@ -23,8 +23,8 @@ class RenderFriends(webapp2.RequestHandler):
                 newUser.name= user.nickname()
                 newUser.email= user.email()
                 newUser.friendList.append(user.email())#they are their own friend
-                newUser.friendList.append("golight.app@pitt.edu")
-                newUser.availability= "Success"
+                newUser.friendList.append("golight.app@gmail.com")
+                newUser.availability= "success"
                 newUser.put()
             friends=[]
             for friend in newUser.friendList:

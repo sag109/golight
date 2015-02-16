@@ -23,7 +23,7 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.email= user.email()
                 newUser.friendList.append(user.email())
                 newUser.friendList.append("golight.app@gmail.com")
-                newUser.availability= "Success"
+                newUser.availability= "success"
                 newUser.put()
         template_params = {
             "usernickname": newUser.name,
