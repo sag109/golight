@@ -46,7 +46,7 @@ class RenderProfile(webapp2.RequestHandler):
                 newUser.name= user.nickname()
                 newUser.email= user.email()
                 newUser.friendList.append(user.email())
-                newUser.friendList.append("dontbelonely@pitt.edu")
+                newUser.friendList.append("golight.app@gmail.com")
                 newUser.availability= "success"
                 newUser.put()
 
@@ -62,6 +62,7 @@ class RenderProfile(webapp2.RequestHandler):
                     newUser.availability= "success"
                 newUser.put()
         template_params = {
+            "logout_link": users.create_logout_url('/'),
             "usernickname": newUser.name,
             "status": newUser.availability            
         }
