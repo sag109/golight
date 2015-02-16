@@ -21,11 +21,23 @@
 	</head>
 	<body>
 
-		<h1>
+		<h3>{{usernickname}}'s status:
+		
 			<form action = "profile" method = "post">
-			<button type="submit" id="profile" class="btn btn-lg btn-{{status}}" name="status" value="update">{{usernickname}}</button>
+				<button type="submit" id="profile" class="btn btn-lg btn-{{status}}" name="status" value="update">
+					{% if status == "success" %} 
+						Available
+					{% endif %}
+					{% if status == "warning" %} 
+						Tentative...
+					{% endif %} 
+					{% if status == "danger" %}
+						Busy 
+					{% endif %}
+				</button>
 			</form>
-		</h1>
+		</h3>
+
 		<br>
 
     
