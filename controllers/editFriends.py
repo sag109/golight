@@ -18,10 +18,18 @@ class RenderEdit(webapp2.RequestHandler):
             newFriend= self.request.get('newFriend')
             allUsers= user_info.all()
             currUser= user_info()
+            friendExist = False
             for person in allUsers:
                 if person.email == user.email():
                     currUser= person
-            currUser.friendList.append(newFriend)
-            currUser.put()
-            self.response.out.write('<html><body>'+newFriend+'</body></html>')
+                    currUser.friendList.append(newFriend)
+                    currUser.put()
+                    friendExist = True
+            if friendExist:
+                status = "You've successfully added a friend"
+                self.response.out.write(template.render("templates/edit.html",{"status":status}))
+            else:
+                status = "This friend does not have an account"
+                self.response.out.write(template.render("templates/edit.html",{"status":status}))
+            #self.response.out.write('<html><body>'+newFriend+'</body></html>')
 
