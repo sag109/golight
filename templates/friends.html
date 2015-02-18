@@ -39,6 +39,9 @@
 					<td><h3><span class="label label-danger">{{friend.name}}</span></h3></td>
 					{%endif%}
 				{%endif%}
+				{%if friend.message%}
+					<td>{{friend.message}}<td>
+				{%endif%}
 			</tr>
 			
 		{%endfor%}

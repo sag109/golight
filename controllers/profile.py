@@ -61,6 +61,14 @@ class RenderProfile(webapp2.RequestHandler):
                 else:
                     newUser.availability= "success"
                 newUser.put()
+
+            #get the updated status
+            statusMessage= self.request.get("statusMessage")
+            if statusMessage:
+                newUser.message = statusMessage
+                newUser.put() 
+
+
         template_params = {
             "logout_link": users.create_logout_url('/'),
             "usernickname": newUser.name,
