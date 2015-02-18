@@ -27,7 +27,7 @@
 	</head>
 	<body>
 
-		<h3>{{usernickname}}'s status:
+		<h3>{{usernickname}}'s status:<br><br>
 		
 			<form action = "profile" method = "post">
 				<button type="submit" id="profile" class="btn btn-lg btn-{{status}}" name="status" value="update">
@@ -43,11 +43,11 @@
 				</button>
 			</form>
 		</h3>
-		
+		<br><br>
 		<table style="border-collapse: collapse;">
 			<tr>
 				<td><a style="border: 1px solid black;" href="/friends"> Your Friends </a></td>
-				<td><a style="border: 1px solid black;" href="/edit"> Add Friends </a></td>
+				<td><a style="border: 1px solid black;" href="/edit"> Edit Friends </a></td>
 				<td><a style="border: 1px solid black;" href="/profile"> Update Your Status </a></td>
 				<td><a style="border: 1px solid black;" href="{{logout_link}}"> Logout </a></td>
 			</tr>
