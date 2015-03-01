@@ -5,12 +5,16 @@ import os
 from google.appengine.ext.webapp import template
 
 
-app = webapp2.WSGIApplication([
-        ('/friends','controllers.friends.RenderFriends'), 
-        ('/login','controllers.login.RenderLogin'),
-        ('/','controllers.friends.RenderFriends'),  
-        ('/profile','controllers.profile.RenderProfile'),  
-        ('/edit','controllers.editFriends.RenderEdit'),  
+app = webapp2.WSGIApplication(
+        ('/','controllers.main.Main'), 
+        ('/user','controllers.user.User'), 
+        ('/friends','controllers.friends.Friends'),
+        ('/friend','controllers.friend.Friend'),  
+        ('/group','controllers.group.Group'),  
+        ('/group/user','controllers.group.User'),  
+        ('/group/members','controllers.group.Members'),  
+        ('/group/member','controllers.group.Member'),  
+        ('/group/blurb','controllers.editFriends.RenderEdit'),  
     ], debug=True)
 
 def main():

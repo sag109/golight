@@ -23,22 +23,20 @@ POST /group
 	Creates a new group.
 DELETE /group
 	Deletes a group.
+PUT /group
+	Changes the group settings.
 
 POST /group/user
 	Add yourself to a group.
 DELETE /group/user
 	Remove yourself from a group.
-	
-GET /group/members
-	Gets a list of the group members, with their availability information.
-
 PUT /group/user
 	Sets your availability and blurb within a group.
 GET /group/user
 	Gets your availability and blurb within a group.
-
-PUT /group/settings
-	Changes the group settings.
+	
+GET /group/members
+	Gets a list of the group members, with their availability information.
 
 PUT /group/blurb
 	Changes the group's blurb.
