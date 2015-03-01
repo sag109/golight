@@ -11,10 +11,10 @@ app = webapp2.WSGIApplication(
         ('/friends','controllers.friends.Friends'),
         ('/friend','controllers.friend.Friend'),  
         ('/group','controllers.group.Group'),  
-        ('/group/user','controllers.group.User'),  
-        ('/group/members','controllers.group.Members'),  
-        ('/group/member','controllers.group.Member'),  
-        ('/group/blurb','controllers.editFriends.RenderEdit'),  
+        ('/group/user','controllers.group_user.User'),  
+        ('/group/members','controllers.group_members.Members'),  
+        ('/group/member','controllers.group_member.Member'),  
+        ('/group/blurb','controllers.group_blurb.Blurb'),  
     ], debug=True)
 
 def main():
