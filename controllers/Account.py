@@ -8,6 +8,7 @@ class user_info(db.Model):
     email= db.StringProperty()
     friendList= db.ListProperty(str)
     availability= db.StringProperty()
+    message= db.StringProperty()
     #friendList will store user.User
 
 class Render_user(webapp2.RequestHandler):

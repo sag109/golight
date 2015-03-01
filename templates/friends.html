@@ -39,6 +39,9 @@
 					<td><h3><span class="label label-danger">{{friend.name}}</span></h3></td>
 					{%endif%}
 				{%endif%}
+				{%if friend.message%}
+					<td>{{friend.message}}<td>
+				{%endif%}
 			</tr>
 			
 		{%endfor%}
@@ -48,7 +51,7 @@
 	<table style="border-collapse: collapse;">
 		<tr>
 			<td><a style="border: 1px solid black;" href="/friends"> Your Friends </a></td>
-			<td><a style="border: 1px solid black;" href="/edit"> Add Friends </a></td>
+			<td><a style="border: 1px solid black;" href="/edit"> Edit Friends </a></td>
 			<td><a style="border: 1px solid black;" href="/profile"> Update Your Status </a></td>
 			<td><a style="border: 1px solid black;" href="{{logout_link}}"> Logout </a></td>
 		</tr>
