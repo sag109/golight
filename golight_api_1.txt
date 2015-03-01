@@ -2,46 +2,63 @@
 **** Golight API 1 ****
 ***********************
 
-All responses come in JSON format. The verbs in this documentation are from the perspective of a user, doing these actions.
+All responses come in JSON format. The parameters should be set in the parameters of the HTTP request.
 
 PUT /user
 	Set your status and blurb.
+		status: Integer value to set the status to.
+		blurb: String to set the blurb to. Maximum 50 characters.
 GET /user
 	Get your status and blurb.
 
 GET /friends
-	Returns a list of friends, with availability information.
+	Returns a the user's list of global friends, with availability information.
 
 GET /friend
-	Returns a friend's availability and blurb.
+	Returns a global friend's availability and blurb.
+		email: The email address of the user to get.
 POST /friend
 	Adds the friend globally.
+		email: The address of the friend to add globally.
 DELETE /friend
 	Removes the friend globally.
+		email: The address of the friend to remove.
 
 POST /group
 	Creates a new group.
+		groupName: The name of the group.
+		blurb: The blurb for the group. Maximum 50 characters.
 DELETE /group
 	Deletes a group.
+		groupName: The name of the group to delete.
 PUT /group
 	Changes the group settings.
+		groupName: The name of the group to change.
+		blurb: The string to set the group's blurb to. Maximum 50 characters.
 
 POST /group/user
 	Add yourself to a group.
+		groupName: The name of the group to join.
 DELETE /group/user
 	Remove yourself from a group.
+		groupName: The name of the group to leave.
 PUT /group/user
-	Sets your availability and blurb within a group.
+	Sets your status within a group.
+		groupName: The name of the group to change your status in.
+		status: The integer to change the status to.
 GET /group/user
-	Gets your availability and blurb within a group.
+	Gets your status within a group.
+		groupName: The name of the group to get your status within
 	
 GET /group/members
 	Gets a list of the group members, with their availability information.
-
-PUT /group/blurb
-	Changes the group's blurb.
+		groupName: The name of the group to get information for.
 
 POST /group/member
 	Adds a user to a group.
+		email: The email for the user to be added.
+		groupName: The name of the group to add the user to.
 DELETE /group/member
 	Removes a member from a group.
+		email: The email for the user to be removed.
+		groupName: The name of the group to remove the user from.
