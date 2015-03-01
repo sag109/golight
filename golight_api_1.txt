@@ -7,7 +7,7 @@ All responses come in JSON format. The verbs in this documentation are from the 
 PUT /user
 	Set your status and blurb.
 GET /user
-	Set your status and blurb.
+	Get your status and blurb.
 
 GET /friends
 	Returns a list of friends, with availability information.
