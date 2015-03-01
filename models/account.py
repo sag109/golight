@@ -1,7 +1,7 @@
 import webapp2
 
 from google.appengine.api import users
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 
 class user_info(ndb.Model):
     name = ndb.StringProperty()
