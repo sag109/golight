@@ -1,0 +1,49 @@
+***********************
+**** Golight API 1 ****
+***********************
+
+All responses come in JSON format. The verbs in this documentation are from the perspective of a user, doing these actions.
+
+PUT /user
+	Set your status and blurb.
+GET /user
+	Set your status and blurb.
+
+GET /friends
+	Returns a list of friends, with availability information.
+
+GET /friend
+	Returns a friend's availability and blurb.
+POST /friend
+	Adds the friend globally.
+DELETE /friend
+	Removes the friend globally.
+
+POST /group
+	Creates a new group.
+DELETE /group
+	Deletes a group.
+
+POST /group/user
+	Add yourself to a group.
+DELETE /group/user
+	Remove yourself from a group.
+	
+GET /group/members
+	Gets a list of the group members, with their availability information.
+
+PUT /group/user
+	Sets your availability and blurb within a group.
+GET /group/user
+	Gets your availability and blurb within a group.
+
+PUT /group/settings
+	Changes the group settings.
+
+PUT /group/blurb
+	Changes the group's blurb.
+
+POST /group/member
+	Adds a user to a group.
+DELETE /group/member
+	Removes a member from a group.
