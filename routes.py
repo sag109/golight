@@ -5,7 +5,7 @@ import os
 from google.appengine.ext.webapp import template
 
 
-app = webapp2.WSGIApplication(
+app = webapp2.WSGIApplication([
         ('/','controllers.main.Main'), 
         ('/user','controllers.user.User'), 
         ('/friends','controllers.friends.Friends'),
@@ -14,7 +14,7 @@ app = webapp2.WSGIApplication(
         ('/group/user','controllers.group_user.User'),  
         ('/group/members','controllers.group_members.Members'),  
         ('/group/member','controllers.group_member.Member'),  
-        ('/group/blurb','controllers.group_blurb.Blurb'),  
+        ('/group/blurb','controllers.group_blurb.Blurb')  
     ], debug=True)
 
 def main():

@@ -6,6 +6,7 @@ from google.appengine.api import users
 from google.appengine.ext import db
 from Account import user_info
 
+
 class User(webapp2.RequestHandler):
     def post(self):
         #add yourself to a group
@@ -23,4 +24,5 @@ class User(webapp2.RequestHandler):
     def get(self):
         #gets your status within a group. 
         #groupName: the name of the group to get your status within. 
+        
         

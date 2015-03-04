@@ -8,5 +8,6 @@ class user_info(ndb.Model):
     email = ndb.StringProperty()
     friend_list = ndb.StringProperty(repeated=True)
     status = ndb.IntegerProperty()
+    availability = ndb.StringProperty()
     message = ndb.StringProperty()
     group_keys = ndb.KeyProperty(repeated=True)
