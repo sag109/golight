@@ -1,28 +1,28 @@
 import webapp2
 import os
 
-from Account import user_info
+from models.account import user_info
 from google.appengine.ext.webapp import template
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 from google.appengine.api import users
 
 class RenderProfile(webapp2.RequestHandler):
     def get(self):
         user= users.get_current_user()
         if user:
-            allUsers= user_info.all()
-            userExists= False
-            newUser = user_info()
-            for person in allUsers:
-                if person.email == user.email():
-                    userExists= True
-                    newUser= person
+            userExists = False
+            newUser= user_info()
+            usersList= user_info.query(user_info.email == user.email()).fetch(1)
+            if len(usersList)>0:
+                newUser= usersList[0]
+                userExists = True
+           
             if not userExists:
-                #self.response.out.write('making a new user')
+                
                 newUser.name= user.nickname()
                 newUser.email= user.email()
-                newUser.friendList.append(user.email())
-                newUser.friendList.append("golight.app@gmail.com")
+                newUser.friend_;ist.append(user.email())
+                newUser.friend_list.append("golight.app@gmail.com")
                 newUser.availability= "success"
                 newUser.put()
         template_params = {
@@ -34,19 +34,18 @@ class RenderProfile(webapp2.RequestHandler):
     def post(self):
         user= users.get_current_user()
         if user:
-            allUsers= user_info.all()
-            userExists= False
-            newUser = user_info()
-            for person in allUsers:
-                if person.email == user.email():
-                    userExists= True
-                    newUser= person
+            userExists = False
+            newUser= user_info()
+            usersList= user_info.query(user_info.email == user.email()).fetch(1)
+            if len(usersList)>0:
+                newUser= usersList[0]
+                userExists = True
             if not userExists:
-                self.response.out.write('making a new user')
+                
                 newUser.name= user.nickname()
                 newUser.email= user.email()
-                newUser.friendList.append(user.email())
-                newUser.friendList.append("golight.app@gmail.com")
+                newUser.friend_list.append(user.email())
+                newUser.friend_list.append("golight.app@gmail.com")
                 newUser.availability= "success"
                 newUser.put()
 

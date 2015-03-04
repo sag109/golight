@@ -3,8 +3,8 @@ import os
 
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
-from google.appengine.ext import db
-from Account import user_info
+from google.appengine.ext import ndb
+from models.account import user_info
 
 class RenderEdit(webapp2.RequestHandler):
     def get(self):
@@ -26,33 +26,33 @@ class RenderEdit(webapp2.RequestHandler):
     def friend_add(self):
         user= users.get_current_user()
         newFriend= self.request.get('newFriend')
-        allUsers= user_info.all()
-            
+        
         currUser= user_info()
-        for person in allUsers:
-            if person.email == user.email():
-                currUser=person
+        usersList= user_info.query(user_info.email == user.email()).fetch(1)
+        if len(usersList)>0:
+            currUser= usersList[0]
 
 
         friendExist = False
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
-        for person in allUsers:
-            if person.email == newFriend:
-                friendExist = True
 
+        friend_query=  user_info.query(user_info.email == newFriend).fetch(1)
+        if len(friend_query)>0:
+            friendExist = True
+        
 
         if friendExist:
             areFriends = False
-            for person in currUser.friendList:
+            for person in currUser.friend_list:
                 if person == newFriend:
                     areFriends = True
 
             if areFriends:
                 reply_info['status'] = "You are already friends with this user"
             else:
-                currUser.friendList.append(newFriend)
+                currUser.friend_list.append(newFriend)
                 currUser.put()
                 reply_info['status'] = "You've successfully added a friend"
             
@@ -65,31 +65,29 @@ class RenderEdit(webapp2.RequestHandler):
     def friend_remove(self):
         user= users.get_current_user()
         oldFriend= self.request.get('oldFriend')
-        allUsers= user_info.all()
-            
+        
         currUser= user_info()
-        for person in allUsers:
-            if person.email == user.email():
-                currUser=person
-
+        usersList= user_info.query(user_info.email == user.email()).fetch(1)
+        if len(usersList)>0:
+            currUser= usersList[0]
 
         friendExist = False
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
-        for person in allUsers:
-            if person.email == oldFriend:
-                friendExist = True
-
+        
+        friend_query=  user_info.query(user_info.email == oldFriend).fetch(1)
+        if len(friend_query)>0:
+            friendExist = True
 
         if friendExist:
             areFriends = False
-            for person in currUser.friendList:
+            for person in currUser.friend_list:
                 if person == oldFriend:
                     areFriends = True
             
             if areFriends:
-                currUser.friendList.remove(oldFriend)
+                currUser.friend_list.remove(oldFriend)
                 currUser.put()
                 reply_info['status'] = "You've successfully removed a friend"
                
