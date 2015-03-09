@@ -30,15 +30,25 @@
 		<h3>{{usernickname}}'s status:<br><br>
 		
 			<form action = "profile" method = "post">
-				<button type="submit" id="profile" class="btn btn-lg btn-{{status}}" name="status" value="update">
-					{% if status == "success" %} 
+				<button type="submit" id="profile"
+					{% if status == "1" %}
+					class="btn btn-lg btn-success"
+					{% endif %}
+					{% if status == "0" %}
+					class="btn btn-lg btn-warning"
+					{% endif %} 
+					{% if status == "-1" %}
+					class="btn btn-lg btn-danger"
+					{% endif %}
+				name="status" value="update">
+					{% if status == "1" %}
 						Available
 					{% endif %}
-					{% if status == "warning" %} 
+					{% if status == "0" %}
 						Tentative...
 					{% endif %} 
-					{% if status == "danger" %}
-						Busy 
+					{% if status == "-1" %}
+						Busy
 					{% endif %}
 				</button>
 				<input type ="text" name = "statusMessage">
