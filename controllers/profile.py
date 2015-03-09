@@ -23,7 +23,7 @@ class RenderProfile(webapp2.RequestHandler):
                 new_user.email= user.email()
                 new_user.friend_;ist.append(user.email())
                 new_user.friend_list.append("golight.app@gmail.com")
-                new_user.availability= "success"
+                new_user.availability= "1"
                 new_user.put()
         template_params = {
             "usernickname": new_user.name,
@@ -46,19 +46,19 @@ class RenderProfile(webapp2.RequestHandler):
                 new_user.email= user.email()
                 new_user.friend_list.append(user.email())
                 new_user.friend_list.append("golight.app@gmail.com")
-                new_user.availability= "success"
+                new_user.availability= "1"
                 new_user.put()
 
             input= self.request.get("status");
             if input == "update":
-                if new_user.availability == "success":
-                    new_user.availability= "warning"
-                elif new_user.availability == "warning":
-                    new_user.availability= "danger"
-                elif new_user.availability == "danger":
-                    new_user.availability= "success"
+                if new_user.availability == "1":
+                    new_user.availability= "0"
+                elif new_user.availability == "0":
+                    new_user.availability= "-1"
+                elif new_user.availability == "-1":
+                    new_user.availability= "1"
                 else:
-                    new_user.availability= "success"
+                    new_user.availability= "1"
                 new_user.put()
 
             #get the updated status

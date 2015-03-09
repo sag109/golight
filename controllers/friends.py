@@ -26,7 +26,7 @@ class Friends(webapp2.RequestHandler):
                 new_user.email= user.email()
                 new_user.friend_list.append(user.email())#they are their own friend
                 new_user.friend_list.append("golight.app@gmail.com")
-                new_user.availability= "success"
+                new_user.availability= "1"
                 new_user.put()
                 #after putting the new user, page must be refreshed to show their info
             

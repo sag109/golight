@@ -31,10 +31,10 @@
 		{%for friend in friends%}
 			
 
-				{%if friend.availability == 'success'%}
+				{%if friend.availability == '1'%}
 					<td><h3><span class="label label-success">{{friend.name}}</span></h3></td>
 				{%else%}
-					{%if friend.availability == 'warning'%}
+					{%if friend.availability == '0'%}
 					<td><h3><span class="label label-warning">{{friend.name}}</span></h3></td>
 					{%else%}
 					<td><h3><span class="label label-danger">{{friend.name}}</span></h3></td>
