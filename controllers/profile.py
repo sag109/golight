@@ -1,77 +1,76 @@
 import webapp2
 import os
 
-from Account import user_info
+from models.account import user_info
 from google.appengine.ext.webapp import template
-from google.appengine.ext import db
+from google.appengine.ext import ndb
 from google.appengine.api import users
 
 class RenderProfile(webapp2.RequestHandler):
     def get(self):
         user= users.get_current_user()
         if user:
-            allUsers= user_info.all()
-            userExists= False
-            newUser = user_info()
-            for person in allUsers:
-                if person.email == user.email():
-                    userExists= True
-                    newUser= person
-            if not userExists:
-                #self.response.out.write('making a new user')
-                newUser.name= user.nickname()
-                newUser.email= user.email()
-                newUser.friendList.append(user.email())
-                newUser.friendList.append("golight.app@gmail.com")
-                newUser.availability= "success"
-                newUser.put()
+            user_exists = False
+            new_user= user_info()
+            users_list= user_info.query(user_info.email == user.email()).fetch(1)
+            if len(users_list)>0:
+                new_user= users_list[0]
+                user_exists = True
+           
+            if not user_exists:
+                
+                new_user.name= user.nickname()
+                new_user.email= user.email()
+                new_user.friend_;ist.append(user.email())
+                new_user.friend_list.append("golight.app@gmail.com")
+                new_user.availability= "success"
+                new_user.put()
         template_params = {
-            "usernickname": newUser.name,
-            "status": newUser.availability            
+            "usernickname": new_user.name,
+            "status": new_user.availability            
         }
         self.response.out.write(template.render("templates/profile.html", template_params))
 
     def post(self):
         user= users.get_current_user()
         if user:
-            allUsers= user_info.all()
-            userExists= False
-            newUser = user_info()
-            for person in allUsers:
-                if person.email == user.email():
-                    userExists= True
-                    newUser= person
-            if not userExists:
-                self.response.out.write('making a new user')
-                newUser.name= user.nickname()
-                newUser.email= user.email()
-                newUser.friendList.append(user.email())
-                newUser.friendList.append("golight.app@gmail.com")
-                newUser.availability= "success"
-                newUser.put()
+            user_exists = False
+            new_user= user_info()
+            users_list= user_info.query(user_info.email == user.email()).fetch(1)
+            if len(users_list)>0:
+                new_user= users_list[0]
+                user_exists = True
+            if not user_exists:
+                
+                new_user.name= user.nickname()
+                new_user.email= user.email()
+                new_user.friend_list.append(user.email())
+                new_user.friend_list.append("golight.app@gmail.com")
+                new_user.availability= "success"
+                new_user.put()
 
             input= self.request.get("status");
             if input == "update":
-                if newUser.availability == "success":
-                    newUser.availability= "warning"
-                elif newUser.availability == "warning":
-                    newUser.availability= "danger"
-                elif newUser.availability == "danger":
-                    newUser.availability= "success"
+                if new_user.availability == "success":
+                    new_user.availability= "warning"
+                elif new_user.availability == "warning":
+                    new_user.availability= "danger"
+                elif new_user.availability == "danger":
+                    new_user.availability= "success"
                 else:
-                    newUser.availability= "success"
-                newUser.put()
+                    new_user.availability= "success"
+                new_user.put()
 
             #get the updated status
             statusMessage= self.request.get("statusMessage")
             if statusMessage:
-                newUser.message = statusMessage
-                newUser.put() 
+                new_user.message = statusMessage
+                new_user.put() 
 
 
         template_params = {
             "logout_link": users.create_logout_url('/'),
-            "usernickname": newUser.name,
-            "status": newUser.availability            
+            "usernickname": new_user.name,
+            "status": new_user.availability            
         }
         self.response.out.write(template.render("templates/profile.html", template_params))
