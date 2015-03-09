@@ -15,9 +15,9 @@ class RenderEdit(webapp2.RequestHandler):
     def post(self):
         user= users.get_current_user()
         if user:
-            newFriend= self.request.get('newFriend')
-            oldFriend= self.request.get('oldFriend')
-            if newFriend:
+            new_friend= self.request.get('new_friend')
+            old_friend= self.request.get('old_friend')
+            if new_friend:
                 self.friend_add()
             else:
                 self.friend_remove()
@@ -25,35 +25,35 @@ class RenderEdit(webapp2.RequestHandler):
                 
     def friend_add(self):
         user= users.get_current_user()
-        newFriend= self.request.get('newFriend')
+        new_friend= self.request.get('new_friend')
         
-        currUser= user_info()
-        usersList= user_info.query(user_info.email == user.email()).fetch(1)
-        if len(usersList)>0:
-            currUser= usersList[0]
+        curr_user= user_info()
+        users_list= user_info.query(user_info.email == user.email()).fetch(1)
+        if len(users_list)>0:
+            curr_user= users_list[0]
 
 
-        friendExist = False
+        friend_exist = False
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
 
-        friend_query=  user_info.query(user_info.email == newFriend).fetch(1)
+        friend_query=  user_info.query(user_info.email == new_friend).fetch(1)
         if len(friend_query)>0:
-            friendExist = True
+            friend_exist = True
         
 
-        if friendExist:
-            areFriends = False
-            for person in currUser.friend_list:
-                if person == newFriend:
-                    areFriends = True
+        if friend_exist:
+            are_friends = False
+            for person in curr_user.friend_list:
+                if person == new_friend:
+                    are_friends = True
 
-            if areFriends:
+            if are_friends:
                 reply_info['status'] = "You are already friends with this user"
             else:
-                currUser.friend_list.append(newFriend)
-                currUser.put()
+                curr_user.friend_list.append(new_friend)
+                curr_user.put()
                 reply_info['status'] = "You've successfully added a friend"
             
         else:
@@ -64,31 +64,31 @@ class RenderEdit(webapp2.RequestHandler):
 
     def friend_remove(self):
         user= users.get_current_user()
-        oldFriend= self.request.get('oldFriend')
+        old_friend= self.request.get('old_friend')
         
-        currUser= user_info()
-        usersList= user_info.query(user_info.email == user.email()).fetch(1)
-        if len(usersList)>0:
-            currUser= usersList[0]
+        curr_user= user_info()
+        users_list= user_info.query(user_info.email == user.email()).fetch(1)
+        if len(users_list)>0:
+            curr_user= users_list[0]
 
-        friendExist = False
+        friend_exist = False
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
         
-        friend_query=  user_info.query(user_info.email == oldFriend).fetch(1)
+        friend_query=  user_info.query(user_info.email == old_friend).fetch(1)
         if len(friend_query)>0:
-            friendExist = True
+            friend_exist = True
 
-        if friendExist:
-            areFriends = False
-            for person in currUser.friend_list:
-                if person == oldFriend:
-                    areFriends = True
+        if friend_exist:
+            are_friends = False
+            for person in curr_user.friend_list:
+                if person == old_friend:
+                    are_friends = True
             
-            if areFriends:
-                currUser.friend_list.remove(oldFriend)
-                currUser.put()
+            if are_friends:
+                curr_user.friend_list.remove(old_friend)
+                curr_user.put()
                 reply_info['status'] = "You've successfully removed a friend"
                
             else:

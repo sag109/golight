@@ -11,40 +11,37 @@ class Friends(webapp2.RequestHandler):
         #parameter is friends
         user= users.get_current_user()
         if user:
-            userExists = False
+            user_exists = False
             worked = "worked"
-            newUser = user_info()
+            new_user = user_info()
             
-            allUsers= user_info.query(user_info.email == user.email()).fetch(1)
-            if len(allUsers)>0:
-                newUser= allUsers[0]
+            all_users= user_info.query(user_info.email == user.email()).fetch(1)
+            if len(all_users)>0:
+                new_user= all_users[0]
             
-            if not allUsers:
+            if not all_users:
                 
                 worked = "broken"
-                newUser.name= user.nickname()
-                newUser.email= user.email()
-                newUser.friend_list.append(user.email())#they are their own friend
-                newUser.friend_list.append("golight.app@gmail.com")
-                newUser.availability= "success"
-                newUser.put()
+                new_user.name= user.nickname()
+                new_user.email= user.email()
+                new_user.friend_list.append(user.email())#they are their own friend
+                new_user.friend_list.append("golight.app@gmail.com")
+                new_user.availability= "success"
+                new_user.put()
                 #after putting the new user, page must be refreshed to show their info
             
             friends=[]
-            addFriend= user_info()
-            for friend in newUser.friend_list:
-                allFriends = user_info.query(user_info.email == friend).fetch(1)
-                if len(allFriends)>0:
-                    addFriend = allFriends[0]
-                if addFriend:
-                    friends.append(addFriend)
+            add_friend= user_info()
+            for friend in new_user.friend_list:
+                all_friends = user_info.query(user_info.email == friend).fetch(1)
+                if len(all_friends)>0:
+                    add_friend = all_friends[0]
+                if add_friend:
+                    friends.append(add_friend)
                     
                 
             self.response.out.write(template.render("templates/friends.html",{
                 "friends": friends,
                 "logout_link": users.create_logout_url('/'),
-               # "worked": worked,
-               # "allUsers": allUsers,
-               # "addFriend": addFriend
             }))
 
