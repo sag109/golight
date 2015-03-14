@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        
+        <style>body {margin: 1cm 0cm 0cm 1cm;}</style>
+    <title>Golight</title>
+</head>
+<body>
+    <form method="post" action="/group">
+<h1>Manage a Group:</h1>
+    <br>
+    Group Name:
+    
+        <input type ="text" name = "group_name"> <br>
+    }
+    }
+    Group Description:
+        <input type ="text" name = "blurb"><br>
+        
+
+
+<input type="radio" name="submit_type" value="Add" checked>Add
+<input type="radio" name="submit_type" value="Update" checked>Update
+<input type="radio" name="submit_type" value="Delete" checked>Delete
+<input type= "submit" value= "Manage">
+</form>
+<br>
+{{status}}
+<br>
+{{what}}
+
+    <table style="border-collapse: collapse;">
+        <tr>
+            <td><a style="border: 1px solid black;" href="/friends"> Your Friends </a></td>
+            <td><a style="border: 1px solid black;" href="/edit"> Edit Friends </a></td>
+            <td><a style="border: 1px solid black;" href="/profile"> Update Your Status </a></td>
+            <td><a style="border: 1px solid black;" href="{{logout_link}}"> Logout </a></td>
+        </tr>
+    </table>
+
+</body>
+</html>
