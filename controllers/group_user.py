@@ -127,8 +127,8 @@ class User(webapp2.RequestHandler):
             logging.info("ERROR: Group not found!")
 
     def get(self):
-		#gets your status within a group
-		#groupName: The name of the group to get your status within.
+        #gets your status within a group
+        #groupName: The name of the group to get your status within.
         logging.info("/group/user get")
         
         #Pull current group from NDB.
