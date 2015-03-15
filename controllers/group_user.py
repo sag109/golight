@@ -39,14 +39,6 @@ class User(webapp2.RequestHandler):
         #remove yourself from a group
         #groupName:name of the group to delete
         logging.info("/group/user delete")
-
-    def put(self):
-        #sets your status within a group
-        #groupName: The name of the group to change
-        #status: The integer to change the status to.
-        logging.info("/group/user put")
-        
-        status = self.request.get(status)
         group_name = self.request.get(groupName)
         group = group.query(group.name == group_name).fetch(1)
         if(len(group)>0):
@@ -61,9 +53,53 @@ class User(webapp2.RequestHandler):
             update_group = group_query[0]
             update_members = group_members[]
             update_members = update_group.members
+            
+            curr_member = group_members()
             for member in update_members:
                 if(member.name == user.name):
-                    member.status = status
+                    curr_member = member
+                    break
+            if(curr_member):
+                update_members.remove(curr_member)
+            else:
+            self.response.out.write("<html><body>You're not in the group.</body></html>")
+            
+            update_group.members = update_members
+            update_group.put()
+
+        else:
+            self.response.out.write("<html><body>Group not found.</body></html>")
+
+    def put(self):
+        #sets your status within a group
+        #groupName: The name of the group to change
+        #status: The integer to change the status to.
+        logging.info("/group/user put")
+        
+        new_status = self.request.get(status)
+        group_name = self.request.get(groupName)
+        group = group.query(group.name == group_name).fetch(1)
+        if(len(group)>0):
+            curr_user= users.get_current_user()
+            user = user_info()
+            user_query = user_info.query(user_info.email == curr_user.email()).fetch(1)
+            if len(user_query)>0:
+                user=user_query[0]
+            else:
+                self.response.out.write("<html><body>User not found.</body></html>")
+            
+            update_group = group_query[0]
+            update_members = group_members[]
+            update_members = update_group.members
+            
+            for member in update_members:
+                if(member.name == user.name):
+                    member.status = new_status
+                    break
+                    
+            update_group.members = update_members
+            update_group.put()
+
         else:
             self.response.out.write("<html><body>Group not found.</body></html>")
 
