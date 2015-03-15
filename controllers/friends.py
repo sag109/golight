@@ -3,6 +3,7 @@ import os
 
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
+from google.appengine.api import mail
 from google.appengine.ext import ndb
 from models.account import user_info
 
@@ -28,6 +29,7 @@ class Friends(webapp2.RequestHandler):
                 new_user.friend_list.append("golight.app@gmail.com")
                 new_user.availability= "1"
                 new_user.put()
+                mail.send.mail("golightapp@gmail.com",user.email(),"Welcome to GoLight!","Hey dude, welcome to our sweet GoLight service!")
                 #after putting the new user, page must be refreshed to show their info
             
             friends=[]
