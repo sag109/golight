@@ -6,15 +6,27 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from models.group import group
 
+import logging
+
 class Group(webapp2.RequestHandler):
     def get(self):
+        logging.info("get request")
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
+        reply_info['status']= self.request.get('group_name')
         self.response.out.write(template.render("templates/group.html", reply_info))
 
 
+    def get_fake(self):
+        reply_info = {
+            'logout_link': users.create_logout_url('/')
+            }
+        reply_info['status']= self.request.get('group_name')
+        self.response.out.write(template.render("templates/edit.html", reply_info))
+
     def post(self):
+        logging.info("post request")
         submit_type = self.request.get('submit_type')
         #reply_info = {
         #    'logout_link': users.create_logout_url('/')
@@ -23,11 +35,17 @@ class Group(webapp2.RequestHandler):
         #reply_info['what'] = submit_type
         #self.response.out.write(template.render("templates/group.html", reply_info))
         if submit_type == "Update":
+            logging.info("Update")
             self.put()
         elif submit_type == "Delete": 
+            logging.info("Delete")
             self.delete()
-        else: 
+        elif submit_type == "Add": 
+            logging.info("Add")
             self.post_action()
+        else:
+            logging.info("other "+submit_type)
+            self.get_fake()
 
 
     def post_action(self):
@@ -83,11 +101,13 @@ class Group(webapp2.RequestHandler):
         #changes the group settings
         #grouName: The name of the group to change
         #blurb: The string to set the group's blurb to- max 50 char
+        logging.info("put method")
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
         group_name = self.request.get('group_name')
         blurb = self.request.get('blurb')
+        logging.info("group name is "+group_name)
         group_query = group.query(group.name == group_name).fetch(1)
         wat = group_query
         reply_info['what'] = wat 
@@ -98,6 +118,7 @@ class Group(webapp2.RequestHandler):
             update_group.blurb = blurb
             update_group.put()
             reply_info['status'] = "This group was updated"
+            logging.info("group exists")
 
         else:
             #group is created!
@@ -106,9 +127,10 @@ class Group(webapp2.RequestHandler):
             new_group.blurb = blurb
             new_group.put()
             reply_info['status'] = "New Group Created"
+            logging.info("create new group?")
 
 
 
-
+        logging.info("end put method")
         self.response.out.write(template.render("templates/group.html", reply_info))
         
