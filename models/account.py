@@ -11,3 +11,12 @@ class user_info(ndb.Model):
     availability = ndb.StringProperty()
     message = ndb.StringProperty()
     group_keys = ndb.KeyProperty(repeated=True)
+    
+    @staticmethod
+    def retrieve_account(cls, email):
+    """Get an account by the user's email"""
+    accounts = user_info.query(user_info.email == email)
+        if accounts:
+            return accounts[0]
+        else:
+            return None   
