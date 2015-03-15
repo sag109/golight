@@ -7,6 +7,21 @@ from google.appengine.api import users
 from google.appengine.ext import ndb
 from models.account import user_info
 
+#   Four different request types handled:
+#
+#       post:   Add the current user to a group.
+#               groupName: name of the group
+#
+#       delete: Remove the current user from a group.
+#               groupName: name of the group
+#
+#       put:    Update the current users status in a group.
+#               groupName: name of the group
+#               status: the new status to update.
+#       get:    Get the current users status in group.
+#               groupName: name of the group
+#
+
 class User(webapp2.RequestHandler):
     def post(self):
         #add yourself to a group
