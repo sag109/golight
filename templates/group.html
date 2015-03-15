@@ -3,81 +3,39 @@
     <head>
        
         <style>body {margin: 1cm 0cm 0cm 1cm;}</style>
+        <script src="/static/group.js"></script>
     <title>Golight</title>
 </head>
 <body>
-    <form method="post" action="/group">
-<h1>Manage a Group:</h1>
-    <br>
-    Group Name:
-    
-        <input type ="text" name = "group_name"> <br>
-    }
-    }
-    Group Description:
-        <input type ="text" name = "blurb"><br>
-        
-
-
-<input type="radio" name="submit_type" value="Add" checked>Add
-<input type="radio" name="submit_type" value="Update" checked>Update
-<input type="radio" name="submit_type" value="Delete" checked>Delete
-<input type= "submit" value= "Manage">
-</form>
-<br><br>
+ 
 <h1>Update a Group:</h1>
     <br>
-        <input type ="text" id = "group_name" >
+        Group Name: 
+        <input type ="text" id = "put_group_name" ><br>
+        Group Description:
+        <input type = "text" id = "put_blurb" >
         <input onclick="putGroup();" type= "button" value= "Update">
-<script>
-function putGroup(){
-    //alert('got here');
-    var groupNameIn = document.getElementById('group_name');
-    //alert('did something');
-    if(groupNameIn){
-        var groupName = groupNameIn.value;
-        alert('groupName is ' + escape(groupName));
-        var xmlHttp = createXmlHttp();
-        xmlHttp.onreadystatechange = function() {
-            if(xmlHttp.readyState==4 && xmlHttp.status==200){
-                document.getElementById('group_name').value=""; 
-                alert("I state changed");
-            }
-            else if(request.readyState==4){
-                alert("something went wrong");
-            }
-        };
-        /*xmlHttp.onreadystatechange = function() {
-            if (xmlHttp.readyState == 4) {
-                if (xmlHttp.responseText != 'OK') {
-                    alert('Error: ' +xmlHttp.status +'aaaand'+ xmlHttp.responseText);
-                }
-            }
-        }*/
-        var paramString = 'submit_type=Update&group_name=' + escape(groupName);
-        xmlHttp.open("POST", '/group', true); // true is for async communication
-        
-        xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-        xmlHttp.send(paramString);
-        alert("doing stuff here now?");
-    }
-}
 
-function createXmlHttp() {
-  var xmlhttp;
-  if (window.XMLHttpRequest) {
-    xmlhttp = new XMLHttpRequest();
-  } else {
-    xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-  }
-  if (!(xmlhttp)) {
-    alert("Your browser does not support AJAX!");
-  }
-  return xmlhttp;
-}
-
-</script>
 <br>
+<h1>Add a Group:</h1>
+    <br>
+        Group Name: 
+        <input type ="text" id = "add_group_name" ><br>
+        Group Description:
+        <input type = "text" id = "add_blurb" >
+        <input onclick="addGroup();" type= "button" value= "Add">
+
+<br>
+<h1>Delete a Group:</h1>
+    <br>
+        Group Name: 
+        <input type ="text" id = "delete_group_name" ><br>
+        Group Description:
+        <input type = "text" id = "delete_blurb">
+        <input onclick="deleteGroup();" type= "button" value= "Delete">
+
+<br>
+
 {{status}}
 <br>
 {{what}}

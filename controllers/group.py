@@ -17,14 +17,6 @@ class Group(webapp2.RequestHandler):
         reply_info['status']= self.request.get('group_name')
         self.response.out.write(template.render("templates/group.html", reply_info))
 
-
-    def get_fake(self):
-        reply_info = {
-            'logout_link': users.create_logout_url('/')
-            }
-        reply_info['status']= self.request.get('group_name')
-        self.response.out.write(template.render("templates/edit.html", reply_info))
-
     def post(self):
         logging.info("post request")
         submit_type = self.request.get('submit_type')
@@ -43,15 +35,14 @@ class Group(webapp2.RequestHandler):
         elif submit_type == "Add": 
             logging.info("Add")
             self.post_action()
-        else:
-            logging.info("other "+submit_type)
-            self.get_fake()
+        
 
 
     def post_action(self):
         #creates a new group
         #groupName: name of the group
         #blurb: blurb for the group- max 50 char
+        logging.info("add")
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
@@ -63,6 +54,7 @@ class Group(webapp2.RequestHandler):
         if len(group_query)>0:
             #group already exists, so return that...?
             reply_info['status'] = "This group already exists"
+            logging.info("group already exists")
 
         else:
             #group is created!
@@ -71,30 +63,38 @@ class Group(webapp2.RequestHandler):
             new_group.blurb = blurb
             new_group.put()
             reply_info['status'] = "Group Created"
+            logging.info("group created")
 
-
-        self.response.out.write(template.render("templates/group.html", reply_info))
+        logging.info("end post action")
+        self.response.out.write(reply_info['status'])
+        #self.response.out.write(template.render("templates/group.html", reply_info))
 
 
     def delete(self):
+        #this method doesn't currently work...
         #deletes a group
         #groupName:name of the group to delete
+        logging.info("Delete method")
         reply_info = {
             'logout_link': users.create_logout_url('/')
             }
         group_name = self.request.get('group_name')
-        group_query - group.query(group.name == group_name).fetch(1)
+        group_query = group.query(group.name == group_name).fetch(1)
         if len(group_query)>0:
             #assume that there is only one....
             ndb.Key('group', group_name).delete()
+            #IDK how to delete things...
             reply_info['status'] = "Group deleted"
+            logging.info("group Delete")
         else:
             reply_info['status'] = "Group does not exist"
+            logging.info("group doesn't exist")
 
 
 
-
-        self.response.out.write(template.render("templates/group.html", reply_info))
+        logging.info("end Delete method")
+        self.response.out.write(reply_info['status'])
+        #self.response.out.write(template.render("templates/group.html", reply_info))
 
 
     def put(self):
@@ -132,5 +132,6 @@ class Group(webapp2.RequestHandler):
 
 
         logging.info("end put method")
-        self.response.out.write(template.render("templates/group.html", reply_info))
+        self.response.out.write(reply_info['status'])
+        #self.response.out.write(template.render("templates/group.html", reply_info))
         
