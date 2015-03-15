@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<meta name="description" content="">
+		<meta name="author" content="">
+		<link rel="icon" href="../../favicon.ico">
+		<!-- Bootstrap core CSS -->
+		<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Bootstrap theme -->
+		<link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">
+
+		<!-- Custom styles for this template -->
+		<link href="theme.css" rel="stylesheet">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+		<link rel="stylesheet" type="text/css" href="css/custom.css">
+		<style>
+			body {
+				margin: 1cm 0cm 0cm 1cm;
+			}
+		</style>
+	<title>Golight</title>
+	<h1>Groups</h1>
+</head>
+<body>
+
+	Testing ./group/user
+	<br><br><br>
+	
+    <table>
+        <tr>
+            <td style="border: 1px solid black;">Group title.<br></td>
+        </tr>
+		{%for member in group%}
+            <tr>
+		        <td style="border: 1px solid black;">User.</td>
+                {%if member.availability == '1'%}
+                        <td><h3><span class="label label-success">{{friend.name}}</span></h3></td>
+                {%else%}
+                    {%if member.availability == '0'%}
+                        <td><h3><span class="label label-warning">{{friend.name}}</span></h3></td>
+                    {%else%}
+					    <td><h3><span class="label label-danger">{{friend.name}}</span></h3></td>
+                    {%endif%}
+                {%endif%}
+				{%if member.message%}
+					<td>{{member.message}}<td>
+				{%endif%}
+            </tr>
+        {%endfor%}
+	</table>
+
+    <br>
+
+	<table style="border-collapse: collapse;">
+		<tr>
+			<td><a style="border: 1px solid black;" href="/friends"> Your Friends </a></td>
+			<td><a style="border: 1px solid black;" href="/edit"> Edit Friends </a></td>
+			<td><a style="border: 1px solid black;" href="/profile"> Update Your Status </a></td>
+			<td><a style="border: 1px solid black;" href="{{logout_link}}"> Logout </a></td>
+		</tr>
+	</table>
+
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script src="../../dist/js/bootstrap.min.js"></script>
+    <script src="../../assets/js/docs.min.js"></script>
+    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

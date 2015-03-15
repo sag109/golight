@@ -21,7 +21,7 @@ class RenderProfile(webapp2.RequestHandler):
                 
                 new_user.name= user.nickname()
                 new_user.email= user.email()
-                new_user.friend_;ist.append(user.email())
+                new_user.friend_list.append(user.email())
                 new_user.friend_list.append("golight.app@gmail.com")
                 new_user.availability= "1"
                 new_user.put()
