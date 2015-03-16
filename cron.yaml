@@ -1,0 +1,4 @@
+cron:
+- description: emails users
+  url: /cronstuff/email
+  schedule: every 2 weeks
