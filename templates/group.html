@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+       
+        <style>body {margin: 1cm 0cm 0cm 1cm;}</style>
+        <script src="/static/group.js"></script>
+    <title>Golight</title>
+</head>
+<body>
+ 
+<h1>Update a Group:</h1>
+    <br>
+        Group Name: 
+        <input type ="text" id = "put_group_name" ><br>
+        Group Description:
+        <input type = "text" id = "put_blurb" >
+        <input onclick="putGroup();" type= "button" value= "Update">
+
+<br>
+<h1>Add a Group:</h1>
+    <br>
+        Group Name: 
+        <input type ="text" id = "add_group_name" ><br>
+        Group Description:
+        <input type = "text" id = "add_blurb" >
+        <input onclick="addGroup();" type= "button" value= "Add">
+
+<br>
+<h1>Delete a Group:</h1>
+    <br>
+        Group Name: 
+        <input type ="text" id = "delete_group_name" ><br>
+        Group Description:
+        <input type = "text" id = "delete_blurb">
+        <input onclick="deleteGroup();" type= "button" value= "Delete">
+
+<br>
+
+{{status}}
+<br>
+{{what}}
+
+    <table style="border-collapse: collapse;">
+        <tr>
+            <td><a style="border: 1px solid black;" href="/friends"> Your Friends </a></td>
+            <td><a style="border: 1px solid black;" href="/edit"> Edit Friends </a></td>
+            <td><a style="border: 1px solid black;" href="/profile"> Update Your Status </a></td>
+            <td><a style="border: 1px solid black;" href="{{logout_link}}"> Logout </a></td>
+        </tr>
+    </table>
+
+</body>
+</html>
