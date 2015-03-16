@@ -1,21 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="description" content="">
-        <meta name="author" content="">
-        <link rel="icon" href="../../favicon.ico">
-        <!-- Bootstrap core CSS -->
-        <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-        <!-- Bootstrap theme -->
-        <link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">
-
-        <!-- Custom styles for this template -->
-        <link href="theme.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-        <link rel="stylesheet" type="text/css" href="css/custom.css">
+        
         <style>body {margin: 1cm 0cm 0cm 1cm;}</style>
     <title>Golight</title>
 </head>
@@ -23,14 +9,14 @@
     <form method="post" action="/edit">
 <h1>Add a friend:</h1>
     <br>
-        <input type ="text" name = "newFriend">
-        <input type= "submit" value= "AddFriend">
+        <input type ="text" name = "new_friend">
+        <input type= "submit" value= "Add_friend">
 </form>
 <form method="post" action="/edit">
 <h1>Remove a friend:</h1>
     <br>
-        <input type ="text" name = "oldFriend">
-        <input type= "submit" value= "RemoveFriend">
+        <input type ="text" name = "old_friend">
+        <input type= "submit" value= "Remove_friend">
 </form>
 <br>
 {{status}}
@@ -43,13 +29,6 @@
 			<td><a style="border: 1px solid black;" href="{{logout_link}}"> Logout </a></td>
 		</tr>
 	</table>
-<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+
 </body>
 </html>

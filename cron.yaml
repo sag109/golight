@@ -1,0 +1,4 @@
+cron:
+- description: emails users
+  url: /cronstuff/email
+  schedule: 1 of month 00:00

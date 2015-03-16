@@ -5,6 +5,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from models.account import user_info
+import logging
 
 class RenderEdit(webapp2.RequestHandler):
     def get(self):
@@ -13,6 +14,7 @@ class RenderEdit(webapp2.RequestHandler):
             self.response.out.write(template.render("templates/edit.html",{'logout_link': users.create_logout_url('/')}))
 
     def post(self):
+        logging.info("in the post request")
         user= users.get_current_user()
         if user:
             new_friend= self.request.get('new_friend')
@@ -24,6 +26,7 @@ class RenderEdit(webapp2.RequestHandler):
                 
                 
     def friend_add(self):
+        logging.info("friend_add")
         user= users.get_current_user()
         new_friend= self.request.get('new_friend')
         
@@ -41,9 +44,6 @@ class RenderEdit(webapp2.RequestHandler):
         friend_query=  user_info.query(user_info.email == new_friend).fetch(1)
         if len(friend_query)>0:
             friend_exist = True
-        
-
-        if friend_exist:
             are_friends = False
             for person in curr_user.friend_list:
                 if person == new_friend:
@@ -63,6 +63,7 @@ class RenderEdit(webapp2.RequestHandler):
 
 
     def friend_remove(self):
+        logging.info("friend_remove")
         user= users.get_current_user()
         old_friend= self.request.get('old_friend')
         
