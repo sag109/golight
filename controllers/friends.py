@@ -12,14 +12,10 @@ class Friends(webapp2.RequestHandler):
     def get(self):
         user = users.get_current_user()
         if user:
-            info = user_info.get_by_email(user.email)
-            if not info:
-                info = user_info(email=user.email(), name=user.nickname(), status=0, availability='0')
-                info.put()
+            info = user_info.get_user_account()
             self.response.out.write(json.dumps(friend_list(info)))
         else:
             self.response.out.write(json.dumps(error_obj('User not logged in.')))
-
 
 def friend_list(account):
     """Return a list of friend info for the account"""

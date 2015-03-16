@@ -1,72 +1,90 @@
 import webapp2
 import os
 import json
+import logging
 
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
+from google.appengine.api import mail
 from google.appengine.ext import ndb
 from models.account import user_info
 
 class Friend(webapp2.RequestHandler):
     def get(self):
-        """Get json for the user's list of friends"""
+        """Get a global friend's availability and blurb."""
         user = users.get_current_user()
-        if user:
-            friend = self.request.get('email')
-            user_account = user_info.retrieve_account(user.email)
-            if not friend in user_account.friend_list:
-                self.response.out.write(error_json('User not in friends list'))
-                return
-            friend_account = user_info.retrieve_account(friend)
-            if friend_account:
-                self.response.out.write(json.dumps(account_info(friend_account)))
-            else:
-                self.response.out.write(error_json('Friend not found'))
-        else:
-            self.response.out.write(error_json('User not logged in'))
+        if not user:
+            self.response.out.write(json.dumps(error_obj('User not logged in.')))
+            return
+        friend = self.request.get('email')
+        if not friend:
+            self.response.out.write(json.dumps(error_obj('Must provide email of friend to add.')))
+            return
+        account = user_info.get_user_account()
+        if not friend in account.friend_list:
+            self.response.out.write(json.dumps(error_obj('This email is not in your friends list.')))
+            return
+        friend_account = user_info.get_by_email(friend)
+        self.response.out.write(json.dumps(account_info(friend_account)))
 
     def post(self):
-        """Add the friend"""
+        """Add a friend"""
         user = users.get_current_user()
-        if user:
-            friend = self.request.get('email')
-            user_account = user_info.retrieve_account(user.email)
-            friend_account = user_info.retrieve_account(friend)
-            if friend_account:
-                user_account.friend_list.append(friend_account.email)
-                user_account.put()
-            else:
-                self.response.out.write(error_json('Friend not found'))
-        else:
-            self.response.out.write(error_json('User not logged in'))
-
+        if not user:
+            self.response.out.write(json.dumps(error_obj('User not logged in.')))
+            return
+        friend = self.request.get('email')
+        if not friend:
+            self.response.out.write(json.dumps(error_obj('Must provide email of friend to add.')))
+            return
+        account = user_info.get_user_account()
+        friend_account = user_info.get_by_email(friend)
+        if not friend_account:
+            self.response.out.write(json.dumps(error_obj('There is no account for this email.')))
+            return
+        account.friend_list.append(friend)
+        account.put()
+        self.response.out.write(json.dumps(success_obj()))
+    
     def delete(self):
-        """Remove the friend"""
+        """Remove a friend."""
         user = users.get_current_user()
-        if user:
-            friend = self.request.get('email')
-            user_account = user_info.retrieve_account(user.email)
-            if not friend in user_account.friend_list:
-                self.response.out.write(error_json('User not in friends list'))
-                return
-            user_account.remove(friend.email)
-            user_account.put()
-        else:
-            self.response.out.write(error_json('User not logged in'))
+        if not user:
+            self.response.out.write(json.dumps(error_obj('User not logged in.')))
+            return
+        friend = self.request.get('email')
+        if not friend:
+            self.response.out.write(json.dumps(error_obj('Must provide email of friend to add.')))
+            return
+        account = user_info.get_user_account()
+        if not friend in account.friend_list:
+            self.response.out.write(json.dumps(error_obj('This email is not in your friends list.')))
+            return
+        account.friend_list.remove(friend)
+        account.put()
+        self.response.out.write(json.dumps(success_obj()))
 
-        
 def account_info(account):
-    data = {
-        'name': account.name,
-        'email': account.email,
+    """Make a dict of the status information for an account."""
+    return {
         'status': account.status,
-        'availability': account.availability
+        'availability': account.availability,
+        'blurb': account.message,
+        'email': account.email,
+        'name': account.name,
+        'success': True
     }
-    return data
-
-def error_json(problem):
-    """Create an error response"""
-    response = {
-        'error': problem
+    
+def success_obj():
+    """Dict for a success message"""
+    return {
+        'success': True
     }
-    return json.dumps(response)
+    
+    
+def error_obj(message):
+    """Make a dict that contains the error message"""
+    return {
+        'error': message,
+        'success': False
+    }
