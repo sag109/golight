@@ -11,3 +11,10 @@ class user_info(ndb.Model):
     availability = ndb.StringProperty()
     message = ndb.StringProperty()
     group_keys = ndb.KeyProperty(repeated=True)
+    
+    @staticmethod
+    def get_by_email(email):
+        account_query = user_info.query(user_info.email == str(email))
+        # Get executes the query and returns the first result, or None
+        # if no results were generated.
+        return account_query.get()
