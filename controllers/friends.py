@@ -38,8 +38,8 @@ class Friends(webapp2.RequestHandler):
                 all_friends = user_info.query(user_info.email == friend).fetch(1)
                 if len(all_friends)>0:
                     add_friend = all_friends[0]
-                if add_friend:
                     friends.append(add_friend)
+                                   
                     
                 
             self.response.out.write(template.render("templates/friends.html",{

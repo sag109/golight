@@ -5,6 +5,7 @@ from google.appengine.ext.webapp import template
 from google.appengine.api import users
 from google.appengine.ext import ndb
 from models.account import user_info
+import logging
 
 class RenderEdit(webapp2.RequestHandler):
     def get(self):
@@ -39,6 +40,7 @@ class RenderEdit(webapp2.RequestHandler):
             }
 
         friend_query=  user_info.query(user_info.email == new_friend).fetch(1)
+        logging.info(friend_query)
         if len(friend_query)>0:
             friend_exist = True
         
@@ -57,6 +59,7 @@ class RenderEdit(webapp2.RequestHandler):
                 reply_info['status'] = "You've successfully added a friend"
             
         else:
+            logging.info("hit this")
             reply_info['status'] = "This friend does not have an account"
             
         self.response.out.write(template.render("templates/edit.html", reply_info))
