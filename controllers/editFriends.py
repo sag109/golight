@@ -11,7 +11,7 @@ class RenderEdit(webapp2.RequestHandler):
     def get(self):
         user= users.get_current_user()
         if user:
-            self.response.out.write(template.render("templates/edit.html",{}))
+            self.response.out.write(template.render("templates/edit.html",{'logout_link': users.create_logout_url('/')}))
 
     def post(self):
         user= users.get_current_user()
@@ -43,9 +43,6 @@ class RenderEdit(webapp2.RequestHandler):
         logging.info(friend_query)
         if len(friend_query)>0:
             friend_exist = True
-        
-
-        if friend_exist:
             are_friends = False
             for person in curr_user.friend_list:
                 if person == new_friend:
