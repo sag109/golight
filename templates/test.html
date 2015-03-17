@@ -1,5 +1,25 @@
 <html>
+<head>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="static/js/test.js"></script>
+</head>
 <body>
-Writing this page from {{controller}}
+<p>
+	Endpoint:
+	<input type="text" id="endpoint"></input>
+</p>
+<p>
+	Method:
+	<input type="text" id="method"></input>
+</p>
+<p>
+	Space separated params:
+	<input type="text" id="parameters"></input>
+</p>
+<p>
+	Space separated values:
+	<input type="text" id="values"></input>
+</p>
+<button id="sendRequest">Send Request</button>
 </body>
 </html>
