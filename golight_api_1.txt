@@ -50,7 +50,7 @@ GET /group/user
 	Gets your status within a group.
 		groupName: The name of the group to get your status within
 	
-GET /group/members
+GET /group
 	Gets a list of the group members, with their availability information.
 		groupName: The name of the group to get information for.
 
