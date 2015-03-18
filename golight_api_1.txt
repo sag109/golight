@@ -10,6 +10,9 @@ PUT /user
 		blurb: String to set the blurb to. Maximum 50 characters.
 GET /user
 	Get your status and blurb.
+	
+GET /user/groups
+    Get a list of the groups you are in.
 
 GET /friends
 	Returns a the user's list of global friends, with availability information.

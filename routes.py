@@ -6,10 +6,11 @@ from google.appengine.ext.webapp import template
 
 
 app = webapp2.WSGIApplication([
-        ('/','controllers.friends.Friends'),
+        ('/','controllers.main.Main'),
         ('/profile','controllers.profile.RenderProfile'),
         ('/edit', 'controllers.editFriends.RenderEdit'), 
         ('/user','controllers.user.User'), 
+        ('/user/groups','controllers.user_groups.Groups'),
         ('/friends','controllers.friends.Friends'),
         ('/friend','controllers.friend.Friend'),  
         ('/group','controllers.group.Group'),  
