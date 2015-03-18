@@ -33,11 +33,20 @@ class Friend(webapp2.RequestHandler):
         if not user:
             self.response.out.write(json.dumps(error_obj('User not logged in.')))
             return
+            
+            
         friend = self.request.get('email')
         if not friend:
             self.response.out.write(json.dumps(error_obj('Must provide email of friend to add.')))
             return
+            
+        #added in for fun
         account = user_info.get_user_account()
+        if friend in account.friend_list:
+            self.response.out.write(json.dumps(error_obj('You are already friends with this user.')))
+            return
+        #/added in for fun  
+            
         friend_account = user_info.get_by_email(friend)
         if not friend_account:
             self.response.out.write(json.dumps(error_obj('There is no account for this email.')))
