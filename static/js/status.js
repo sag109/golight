@@ -6,17 +6,23 @@ $(document).ready(function() {
 
 function setStatus(userInfo) {
     //alert('setting status');
-    var status = userInfo.status;
+    var st = userInfo.status;
    // console.log('status is : '+status);
-    var blurb = userInfo.blurb;
+    var bl = userInfo.blurb;
     var output = document.getElementById('status');
-    if(status == -1) output.className = "btn btn-danger";
-    else if(status == 0) output.className = "btn btn-warning";
+    if(st == -1) output.className = "btn btn-danger";
+    else if(st == 0) output.className = "btn btn-warning";
     else output.className = "btn btn-success";
-    var info = {"status":status,"blurb":blurb}; //make info 
+    
+    console.log("trying put/user");
+    if(bl === "")
+    bl = " ";
+    var info = {status:st,blurb:bl}; //make info 
     var putUser = requestInfo('put','user',info, function(userInfo){ //put info
-        alert(userInfo.success); //alerts 'false' -- why?
+        console.log("result: "+userInfo.success);
+        console.log("error : "+userInfo.error);
     }); 
+    
 }
 
 function changeStatus() {
