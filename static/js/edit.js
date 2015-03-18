@@ -26,8 +26,7 @@ function removeFriend() {
         }
         else
             document.getElementById('message').innerHTML = "";
-    }); 
-    
+    });
 }
 
 function requestInfo(method, endpoint, parameters, success) {
