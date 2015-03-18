@@ -34,7 +34,8 @@ function updateMainView(){
 	}
 
 	else{
-		fillWith(mainView);
+		fillWith();
+		//fillWith mainView
 	}
 
 }
@@ -42,8 +43,6 @@ function updateMainView(){
 function fillWithFriends(){
 	var friendTitle = document.getElementById("mainView");
 	friendTitle.innerHTML=mainView;
-	var friendTable = document.getElementById("status_list");
-	var fillString;
 	var statuses = requestInfo("get", "friends", {}, function(friends){
 		fillFriends(friends);
 	});
@@ -64,6 +63,32 @@ function fillFriends(friends){
 		else
 			fillString += "<td><h3><span class=\"label label-danger\">"+friends[i].name+"</span></h3></td>";
 		fillString +="<td class=\"table_status\"><h3>"+ friends[i].message + "</h3></td></tr>";
+	}
+	friendTable.innerHTML=fillString;
+}
+function fillWith(){
+	var friendTitle = document.getElementById("mainView");
+		friendTitle.innerHTML=mainView;
+		var statuses = requestInfo("get", "group", {"groupName":mainView}, function(members){
+			fillGroup(members);
+		});
+}
+function fillGroup(members){
+
+var friendTable = document.getElementById("status_list");
+	var fillString= "<tr><td>";
+	//fillString = fillString+JSON.stringify(friends);
+	//fillString = fillString+"</td></tr>"
+	for(var i=0; i<members.length; i++) {
+		fillString += "<tr>";
+		//fillString += friends[i].name + "</td><td>";
+		if(members[i].status === 1)
+			fillString += "<td><h3><span class=\"label label-success\">"+members[i].email+"</span></h3></td>";
+		else if(members[i].status === 0)
+			fillString += "<td><h3><span class=\"label label-warning\">"+members[i].email+"</span></h3></td>";
+		else
+			fillString += "<td><h3><span class=\"label label-danger\">"+members[i].email+"</span></h3></td>";
+		fillString +="<td class=\"table_status\"><h3>"+ members[i].blurb + "</h3></td></tr>";
 	}
 	friendTable.innerHTML=fillString;
 }
