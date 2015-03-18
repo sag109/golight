@@ -1,5 +1,6 @@
 import webapp2
 import os
+import json
 
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
@@ -9,41 +10,29 @@ from models.account import user_info
 
 class Friends(webapp2.RequestHandler):
     def get(self):
-        #parameter is friends
-        user= users.get_current_user()
+        user = users.get_current_user()
         if user:
-            user_exists = False
-            worked = "worked"
-            new_user = user_info()
-            
-            all_users= user_info.query(user_info.email == user.email()).fetch(1)
-            if len(all_users)>0:
-                new_user= all_users[0]
-            
-            if not all_users:
-                
-                worked = "broken"
-                new_user.name= user.nickname()
-                new_user.email= user.email()
-                new_user.friend_list.append(user.email())#they are their own friend
-                new_user.friend_list.append("golight.app@gmail.com")
-                new_user.availability= "1"
-                new_user.put()
-                mail.send.mail("golightapp@gmail.com",user.email(),"Welcome to GoLight!","Hey dude, welcome to our sweet GoLight service!")
-                #after putting the new user, page must be refreshed to show their info
-            
-            friends=[]
-            add_friend= user_info()
-            for friend in new_user.friend_list:
-                all_friends = user_info.query(user_info.email == friend).fetch(1)
-                if len(all_friends)>0:
-                    add_friend = all_friends[0]
-                    friends.append(add_friend)
-                                   
-                    
-                
-            self.response.out.write(template.render("templates/friends.html",{
-                "friends": friends,
-                "logout_link": users.create_logout_url('/'),
-            }))
+            info = user_info.get_user_account()
+            self.response.out.write(json.dumps(friend_list(info)))
+        else:
+            self.response.out.write(json.dumps(error_obj('User not logged in.')))
 
+def friend_list(account):
+    """Return a list of friend info for the account"""
+    friend_infos = []
+    for person in account.friend_list:
+        cur_account = user_info.get_by_email(person)
+        if cur_account:
+            friend_infos.append({
+                'name': cur_account.name,
+                'email': cur_account.email,
+                'status': cur_account.status,
+                'availability': cur_account.availability
+            })
+    return friend_infos
+    
+def error_obj(message):
+    """Make a dict that contains the error message"""
+    return {
+        'error': message
+    }

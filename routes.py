@@ -16,7 +16,8 @@ app = webapp2.WSGIApplication([
         ('/group/user','controllers.group_user.User'),  
         ('/group/members','controllers.group_members.Members'),  
         ('/group/member','controllers.group_member.Member'),  
-        ('/group/blurb','controllers.group_blurb.Blurb')  
+        ('/group/blurb','controllers.group_blurb.Blurb'),
+        ('/test', 'controllers.test.Test')
     ], debug=True)
 
 def main():
@@ -24,4 +25,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-#user progile should have name, email, list of friends, status
