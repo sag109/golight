@@ -19,10 +19,10 @@ function setMainView(target) {
 
 function updateGroupList() {
 	requestInfo("get", "user/groups", {}, function(groups) {
-		var groupList = "<li onclick=\"setMainView(this)\">Your Friends</li>";
+		var groupList = "<li onclick=\"setMainView(this)\" class=\"sidebar-brand group-link\">Your Friends</li>";
 		for(var i=0; i<groups.length; i++) {
 			var cur = groups[i];
-			groupList += "<li onclick=\"setMainView(this)\">"+ cur.name + "</li>";
+			groupList += "<li onclick=\"setMainView(this)\" class=\"sidebar-brand group-link\">"+ cur.name + "</li>";
 		}
 		$("#group_list").html(groupList);
 	});
