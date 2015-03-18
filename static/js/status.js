@@ -5,7 +5,6 @@ $(document).ready(function() {
 });
 
 function setStatus(userInfo) {
-    //alert('setting status');
     var status = userInfo.status;
    // console.log('status is : '+status);
     var blurb = userInfo.blurb;
@@ -13,14 +12,17 @@ function setStatus(userInfo) {
     if(status == -1) output.className = "btn btn-danger";
     else if(status == 0) output.className = "btn btn-warning";
     else output.className = "btn btn-success";
-    var info = {"status":status,"blurb":blurb}; //make info 
-    var putUser = requestInfo('put','user',info, function(userInfo){ //put info
-        alert(userInfo.success); //alerts 'false' -- why?
+    
+    
+    console.log("userinfo.status: "+userInfo.status+ " userinfo.blurb: "+userInfo.blurb);
+    console.log("status: "+status+" blurb: "+blurb);
+    var info = {"status":status,"blurb":blurb};
+    var putUser = requestInfo('put','user',info, function(response) {
+        console.log(response.error);
     }); 
 }
 
 function changeStatus() {
-    //alert('changing status');
     var userInfo = requestInfo('get','user', {}, function(userInfo){
         var status = userInfo.status;
         console.log('old status is '+status);
