@@ -12,7 +12,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		
 		<!--Our code-->
-		<script src="js/main.js"></script>		
+		<script src="js/main.js"></script>
+		<script src="js/status.js"></script>			
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
 		
 	</head>
@@ -23,11 +24,17 @@
       				<a class="navbar-brand" href="#">GoLight</a>
     			</div>
     			<div>
-	      			<ul class="nav navbar-nav">
-	      				<li>your status</li>
-	      				<li><input type ="text" id="user_status"></li>
+	      			<ul class="nav navbar-nav"><!--
+	      				<a>your status</li>
+	      				<li><input type ="text" id="user_status"></li> -->
         				<li><a href="{{logout}}">Logout</a></li>
       				</ul>
+      				<form class="navbar-form navbar-left" role="search">
+                        <button type="button" id="status" onclick="changeStatus()" class="btn btn-warning">yeah</button>
+                        <div class="form-group">
+                        <input id="user_blurb" type="text" class="form-control" placeholder="Your blurb">
+                        </div>
+                    </form>
     			</div>
   			</div>
 		</nav>
