@@ -43,6 +43,21 @@ function setFriends(friends) {
 	}
 }
 
+$("#join").onclick(function(){
+	requestInfo("post", "group/user", {
+		groupName:$("#join_group_name").html()
+	},
+	function(){window.location.href="/"})
+});
+
+$("#create").onclick(function(){
+	requestInfo("post", "group/user", {
+		groupName:$("#create_group_name").html()
+		groupBlurb:$("#create_group_blurb").html()
+	},
+	function(){window.location.href="/"})
+});
+
 function requestInfo(method, endpoint, parameters, success) {
 	parametersString = $.param(parameters);
 	$.ajax(endpoint + "?" + parameters, {

@@ -65,9 +65,17 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <h1 id="mainView"></h1><!--fill in with the name of the group variable-->
-                        <form action="add" method="post">
-						Group name: <input type="text" name="group_name"><br><br>
-						<input type="submit" class="btn btn-warning" value="Create/Join Group">
+                        <form action="add">
+						Add yourself to an existing group by entering the group name below! <br>
+						Group name: <input type="text" name="join_group_name"><br><br>
+						<input type="button" id="join" class="btn btn-warning" value="Join Group">
+						<br><br>
+						~ OR ~
+						<br><br>
+						Create a new group by filling out the form below! <br>
+						Group name: <input type="text" name="create_group_name"><br>
+						Group blurb: <input type="text" name="create_group_blurb"><br>
+						<input type="button" id="create" class="btn btn-warning" value="Create Group">
 						</form>
                     </div>
                 </div>
