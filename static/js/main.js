@@ -132,6 +132,7 @@ function setFriends(friends) {
 }
 
 function requestInfo(method, endpoint, parameters, success) {
+
 	parametersString = $.param(parameters);
 	$.ajax(endpoint + "?" + parametersString, {
 		method: method,

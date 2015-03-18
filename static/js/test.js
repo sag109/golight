@@ -6,7 +6,7 @@ $(document).ready(function() {
 		var parametersString = $("#parameters").val();
 		var parametersObj = $.parseJSON(parametersString);
 		var parameters = $.param(parametersObj);
-		
+		console.log(parameters);
 		$.ajax(endpoint + "?" + parameters, {
 			method: method,
 			success: function(response) {
