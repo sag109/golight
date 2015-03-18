@@ -3,11 +3,30 @@ var updateProcedure;
 
 
 $(document).ready(function() {
-	friendUpdate = setInterval(getFriends, 3000);
+	updateMainView();
+	updateGroupList();
+	setInterval(updateMainView, 3000);
+	setInterval(updateGroupList, 3000);
 	friendTable = $("#friendTable");
 });
 
 friendList = [];
+
+function setMainView(target) {
+	mainView = target.innerHTML;
+	updateMainView();
+}
+
+function updateGroupList() {
+	requestInfo("get", "user/groups", {}, function(groups) {
+		var groupList = "<li onclick=\"setMainView(this)\">Your Friends</li>";
+		for(var i=0; i<groups.length; i++) {
+			var cur = groups[i];
+			groupList += "<li onclick=\"setMainView(this)\">"+ cur.name + "</li>";
+		}
+		$("#group_list").html(groupList);
+	});
+}
 
 function updateMainView(){
 	if (mainView === "Your Friends"){
