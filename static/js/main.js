@@ -33,9 +33,20 @@ function fillWithFriends(){
 function fillFriends(friends){
 	var friendTable = document.getElementById("status_list");
 	var fillString= "<tr><td>";
-	fillString = fillString+friends;
-	fillString = fillString+"</td></tr>"
-	friendTable.innerHTML=fillString
+	//fillString = fillString+JSON.stringify(friends);
+	//fillString = fillString+"</td></tr>"
+	for(var i=0; i<friends.length; i++) {
+		fillString += "<tr>";
+		//fillString += friends[i].name + "</td><td>";
+		if(friends[i].status === 1)
+			fillString += "<td><h3><span class=\"label label-success\">"+friends[i].name+"</span></h3></td>";
+		else if(friends[i].status === 0)
+			fillString += "<td><h3><span class=\"label label-warning\">"+friends[i].name+"</span></h3></td>";
+		else
+			fillString += "<td><h3><span class=\"label label-danger\">"+friends[i].name+"</span></h3></td>";
+		fillString +="<td class=\"table_status\"><h3>"+ friends[i].message + "</h3></td></tr>";
+	}
+	friendTable.innerHTML=fillString;
 }
 
 function getFriends() {

@@ -26,6 +26,7 @@ def friend_list(account):
             friend_infos.append({
                 'name': cur_account.name,
                 'email': cur_account.email,
+                'message': cur_account.message,
                 'status': cur_account.status,
                 'availability': cur_account.availability
             })
