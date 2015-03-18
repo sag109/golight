@@ -15,8 +15,8 @@ function setStatus(userInfo) {
     else output.className = "btn btn-success";
     
     console.log("trying put/user");
-    if(bl === "")
-    bl = " ";
+    if(bl === "") bl = " ";
+    
     var info = {status:st,blurb:bl}; //make info 
     var putUser = requestInfo('put','user',info, function(userInfo){ //put info
         console.log("result: "+userInfo.success);
