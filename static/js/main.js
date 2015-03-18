@@ -24,6 +24,7 @@ function updateGroupList() {
 			var cur = groups[i];
 			groupList += "<li onclick=\"setMainView(this)\" class=\"sidebar-brand group-link\">"+ cur.name + "</li>";
 		}
+		groupList+= "<li><a href=\"/plus\"><h1>+</h1></a></li>";
 		$("#group_list").html(groupList);
 	});
 }
