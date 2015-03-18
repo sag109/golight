@@ -27,7 +27,7 @@ class Create(webapp2.RequestHandler):
             if to_leave.key in user_account.group_keys:
                 return json.dumps(error_obj('You are already in this group.'))
             return json.dumps(success_obj())
-'''
+        '''
          
 def success_obj():
     """Dict for a success message"""
