@@ -1,3 +1,7 @@
+var mainView= "Your Friends";
+var updateProcedure;
+
+
 $(document).ready(function() {
 	friendUpdate = setInterval(getFriends, 3000);
 	friendTable = $("#friendTable");
@@ -5,8 +9,37 @@ $(document).ready(function() {
 
 friendList = [];
 
+function updateMainView(){
+	if (mainView === "Your Friends"){
+		fillWithFriends();
+	}
+
+	else{
+		fillWith(mainView);
+	}
+
+}
+
+function fillWithFriends(){
+	var friendTitle = document.getElementById("mainView");
+	friendTitle.innerHTML=mainView;
+	var friendTable = document.getElementById("status_list");
+	var fillString;
+	var statuses = requestInfo("get", "friends", {}, function(friends){
+		fillFriends(friends);
+	});
+
+}
+function fillFriends(friends){
+	var friendTable = document.getElementById("status_list");
+	var fillString= "<tr><td>";
+	fillString = fillString+friends;
+	fillString = fillString+"</td></tr>"
+	friendTable.innerHTML=fillString
+}
+
 function getFriends() {
-	friends = requestInfo("get", "friends", {}, function(friends) {
+	var friends = requestInfo("get", "friends", {}, function(friends) {
 		setFriends(friends);
 	});
 }
