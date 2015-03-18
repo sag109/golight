@@ -5,8 +5,11 @@ api_version: 1
 threadsafe: no
 
 handlers:
-- url: /static
-  static_dir: static
+- url: /js
+  static_dir: static/js
+
+- url: /css
+  static_dir: static/css
 
 - url: /.*
   script: routes.app
