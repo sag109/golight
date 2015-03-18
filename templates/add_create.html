@@ -12,7 +12,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		
 		<!--Our code-->
-		<script src="js/main.js"></script>
+		<script src="js/add_create.js"></script>
 		<script src="js/status.js"></script>			
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
 		
@@ -67,14 +67,14 @@
                         <h1 id="mainView"></h1><!--fill in with the name of the group variable-->
                         <form action="add">
 						Add yourself to an existing group by entering the group name below! <br>
-						Group name: <input type="text" name="join_group_name"><br><br>
+						Group name: <input type="text" id="join_group_name"><br><br>
 						<input type="button" id="join" class="btn btn-warning" value="Join Group">
 						<br><br>
 						~ OR ~
 						<br><br>
 						Create a new group by filling out the form below! <br>
-						Group name: <input type="text" name="create_group_name"><br>
-						Group blurb: <input type="text" name="create_group_blurb"><br>
+						Group name: <input type="text" id="create_group_name"><br>
+						Group blurb: <input type="text" id="create_group_blurb"><br><br>
 						<input type="button" id="create" class="btn btn-warning" value="Create Group">
 						</form>
                     </div>

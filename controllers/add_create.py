@@ -11,10 +11,6 @@ class Create(webapp2.RequestHandler):
     def get(self):
         logout = users.create_logout_url('/')
         self.response.out.write(template.render('templates/add_create.html', {'logout': logout}))
-
-    def post(self):
-        logout = users.create_logout_url('/')
-        self.response.out.write(template.render('templates/add_create.html', {'logout': logout}))
          
 def success_obj():
     """Dict for a success message"""
