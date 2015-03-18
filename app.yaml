@@ -14,3 +14,7 @@ handlers:
 - url: /.*
   script: routes.app
   login: required
+  
+- url: /favicon\.ico
+  static_files: favicon.ico
+  upload: favicon\.ico
