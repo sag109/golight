@@ -18,6 +18,7 @@ app = webapp2.WSGIApplication([
         ('/group/members','controllers.group_members.Members'),  
         ('/group/member','controllers.group_member.Member'),  
         ('/group/blurb','controllers.group_blurb.Blurb'),
+        ('/group/add', 'controllers.add_create.Create'),
         ('/test', 'controllers.test.Test')
     ], debug=True)
 
