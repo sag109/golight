@@ -12,8 +12,7 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		
 		<!--Our code-->
-		<script src="js/main.js"></script>
-		<script src="js/status.js"></script>			
+		<script src="js/edit.js"></script>			
 		<link rel="stylesheet" type="text/css" href="css/main.css"/>
 		<style>
 		    h1 {
@@ -43,19 +42,17 @@
 		</nav>
 		
 		
-        <form method="post" action="/edit">
             <h1>Add a friend:</h1>
             <br>
-            <input type ="text" name = "new_friend">
-            <input type= "submit" value= "Add Friend">
-        </form>
-        <form method="post" action="/edit">
+            <input type ="text" id="new_friend">
+            <input type= "submit" value= "Add Friend" onclick="addFriend()">
+
             <h1>Remove a friend:</h1>
             <br>
-            <input type ="text" name = "old_friend">
-            <input type= "submit" value= "Remove Friend">
-        </form>
+            <input type ="text" id="old_friend">
+            <input type= "submit" value= "Remove Friend" onclick="removeFriend()">
+
         <br>
-        <h1>{{status}}</h1>
+        <h1 id="message"></h1>
 	</body>
 </html>
