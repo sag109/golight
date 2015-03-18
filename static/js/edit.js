@@ -2,7 +2,7 @@ function addFriend() {
     var newFriend = document.getElementById("new_friend").value;
     document.getElementById("new_friend").value = "";
     
-    var info = {"email":newFriend};
+    var info = {"email":encodeURI(newFriend)};
     var putUser = requestInfo('post','friend',info, function(response) {
         if(response.success === false){
             document.getElementById('message').innerHTML = response.error;
@@ -18,7 +18,7 @@ function removeFriend() {
     var oldFriend = document.getElementById("old_friend").value;
     document.getElementById("old_friend").value = "";
     
-    var info = {"email":oldFriend};
+    var info = {"email":encodeURI(oldFriend)};
     var putUser = requestInfo('delete','friend',info, function(response) {
         if(response.success === false){
             document.getElementById('message').innerHTML = response.error;
