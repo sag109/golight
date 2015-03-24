@@ -1,6 +1,7 @@
 import webapp2
 import os
 import json
+import logging
 
 from google.appengine.ext.webapp import template
 from google.appengine.api import users
@@ -12,6 +13,7 @@ from models.group_members import GroupMembers
 class User(webapp2.RequestHandler):
     def get(self):
         # Get your status within a group
+        logging.info("Gettinggggggggggggggg")
         handle_as_user(self, get_user, ['groupName'])
 
     def post(self):
@@ -69,7 +71,7 @@ def delete_user(parameters):
 
 def put_user(parameters):
     user = users.get_current_user()
-    to_update = GroupModel.get_by_name(parameters['groupName'])
+    to_update = Group.get_by_name(parameters['groupName'])
     if not to_update:
         return json.dumps(error_obj('No group with this name exists.'))
     user_account = user_info.get_user_account()
@@ -83,8 +85,10 @@ def put_user(parameters):
     return json.dumps(success_obj())
 
 def get_user(parameters):
+    logging.info("in getting????????")
     user = users.get_current_user()
     group = Group.get_by_name(parameters['groupName'])
+    logging.info("group "+ group)
     if not group:
         return json.dumps(error_obj('No group with this name exists.'))
     user_account = user_info.get_user_account()
@@ -114,6 +118,7 @@ def handle_as_user(handler, function, required_parameters):
             handler.response.out.write(json.dumps(error_obj('Missing parameter: ' + param)))
             return
         parameters[param] = current
+    logging.info("function is "+ function)
     handler.response.out.write(function(parameters))
         
 def success_obj():

@@ -12,6 +12,10 @@ $(document).ready(function() {
 
 friendList = [];
 
+function getMainView(){
+	return mainView;
+}
+
 function setMainView(target) {
 	mainView = target.innerHTML;
 	updateMainView();
