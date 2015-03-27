@@ -18,7 +18,7 @@
 		
 	</head>
 	<body>
-   		<nav class="navbar navbar-default">
+   		<nav class="navbar navbar-default" style="margin:0px;">
   			<div class="container-fluid">
     			<div class="navbar-header">
       				<a class="navbar-brand" href="#">GoLight</a>
@@ -29,20 +29,40 @@
 	      				<li><input type ="text" id="user_status"></li> -->
         				<li><a href="{{logout}}">Logout</a></li>
       				</ul>
+      				<!--
       				<form class="navbar-form navbar-left" role="search">
-                        <button type="button" id="status" onclick="changeStatus()" class="btn btn-default">Your Status</button>
+                        <button type="button" id="status" onclick="changeStatus()" data-toggle="dropdown" class="btn btn-default">Your Status</button>
                         <div class="form-group">
                         <input id="user_blurb" type="text" class="form-control" placeholder="Your blurb">
                         </div>
                     </form>
+                    -->
+                   
+                    
                     <div id="editButton">
                         <ul class="nav navbar-nav">
                             <li><a href="/edit">Edit Friends</a></li>
                         </ul>
                     </div>
+                    
+                    <form class="navbar-form navbar-left" role="search">
+                    
+                    <div class="dropdown">
+                        <button class="btn btn-default dropdown-toggle" type="button" id="status_dropdown" data-toggle="dropdown">Your Status
+                        <span class="caret"></span></button>
+                        <ul class="dropdown-menu" role="menu" id="status_dropdown" aria-labelledby="menu1">
+                            <li role="presentation"><a role="menuitem" class="btn btn-success" id="suc" tabindex="0" onclick="changeStatus(this)">&nbsp;</a></li>
+                            <li role="presentation"><a role="menuitem" class="btn btn-warning" id="war" tabindex="0" onclick="changeStatus(this)">&nbsp;</a></li>
+                            <li role="presentation"><a role="menuitem" class="btn btn-danger"  id="dan" tabindex="0" onclick="changeStatus(this)">&nbsp;</a></li>
+                        </ul>
+                        <input id="user_blurb" type="text" class="form-control" placeholder="Your blurb">
+                        <button class="btn btn-default" type="button" id="set_blurb" onclick="changeBlurb()">Set blurb</button>
+                    </div>
+                    </form>
     			</div>
   			</div>
 		</nav>
+		
 
 
 

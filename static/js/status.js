@@ -1,44 +1,51 @@
 $(document).ready(function() {
     var userInfo = requestInfo('get','user', {}, function(userInfo){
-        setStatus(userInfo);
+        setStatus(userInfo.status,userInfo.blurb);
     }); 
 });
 
-function setStatus(userInfo) {
-    //alert('setting status');
-    var st = userInfo.status;
-   // console.log('status is : '+status);
-    var bl = userInfo.blurb;
-    var output = document.getElementById('status');
-    if(st == -1) output.className = "btn btn-danger";
-    else if(st == 0) output.className = "btn btn-warning";
-    else output.className = "btn btn-success";
+function setStatus(st,bl) {
+    var output = $('#user_blurb').val();
+    if(st == -1) $('#output').attr('id', 'btn btn-danger');
+    else if(st == 0) $('#output').attr('id', 'btn btn-warning');
+    else $('#output').attr('id', 'btn btn-success');
     
     console.log("trying put/user");
-    if(bl === "" || bl.length > 50) bl = " ";
-    
+    if(bl === "" || bl.length > 50) bl = " "; //needs to happen in the server.. doesnt it?
     var info = {status:st,blurb:bl}; //make info 
     var putUser = requestInfo('put','user',info, function(userInfo){ //put info
         console.log("result: "+userInfo.success);
         console.log("error : "+userInfo.error);
-        document.getElementById('user_blurb').placeholder = bl;
-        
-    }); 
-    
+        $('#user_blurb').attr('placeholder', bl);
+    });
 }
 
-function changeStatus() {
-    //alert('changing status');
-    var userInfo = requestInfo('get','user', {}, function(userInfo){
-        var status = userInfo.status;
-        console.log('old status is '+status);
-        status = status + 1;
-        if(status == 2) status = -1;
-        
-        userInfo.status = status;
-        console.log('new status is '+userInfo.status);
-        userInfo.blurb = document.getElementById('user_blurb').value;
-        
-        setStatus(userInfo);
-    });
+function changeBlurb() {
+    var blurb = $('#user_blurb').val();
+    var st = getStatus();
+    console.log("blurb to set is "+blurb);
+    setStatus(st,blurb);
+}
+
+function getStatus(){
+    var status = $('#status_dropdown').attr('class');
+    if(status === 'btn btn-success') return 1;
+    else if(status === 'btn btn-warning') return 0;
+    else return -1;
+}
+
+function changeStatus(e) {
+    var cls = e.className;
+    console.log("class to add is "+cls);
+    $('#status_dropdown').attr('class',cls); //replace class
+    status = e.id;
+    var st = 0;
+    if(status === 'suc') st = 1;
+    else if(status === 'war') st = 0;
+    else st = -1;
+    var blurb = $('#user_blurb').val();
+    
+    if(blurb === "" || blurb.length > 50) blurb = " "; //needs to happen in the server.. doesnt it?
+    
+    setStatus(st,blurb);
 }
