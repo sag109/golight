@@ -9,7 +9,7 @@ class SendEmails(webapp2.RequestHandler):
   def get(self):
     users = user_info.query().fetch()
     for user in users:
-        mail.send.mail("golightapp@gmail.com",user.email(),"Your Weekly GoLight Update","Sup fuckers!")
+        mail.send_mail("golightapp@gmail.com",user.email(),"Your Weekly GoLight Update","Sup friends!")
 
     
 app = webapp2.WSGIApplication([
