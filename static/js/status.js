@@ -17,8 +17,10 @@ function setStatus(st,bl) {
         console.log("result: "+userInfo.success);
         console.log("error : "+userInfo.error);
         $('#user_blurb').attr('placeholder', bl);
+        $('#user_blurb').html('');
     });
 }
+
 
 function changeBlurb() {
     var blurb = $('#user_blurb').val();
@@ -27,6 +29,7 @@ function changeBlurb() {
     setStatus(st,blurb);
 }
 
+//returns status as -1,0, or 1 
 function getStatus(){
     var status = $('#status_dropdown').attr('class');
     if(status === 'btn btn-success') return 1;
@@ -35,15 +38,15 @@ function getStatus(){
 }
 
 function changeStatus(e) {
-    var cls = e.className;
-    console.log("class to add is "+cls);
-    $('#status_dropdown').attr('class',cls); //replace class
+    var cls = e.className; //class of button -- color of status that has been selected
+    
+    $('#status_dropdown').attr('class',cls); //replace class for dropdown top button
     status = e.id;
     var st = 0;
     if(status === 'suc') st = 1;
     else if(status === 'war') st = 0;
     else st = -1;
-    var blurb = $('#user_blurb').val();
+    var blurb = $('#user_blurb').attr('placeholder');
     
     if(blurb === "" || blurb.length > 50) blurb = " "; //needs to happen in the server.. doesnt it?
     
