@@ -43,7 +43,7 @@ def post_group(parameters):
     new_group.admin_email = user.email()
     
     # Making the creator a member
-    creator_member = GroupMembers(status=0,group_key=new_group.key,email=user.email())
+    creator_member = GroupMembers(status=0,group_key=new_group.key,email=user.email(),name=user_account.name)
     creator_member.blurb = 'Let there be a group.'
     creator_member.put()
     new_group.members.append(creator_member.key)
@@ -95,6 +95,7 @@ def group_info(group):
             'email': member.email,
             'blurb': member.blurb,
             'status': member.status,
+            'name': member.name
         })
     return info
 

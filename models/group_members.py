@@ -7,4 +7,5 @@ class GroupMembers(ndb.Model):
     email = ndb.StringProperty()
     blurb = ndb.StringProperty()
     status = ndb.IntegerProperty()
-    group_key = ndb.KeyProperty()
+    group_key = ndb.KeyProperty() #why do we use this here?
+    name = ndb.StringProperty()

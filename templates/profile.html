@@ -1,81 +1,85 @@
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html lang="en">
 	<head>
-		<meta charset="utf-8">
-		<meta http-equiv="X-UA-Compatible" content="IE=edge">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<meta name="description" content="">
-		<meta name="author" content="">
-		<link rel="icon" href="../../favicon.ico">
-		<!-- Bootstrap core CSS -->
-		<link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
-		<!-- Bootstrap theme -->
-		<link href="../../dist/css/bootstrap-theme.min.css" rel="stylesheet">
-
-		<!-- Custom styles for this template -->
-		<link href="theme.css" rel="stylesheet">
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
-		<link rel="stylesheet" type="text/css" href="css/custom.css">
+		<title>Golight</title>
 		
-		<style>
-			body {
-				margin: 1cm 0cm 0cm 1cm;
-			}
-		</style>
+		<!--JQuery-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		
+		<!--Bootstrap-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		
+		<!--Our code-->
+		<!-- <script src="js/profile.js"></script> -->
+        <script>
+        $(document).ready(function() {
+            var userInfo = requestInfo('get','user', {}, function(userInfo){
+                $('#username').html("Your username: "+userInfo.name);
+            }); 
+        });
 
-		<title>Golight Profile</title>
+        function editUsername() {
+            var newName = $('#new_username').val();
+            var response = requestInfo('put','user',{'name':newName}, function(response){
+                $('#username').html("Your username: "+newName);
+                console.log(response.error);
+            })
+        }
+
+        function requestInfo(method, endpoint, parameters, success) {
+
+            parametersString = $.param(parameters);
+            $.ajax(endpoint + "?" + parametersString, {
+                method: method,
+                success: function(response) {
+                    return success($.parseJSON(response));
+                }
+            });
+        }
+        </script>
+        <style>
+            h1 {
+                margin: 1cm 0cm 0cm 1cm;
+            }
+            h3 {
+                margin: 1cm 0cm 0cm 1cm;
+            }
+            input {
+                margin: 0cm 0cm 0cm 1cm;
+            }
+        </style>
+
 	</head>
 	<body>
+   		<nav class="navbar navbar-default" style="margin:0px;">
+  			<div class="container-fluid">
+    			<div class="navbar-header">
+      				<a class="navbar-brand" href="/">GoLight</a>
+    			</div>
+    			<div>
+	      			<ul class="nav navbar-nav">
+        				<li><a href="{{logout}}">Logout</a></li>
+      				</ul>
+                    <div id="editButton">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/edit">Edit Friends</a></li>
+                        </ul>
+                    </div>
+                    <div id="backButton">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/">Go back</a></li>
+                        </ul>
+                    </div>
+    			</div>
+  			</div>
+		</nav>
 
-		<h3>{{usernickname}}'s status:<br><br>
-		
-			<form action = "profile" method = "post">
-				<button type="submit" id="profile"
-					{% if status == "1" %}
-					class="btn btn-lg btn-success"
-					{% endif %}
-					{% if status == "0" %}
-					class="btn btn-lg btn-warning"
-					{% endif %} 
-					{% if status == "-1" %}
-					class="btn btn-lg btn-danger"
-					{% endif %}
-				name="status" value="update">
-					{% if status == "1" %}
-						Available
-					{% endif %}
-					{% if status == "0" %}
-						Tentative...
-					{% endif %} 
-					{% if status == "-1" %}
-						Busy
-					{% endif %}
-				</button>
-				<input type ="text" name = "statusMessage">
-        		<input type= "submit" value= "Update Status">
-			</form>
-		</h3>
-		<br><br>
-		<table style="border-collapse: collapse;">
-			<tr>
-				<td><a style="border: 1px solid black;" href="/friends"> Your Friends </a></td>
-				<td><a style="border: 1px solid black;" href="/edit"> Edit Friends </a></td>
-				<td><a style="border: 1px solid black;" href="/profile"> Update Your Status </a></td>
-				<td><a style="border: 1px solid black;" href="{{logout_link}}"> Logout </a></td>
-			</tr>
-		</table>
-
-		<br>
-
-    
-	<!-- Bootstrap core JavaScript
-    ================================================== -->
-    <!-- Placed at the end of the document so the pages load faster -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
-    <script src="../../dist/js/bootstrap.min.js"></script>
-    <script src="../../assets/js/docs.min.js"></script>
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
-    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
-
+        <h1>Your Profile</h1>
+        <h3 id="username"></h3>
+        <br>
+            <input type ="text" id="new_username">
+            <input type= "submit" value= "Save Username" onclick="editUsername()">
 	</body>
 </html>

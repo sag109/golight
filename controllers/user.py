@@ -28,6 +28,14 @@ class User(webapp2.RequestHandler):
         user_account = user_info.get_user_account()
         new_status = self.request.get('status')
         new_blurb = self.request.get('blurb')
+        
+        name = self.request.get('name') #and here is where we'd check if username is already taken!
+        if name:
+            user_account.name = name
+            user_account.put()
+            self.response.out.write(json.dumps(success_obj()))
+            return
+
         if not new_status or not new_blurb:
             self.response.out.write(json.dumps(error_obj('Request must include status and blurb.')))
             return
