@@ -38,8 +38,9 @@ def post_user(parameters):
     user_account.put()
     
     # Making the new group member
-    user_member = GroupMembers(email=user_account.email, status=0)
+    user_member = GroupMembers(email=user_account.email, status=0,name=user_account.name)
     user_member.blurb = parameters['blurb']
+    user_member.name = user_account.name; #added this in to add name with group_user
     user_member.group_key = to_join.key
     user_member.put()
     
@@ -69,7 +70,7 @@ def delete_user(parameters):
 
 def put_user(parameters):
     user = users.get_current_user()
-    to_update = GroupModel.get_by_name(parameters['groupName'])
+    to_update = Group.get_by_name(parameters['groupName'])
     if not to_update:
         return json.dumps(error_obj('No group with this name exists.'))
     user_account = user_info.get_user_account()
@@ -79,7 +80,8 @@ def put_user(parameters):
     if not user_member:
         return json.dumps(error_obj('Server error.'))
     user_member.blurb = parameters['blurb']
-    user_member.status = parameters['status']
+    user_member.status = int(parameters['status']) #workaround?
+    user_member.put() #save dis shiz
     return json.dumps(success_obj())
 
 def get_user(parameters):
@@ -95,6 +97,7 @@ def get_user(parameters):
         'email': member.email,
         'status': member.status,
         'blurb': member.blurb,
+        'name': user_account.name,
         'groupName': group.name
     }
     return json.dumps(info)

@@ -1,35 +1,52 @@
 $(document).ready(function() {
-    var userInfo = requestInfo('get','user', {}, function(userInfo){
-        setStatus(userInfo.status,userInfo.blurb);
-    }); 
+    showPage();
 });
 
-function setStatus(st,bl) {
-    var output = $('#user_blurb').val();
-    if(st == -1) $('#output').attr('id', 'btn btn-danger');
-    else if(st == 0) $('#output').attr('id', 'btn btn-warning');
-    else $('#output').attr('id', 'btn btn-success');
-    
+function showPage(){
+    if(mainView === 'Your Friends'){
+        var userInfo = requestInfo('get','user', {}, function(userInfo){
+            showStatus(userInfo.status,userInfo.blurb);
+        });
+    }
+    else {
+       var userInfo = requestInfo('get','group/user', {}, function(userInfo){
+            showStatus(userInfo.status,userInfo.blurb);
+        }); 
+    }
+}
+
+function showStatus(st,bl){
+    var cls = getStatusClass(st);
+    $('#status_dropdown').attr('class',cls);
+    $('#user_blurb').attr('placeholder',bl);
+}
+
+function setGlobalStatus(st,bl) {
     console.log("trying put/user");
     if(bl === "" || bl.length > 50) bl = " "; //needs to happen in the server.. doesnt it?
+
     var info = {status:st,blurb:bl}; //make info 
     var putUser = requestInfo('put','user',info, function(userInfo){ //put info
-        console.log("result: "+userInfo.success);
+        console.log("success: "+userInfo.success);
         console.log("error : "+userInfo.error);
         $('#user_blurb').attr('placeholder', bl);
         $('#user_blurb').html('');
     });
 }
 
-
-function changeBlurb() {
-    var blurb = $('#user_blurb').val();
-    var st = getStatus();
-    console.log("blurb to set is "+blurb);
-    setStatus(st,blurb);
+function setGroupStatus(st,bl) {
+    console.log("trying put/group_user");
+    if(bl === "" || bl.length > 50) bl = " "; //needs to happen in the server.. doesn't it?
+    var info = {status:parseInt(st),blurb:bl,groupName:mainView}; //make info 
+    var putUser = requestInfo('put','group/user',info, function(userInfo){ //put info
+        console.log("success: "+userInfo.success);
+        console.log("error : "+userInfo.error);
+        $('#user_blurb').attr('placeholder', bl);
+        $('#user_blurb').html('');
+    });
 }
 
-//returns status as -1,0, or 1 
+//returns status of current page as -1,0, or 1 
 function getStatus(){
     var status = $('#status_dropdown').attr('class');
     if(status === 'btn btn-success') return 1;
@@ -37,18 +54,31 @@ function getStatus(){
     else return -1;
 }
 
+function getStatusClass(st){
+    if(st == 1) return 'btn btn-success';
+    else if(st == 0) return 'btn btn-warning';
+    else return 'btn btn-danger';
+}
+
+function changeBlurb(){
+    var blurb = $('#user_blurb').val();
+    var st = getStatus();
+    console.log("blurb to set is "+blurb);
+
+    if(mainView === 'Your Friends')
+        setGlobalStatus(st,blurb);
+    else
+        setGroupStatus(st,blurb);
+}
+
 function changeStatus(e) {
     var cls = e.className; //class of button -- color of status that has been selected
-    
     $('#status_dropdown').attr('class',cls); //replace class for dropdown top button
-    status = e.id;
-    var st = 0;
-    if(status === 'suc') st = 1;
-    else if(status === 'war') st = 0;
-    else st = -1;
+    var st = getStatus();
     var blurb = $('#user_blurb').attr('placeholder');
-    
-    if(blurb === "" || blurb.length > 50) blurb = " "; //needs to happen in the server.. doesnt it?
-    
-    setStatus(st,blurb);
+
+    if(mainView === 'Your Friends')
+        setGlobalStatus(st,blurb);
+    else
+        setGroupStatus(st,blurb); 
 }
