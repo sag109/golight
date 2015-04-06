@@ -15,8 +15,8 @@ friendList = [];
 
 function setMainView(target) {
 	mainView = target.innerHTML;
-	updateMainView();
 	showPage(); //added this
+	updateMainView();
 }
 
 function updateGroupList() {

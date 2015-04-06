@@ -9,7 +9,7 @@ function showPage(){
         });
     }
     else {
-       var userInfo = requestInfo('get','group/user', {}, function(userInfo){
+       var userInfo = requestInfo('get','group/user', {'groupName':mainView}, function(userInfo){
             showStatus(userInfo.status,userInfo.blurb);
         }); 
     }
@@ -22,13 +22,13 @@ function showStatus(st,bl){
 }
 
 function setGlobalStatus(st,bl) {
-    console.log("trying put/user");
+    //console.log("trying put/user");
     if(bl === "" || bl.length > 50) bl = " "; //needs to happen in the server.. doesnt it?
 
     var info = {status:st,blurb:bl}; //make info 
     var putUser = requestInfo('put','user',info, function(userInfo){ //put info
-        console.log("success: "+userInfo.success);
-        console.log("error : "+userInfo.error);
+        //console.log("success: "+userInfo.success);
+        //console.log("error : "+userInfo.error);
         $('#user_blurb').attr('placeholder', bl);
         $('#user_blurb').html('');
     });
@@ -39,8 +39,8 @@ function setGroupStatus(st,bl) {
     if(bl === "" || bl.length > 50) bl = " "; //needs to happen in the server.. doesn't it?
     var info = {status:parseInt(st),blurb:bl,groupName:mainView}; //make info 
     var putUser = requestInfo('put','group/user',info, function(userInfo){ //put info
-        console.log("success: "+userInfo.success);
-        console.log("error : "+userInfo.error);
+        //console.log("success: "+userInfo.success);
+        //console.log("error : "+userInfo.error);
         $('#user_blurb').attr('placeholder', bl);
         $('#user_blurb').html('');
     });
@@ -63,7 +63,7 @@ function getStatusClass(st){
 function changeBlurb(){
     var blurb = $('#user_blurb').val();
     var st = getStatus();
-    console.log("blurb to set is "+blurb);
+    //console.log("blurb to set is "+blurb);
 
     if(mainView === 'Your Friends')
         setGlobalStatus(st,blurb);
