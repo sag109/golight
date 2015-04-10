@@ -19,7 +19,10 @@ app = webapp2.WSGIApplication([
         ('/group/member','controllers.group_member.Member'),  
         ('/group/blurb','controllers.group_blurb.Blurb'),
         ('/test', 'controllers.test.Test'),
-        ('/plus', 'controllers.plus.Plus')
+        ('/plus', 'controllers.plus.Plus'),
+        ('/search/friends', 'controllers.search.SearchFriends'),
+        ('/search/groups', 'controllers.search.SearchGroups'),
+        ('/search', 'controllers.search.SearchPage')
     ], debug=True)
 
 def main():
