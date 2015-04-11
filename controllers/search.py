@@ -40,11 +40,11 @@ class SearchFriends(webapp2.RequestHandler):
                         in_counter += 1
                     else:
                         logging.info("adding a non-friend "+ a_user.email)
-                        result.append(a_user.email)
+                        result.append({"email": a_user.email})
                         #add friend to list
                 else:
                     logging.info("adding a non-friend "+ a_user.email)
-                    result.append(a_user.email)
+                    result.append({"email": a_user.email})
                      #at end of friend_list
 
             self.response.out.write(json.dumps(result))
@@ -65,10 +65,7 @@ class SearchGroups(webapp2.RequestHandler):
         for group in groups:
             group_list.append({"name": group.name,"blurb": group.blurb})
 
-        self.response.out.write(template.render('templates/search.html', {
-            #render_template(self, 'templates/search.html',{
-                "group_list": group_list
-            }))
+        self.response.out.write(json.dumps(group_list))
 
 class SearchPage(webapp2.RequestHandler):
     def get(self):
