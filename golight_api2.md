@@ -18,6 +18,12 @@ All requests and responses in JSON format. Prefix all URI with /api2/.
     * time: an object with two fields, day (an int 0-6, 0 being Sunday) and hour (an int 0-23) representing the time 
     which your request is for. If empty, the time returned is now.
 
+## Settings
+* __PUT__ /settings/name
+  * Updates the user's name.
+  * Params:
+    * name: a nonempty name, max 20 chars, to set yourself as.
+
 ## Friend Management
 * __DELETE__ /friends/KEY
   * Removes this person from the user's friends list.
