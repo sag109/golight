@@ -1,6 +1,6 @@
 # Golight API 2
 ## Let's get REST-ish
-All requests and responses in JSON format.
+All requests and responses in JSON format. Prefix all URI with /api2/.
 
 ## Status
 * __GET__ /status
