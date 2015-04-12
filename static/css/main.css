@@ -102,11 +102,15 @@
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 0px;  /* this line */
-    font-size: 5px;
-    line-height: 0px;
+    height: 40px;  /* this line */
+    font-size: 18px;
+    line-height: 50px;
 }
-
+.sidebar-nav > .sidebar-brand:hover {
+    cursor:pointer;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
 .sidebar-nav > .sidebar-brand a {
     color: #999999;
 }
