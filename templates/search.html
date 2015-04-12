@@ -1,0 +1,97 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <title>Golight</title>
+        
+        <!--JQuery-->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+        
+        <!--Bootstrap-->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+        
+        <!--Our code-->
+        <script src="/js/search.js"></script>    
+    </head>
+    <body>
+        <nav class="navbar navbar-default" style="margin:0px;">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/">GoLight</a>
+                </div>
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{logout}}">Logout</a></li>
+                    </ul>
+                    <div id="editButton">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/edit">Edit Friends</a></li>
+                        </ul>
+                    </div>
+                    <div id="profileButton">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/profile">My Profile</a></li>
+                        </ul>
+                    </div>
+                    <div id="SearchButton">
+                        <ul class="nav navbar-nav">
+                            <li><a href="/search">Search</a></li>
+                        </ul>
+                    </div>
+                    <form class="navbar-form navbar-left" role="toolbar">
+                    </form>
+                </div>
+            </div>
+        </nav>
+            <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <ul class="sidebar-nav" id="group_list">   
+            </ul>
+        </div>
+        <!-- /#sidebar-wrapper -->
+        <!-- Page Content -->
+        <div id="page-content-wrapper">
+
+            
+              <div id ="search">
+               <div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <div class="input-group">
+      <input type="text" onkeyUp="listAll();" class="form-control" id="searchText" placeholder="Start typing to search for users or groups">
+      <span class="input-group-btn">
+        <button onclick="listAll();" class="btn btn-default" type="button">List All</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+                <br>
+                <div id ="searchResults">
+                
+
+                </div><!--to be filled with the search results!-->
+            </div>
+
+<!--
+
+<br><br><br>
+            well here goes!
+   <br> Friends<br>
+{{friends}} 
+
+<br><br>
+users<br>
+{{users}}<br><br>
+non friends<br>
+ {{non_friends}} <br><br>
+ how'd ya do?<br><br>
+ GROUP TIME<br><br>
+ {%for group in group_list%}
+    {{group.name}} is all about {{group.blurb}}<br>
+{%endfor%}-->
+        </div>
+        <!-- /#page-content-wrapper -->
+    </body>
+</html>

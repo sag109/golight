@@ -11,8 +11,6 @@ $(document).ready(function() {
 	friendTable = $("#friendTable");
 });
 
-friendList = [];
-
 function setMainView(target) {
 	mainView = target.innerHTML;
 	showPage(); //added this
