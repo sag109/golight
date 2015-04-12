@@ -20,7 +20,7 @@ function listAll(){
                         "<div class=\"panel-heading\">Friends</div>"+
 
                       "<!-- Table -->"+
-                            "<table class=\"table table-hover\">"+
+                            "<table class=\"table table\">"+
                                 fillFromFriends+
                             "</table>"+
                     "</div><br>"+
@@ -30,7 +30,7 @@ function listAll(){
                         "<div class=\"panel-heading\">Groups- click a group to join</div>"+
 
                       "<!-- Table -->"+
-                            "<table class=\"table table-hover\">"+
+                            "<table class=\"table table\">"+
                                 fillFromGroup+
                             "</table>"+
                     "</div>"+
@@ -108,7 +108,7 @@ function fillGroups(){
         if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
         {
             fillString += "<tr class=\"row\"><td class=\"col-lg-3\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
-            fillString += "<span id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
+            fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
             fillString += "</td><td class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></td></tr>";//should only be one type of data        
         }
         //console.log("on "+ info[i].email);
