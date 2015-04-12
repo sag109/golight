@@ -20,6 +20,8 @@ class user_info(ndb.Model):
 
     #dict mapping the key of the user the request is from to the request message
     friend_requests = ndb.JsonProperty()
+    #from the group to the group's description
+    group_invites = ndb.JsonProperty()
 
     #-1, 0, or 1, being unavailable, tentative, or available respectively
     status = ndb.IntegerProperty()
@@ -28,7 +30,7 @@ class user_info(ndb.Model):
     message = ndb.StringProperty()
 
     #a list of the groups the user is in
-    group_keys = ndb.KeyProperty(repeated=True)
+    group_member_keys = ndb.KeyProperty(repeated=True)
 
     #a list of lists, with the first int being day of week (0-6) and second being hour (0-23)
     schedule = ndb.JsonProperty()
@@ -146,6 +148,8 @@ class user_info(ndb.Model):
             account.add_friend(account.key)
             account.schedule = [[-2 for _ in range(24)] for _ in range(7)]
             account.message = "I'm new here!"
+            account.friend_requests = {}
+            account.group_invites = {}
             mail.send_mail("golightapp@gmail.com", account.email, 'Welcome to Golight', """
                    ____________________
                   |\                   \      l____

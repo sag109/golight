@@ -8,3 +8,9 @@ class GroupMembers(ndb.Model):
     status = ndb.IntegerProperty()
     group_key = ndb.KeyProperty() #why do we use this here?
     name = ndb.StringProperty()
+    admin = ndb.BooleanProperty()
+    user_info_key = ndb.KeyProperty()
+
+    #must also manage info for users, including invites!
+    def clean_delete(self):
+        pass
