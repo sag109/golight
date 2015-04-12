@@ -9,7 +9,6 @@ app = webapp2.WSGIApplication([
         ('/api2/groups', 'api2.groups.GroupsList'),
         ('/api2/groups/<group_key>/members', 'api2.groups.MemberList'),
         ('/api2/groups/<group_key>/status', 'api2.groups.GroupStatus'),
-        ('/api2/groups', 'api2.groups.Groups'),
         ('/api2/groups/<group_key>/description', 'api2.groups.GroupDescription'),
         ('/api2/groups/<group_key>/admins', 'api2.groups.AdminList'),
         ('/api2/groups/<group_key>/admins/<user_id>', 'api2.groups.Admins')

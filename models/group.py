@@ -21,7 +21,8 @@ class Group(ndb.Model):
     #whether the group is public
     public = ndb.BooleanProperty()
 
-    def new(self, name, desc, public=True):
+    @staticmethod
+    def new(name, desc, public=True):
         assert isinstance(name, str)
         assert isinstance(desc, str)
         assert isinstance(public, bool)
