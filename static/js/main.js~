@@ -4,6 +4,11 @@ var updateProcedure;
 
 $(document).ready(function() {
 	fillWithFriends();
+	showPage();
+	updateGroupList();
+	setInterval(updateMainView, 3000);
+	setInterval(updateGroupList, 3000);
+	friendTable = $("#friendTable");
 });
 
 function setMainView(target) {
@@ -25,33 +30,6 @@ function updateGroupList() {
 	});
 }
 
-function getStatusBar(){
-	var str = "";
-
-	str+='<div class="row">';
-	str+='<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">';
-	str+='<div class="form-inline">';
-	str+='<div class="dropdown">';
-	str+='<button class="btn btn-default dropdown-toggle" type="button" id="status_dropdown" data-toggle="dropdown">Your Status<span class="caret"></span></button>';
-	str+='<ul class="dropdown-menu" role="menu" id="status_dropdown" aria-labelledby="menu">';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-success" id="suc" tabindex="0" onclick="changeStatus(this)">Available</a></li>';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-warning" id="war" tabindex="0" onclick="changeStatus(this)">Tentative</a></li>';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-danger"  id="dan" tabindex="0" onclick="changeStatus(this)">Busy</a></li>';
-	str+='</ul>';
-	str+='</div>';
-	str+='</div>';
-	str+='</div>';
-	str+='<div class="col-xs-5 col-sm-4 col-md-4 col-lg-2">';
-	str+='<input id="user_blurb" type="text" class="form-control" placeholder="Your blurb">';
-	str+='</div>';
-	str+='<div class="col-xs-2 col-sm-2 col-md-2 col-lg-1">';
-	str+='<button class="btn btn-default" type="button" id="set_blurb" onclick="changeBlurb()">Set blurb</button>';
-	str+='</div>';
-	str+='</div>';
-
-	return str;
-}
-
 function fillWithFriends(){
 	var statuses = requestInfo("get", "friends", {}, function(friends){
 		fillFriends(friends);
@@ -60,17 +38,19 @@ function fillWithFriends(){
 }
 function fillFriends(friends){
 	var friendTable = document.getElementById("myfriendspb");
-	var fillString= getStatusBar();
+	var fillString= "<tr><td>";
+	//fillString = fillString+JSON.stringify(friends);
+	//fillString = fillString+"</td></tr>"
 	for(var i=0; i<friends.length; i++) {
-		fillString += "<div class='row'>";
+		fillString += "<tr>";
+		//fillString += friends[i].name + "</td><td>";
 		if(friends[i].status === 1)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<td><h3><span class=\"label label-success\">"+friends[i].name+"</span></h3></td>";
 		else if(friends[i].status === 0)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<td><h3><span class=\"label label-warning\">"+friends[i].name+"</span></h3></td>";
 		else
-			fillString += "<div class='col-cs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
-		fillString +="<div class='col-xs-7 col-sm-5 col-md-4 col-lg-4'><h4>"+ friends[i].message + "</h4></div>";
-		fillString +="</div>";
+			fillString += "<td><h3><span class=\"label label-danger\">"+friends[i].name+"</span></h3></td>";
+		fillString +="<td class=\"table_status\"><h3>"+ friends[i].message + "</h3></td></tr>";
 	}
 	friendTable.innerHTML=fillString;
 }
