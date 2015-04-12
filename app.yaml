@@ -5,6 +5,11 @@ api_version: 1
 threadsafe: no
 
 handlers:
+- url: /favicon.ico
+  mime_type: image/vnd.microsoft.icon
+  static_files: static/images/favicon.ico
+  upload: static/images/favicon.ico
+  
 - url: /js
   static_dir: static/js
 
@@ -14,7 +19,3 @@ handlers:
 - url: /.*
   script: routes.app
   login: required
-  
-- url: /favicon\.ico
-  static_files: favicon.ico
-  upload: favicon\.ico

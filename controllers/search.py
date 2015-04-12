@@ -27,7 +27,7 @@ class SearchFriends(webapp2.RequestHandler):
         if user:
             info = user_info.get_user_account()
             friends = info.friend_list
-
+            friends.sort()
             #list of all users
             all_users = user_info.query().order(user_info.email).fetch()
             #logging.info(all_users)

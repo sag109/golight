@@ -20,6 +20,7 @@ function setMainView(target) {
 function updateGroupList() {
 	requestInfo("get", "user/groups", {}, function(groups) {
 		var groupList = "<li onclick=\"setMainView(this)\" class=\"sidebar-brand group-link\">Your Friends</li>";
+		//groupList += "<li class=\"group-link\">Your Groups</li>";
 		for(var i=0; i<groups.length; i++) {
 			var cur = groups[i];
 			groupList += "<li onclick=\"setMainView(this)\" class=\"sidebar-brand group-link\">"+ cur.name +"</li>";
@@ -84,13 +85,13 @@ var friendTable = document.getElementById("status_list");
 	for(var i=0; i<members.length; i++) {
 		fillString += "<tr>";
 		//fillString += friends[i].name + "</td><td>";
-		console.log('members[i].name is '+members[i].name);
+		//console.log('members[i].name is '+members[i].name);
 		if(members[i].status === 1)
-			fillString += "<td><h3><span class=\"label label-success\">"+members[i].name+"</span></h3></td>";
+			fillString += "<td><h3><span class=\"label label-success\">"+members[i].email+"</span></h3></td>";
 		else if(members[i].status === 0)
-			fillString += "<td><h3><span class=\"label label-warning\">"+members[i].name+"</span></h3></td>";
+			fillString += "<td><h3><span class=\"label label-warning\">"+members[i].email+"</span></h3></td>";
 		else
-			fillString += "<td><h3><span class=\"label label-danger\">"+members[i].name+"</span></h3></td>";
+			fillString += "<td><h3><span class=\"label label-danger\">"+members[i].email+"</span></h3></td>";
 		fillString +="<td class=\"table_status\"><h3>"+ members[i].blurb + "</h3></td></tr>";
 	}
 	friendTable.innerHTML=fillString;
