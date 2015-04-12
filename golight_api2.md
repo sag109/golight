@@ -25,6 +25,9 @@ All requests and responses in JSON format. Prefix all URI with /api2/.
     * name: a nonempty name, max 20 chars, to set yourself as.
 
 ## Friend Management
+* __GET__ /friends/requests/KEY
+  * Gets a dict of the friend requests with messages.
+
 * __DELETE__ /friends/KEY
   * Removes this person from the user's friends list.
   

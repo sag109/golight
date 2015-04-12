@@ -131,6 +131,9 @@ class user_info(ndb.Model):
         if not friend_user in self.friend_list:
             raise Exception('Friend to delete not in friends list.')
         self.friend_list.remove(friend_user)
+        friend = friend_user.get()
+        friend.friend_list.remove(self.key)
+        friend.key.put()
         self.key.put()
 
     def add_friend_request(self, request_user, message):
