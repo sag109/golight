@@ -54,23 +54,22 @@
         <!-- /#sidebar-wrapper -->
         <!-- Page Content -->
         <div id="page-content-wrapper">
-            <div id ="search">
-                <div class="row">
-                  <div class="col-lg-6 col-lg-offset-3">
-                    <div class="input-group">
-                      <input type="text" class="form-control" aria-label="...">
-                      <div class="input-group-btn">
-                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Search <span class="caret"></span></button>
-                        <ul class="dropdown-menu dropdown-menu-right" role="menu">
-                          <li><a onclick="getResult(0);" >Search for Friends</a></li>                          
-                          <li class="divider"></li>
-                          <li><a onclick="getResult(1);" >Search for Groups</a></li>
-                        </ul>
-                      </div><!-- /btn-group -->
-                    </div><!-- /input-group -->
-                  </div><!-- /.col-lg-6 -->
-                </div><!-- /.row -->
+
+            
+              <div id ="search">
+               <div class="row">
+  <div class="col-lg-6 col-lg-offset-3">
+    <div class="input-group">
+      <input type="text" onkeyUp="listAll();" class="form-control" id="searchText" placeholder="Start typing to search for users or groups">
+      <span class="input-group-btn">
+        <button onclick="listAll();" class="btn btn-default" type="button">List All</button>
+      </span>
+    </div><!-- /input-group -->
+  </div><!-- /.col-lg-6 -->
+</div><!-- /.row -->
+                <br>
                 <div id ="searchResults">
+                
 
                 </div><!--to be filled with the search results!-->
             </div>

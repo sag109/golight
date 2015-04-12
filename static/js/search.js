@@ -1,62 +1,117 @@
-function getResult(searched){
-        console.log("sfakdhfjkekaewfjaerjio");
-        var endpoint = "";
-        if(searched == 0)
-        {
-            endpoint = "/search/friends";
-            /*var toFill = requestInfo("get", "search/friends","",function(users){
-                console.log("plz do something");
-                fill(users);//calls function to fill page with friends
-            })*/
-        }
-        else
-        {
-            endpoint = "/search/groups"
-           /* var toFill = requestInfo("get", "search/groups","",function(groups){
-                fill(groups);//calls function to fill page with groups
-            })*/
-        }  
+var allNonFriendUsers;
+var allGroups;
 
+$(document).ready(function() {
+    //get friends
+    getFriends();
+    //get groups
+    getGroups();
+    //storeeee
+});
+
+function listAll(){
+    var resultsElement = document.getElementById("searchResults");
+    var fillFromFriends =fill();
+    var fillFromGroup = fillGroups();
+    resultsElement.innerHTML = "<div class=\"col-lg-10 col-lg-offset-1\">"+
+                    "<div class=\"panel panel-default\">"+
+                      "<!-- Default panel contents -->"+
+                        "<div class=\"panel-heading\">Friends</div>"+
+
+                      "<!-- Table -->"+
+                            "<table class=\"table\">"+
+                                fillFromFriends+
+                            "</table>"+
+                    "</div><br>"+
+                "</div><div class=\"col-lg-10 col-lg-offset-1\">"+
+                    "<div class=\"panel panel-default\">"+
+                      "<!-- Default panel contents -->"+
+                        "<div class=\"panel-heading\">Groups</div>"+
+
+                      "<!-- Table -->"+
+                            "<table class=\"table\">"+
+                                fillFromGroup+
+                            "</table>"+
+                    "</div>"+
+                "</div>";
+    
+}
+function getFriends(){
         var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
       if (xmlHttp.readyState == 4) {
-        console.log("recieved");
-        console.log(JSON.parse(xmlHttp.responseText));
-        if(searched ==0)
-            fill(JSON.parse(xmlHttp.responseText));
-        else
-            fillGroups(JSON.parse(xmlHttp.responseText));
+            allNonFriendUsers = JSON.parse(xmlHttp.responseText);
       }
     }
     
-    xmlHttp.open("GET", endpoint, true); // true is for async communication
+    xmlHttp.open("GET", "/search/friends", true); // true is for async communication
+    xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+    xmlHttp.send(); 
+    console.log("getFriends");     
+
+}
+
+function getGroups(){
+        var xmlHttp = new XMLHttpRequest();
+    xmlHttp.onreadystatechange = function() {
+      if (xmlHttp.readyState == 4) {
+            allGroups = JSON.parse(xmlHttp.responseText);
+      }
+    }
+    
+    xmlHttp.open("GET", "/search/groups", true); // true is for async communication
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlHttp.send();      
-    console.log("sent");
+    console.log("getGroups");
 
 }
-function fill(info){
+function fill(){
     var resultsElement = document.getElementById("searchResults");
+    var searchText = document.getElementById("searchText").value;
+    var noText = false;
+    if(!searchText)
+        noText = true;
+    else
+        searchText = searchText.toLowerCase()
 
-    var fillString = "<ul>";
-    for(var i=0; i<info.length; i++){
-        fillString += "<li>"+info[i].email+"</li>";//should only be one type of data        
-        console.log("on "+ info[i].email);
+    var fillString="";
+    for(var i=0; i<allNonFriendUsers.length; i++){
+        //console.log(info[i].email.indexOf());
+        var email = allNonFriendUsers[i].email.toLowerCase();
+        var name = allNonFriendUsers[i].name.toLowerCase();
+        //console.log("email is "+email);
+        //console.log("name is "+name);
+        //console.log("searchText is "+searchText);
+        if((email.indexOf(searchText)>-1) || (name.indexOf(searchText)>-1)|| noText)
+        {
+            fillString += "<tr><td><span class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></span>&nbsp&nbsp"+allNonFriendUsers[i].name+"</td></tr>";//should only be one type of data        
+            //console.log("on "+ info[i].email);
+        }
     }
-    fillString+= "</ul>";
-    console.log("why no work? "+ fillString);
-    resultsElement.innerHTML = fillString;
+    //fillString+= "</ul>";
+    return fillString;
+    //console.log("why no work? "+ fillString);
+    //resultsElement.innerHTML = fillString;
 }
 
-function fillGroups(info){
+function fillGroups(){
     var resultsElement = document.getElementById("searchResults");
-
-    var fillString = "<ul>";
-    for(var i=0; i<info.length; i++){
-        fillString += "<li>"+info[i].name+"&nbsp&nbsp&nbsp&nbsp&nbsp"+info[i].blurb+"</li>";//should only be one type of data        
+    var searchText = document.getElementById("searchText").value;
+    var noText = false;
+    if(!searchText)
+        noText = true;
+    else
+        searchText = searchText.toLowerCase();
+    var fillString = "";
+    for(var i=0; i<allGroups.length; i++){
+        if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
+        {
+            fillString += "<tr><td><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp"+allGroups[i].name+"</td><td>"+allGroups[i].blurb+"</td></tr>";//should only be one type of data        
+        }
         //console.log("on "+ info[i].email);
     }
-    fillString+= "</ul>";
-    console.log("why no work? "+ fillString);
-    resultsElement.innerHTML = fillString;
+    //fillString+= "</ul>";
+    return fillString;
+    //console.log("why no work? "+ fillString);
+    //resultsElement.innerHTML = fillString;
 }

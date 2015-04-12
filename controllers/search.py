@@ -40,11 +40,11 @@ class SearchFriends(webapp2.RequestHandler):
                         in_counter += 1
                     else:
                         logging.info("adding a non-friend "+ a_user.email)
-                        result.append({"email": a_user.email})
+                        result.append({"name":a_user.name,"email": a_user.email})
                         #add friend to list
                 else:
                     logging.info("adding a non-friend "+ a_user.email)
-                    result.append({"email": a_user.email})
+                    result.append({"name":a_user.name,"email": a_user.email})
                      #at end of friend_list
 
             self.response.out.write(json.dumps(result))
