@@ -103,6 +103,6 @@ class GroupMembers(ndb.Model):
         now = datetime.now()
         new_member.last_update_day = now.isoweekday() % 7
         new_member.last_update_day = now.hour
-        new_member.put()
+        new_member.key.put()
         user.group_member_keys.append(new_member.key)
         user.key.put()

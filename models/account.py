@@ -50,9 +50,11 @@ class user_info(ndb.Model):
         if not 0 <= hour <= 23:
             raise Exception('Invalid hour value.')
         self.schedule[day][hour] = status
+        self.key.put()
 
     def clear_schedule(self):
         self.schedule = [[-2 for _ in range(24)] for _ in range(7)]
+        self.key.put()
 
     def clear_schedule_at(self, day, hour):
         assert isinstance(day, int)
@@ -62,6 +64,7 @@ class user_info(ndb.Model):
         if not 0 <= hour <= 23:
             raise Exception('Invalid hour value.')
         self.schedule[day][hour] = -2
+        self.key.put()
 
     def status_at(self, day, hour):
         assert isinstance(day, int)
@@ -91,12 +94,14 @@ class user_info(ndb.Model):
         now = datetime.now()
         self.last_update_day = now.isoweekday() % 7
         self.last_update_hour = now.hour
+        self.key.put()
 
     def update_blurb(self, blurb):
         assert isinstance(blurb, str)
         if not 0 <= len(blurb) <= 50:
             raise Exception('Invalid blurb length. Must be between 1 and 50 chars.')
         self.message = blurb
+        self.key.put()
 
     def update_name(self, name):
         assert isinstance(name, str)
@@ -105,6 +110,7 @@ class user_info(ndb.Model):
         if not 0 < len(name) <= 21:
             raise Exception('Invalid name length. Must be between 1 and 20 chars.')
         self.name = name
+        self.key.put()
 
 
     def add_friend(self, friend_user):
@@ -116,6 +122,7 @@ class user_info(ndb.Model):
         if friend_user in self.friend_requests:
             self.friend_list.append(friend_user)
             self.remove_friend_request(friend_user)
+        self.key.put()
 
     def delete_friend(self, friend_user):
         assert isinstance(friend_user, ndb.Key)
@@ -124,6 +131,7 @@ class user_info(ndb.Model):
         if not friend_user in self.friend_list:
             raise Exception('Friend to delete not in friends list.')
         self.friend_list.remove(friend_user)
+        self.key.put()
 
     def add_friend_request(self, request_user, message):
         assert isinstance(request_user, ndb.key)
@@ -131,12 +139,14 @@ class user_info(ndb.Model):
         if request_user in self.friend_requests:
             raise Exception('Pending request exists.')
         self.friend_requests[request_user] = message
+        self.key.put()
 
     def remove_friend_request(self, request_user):
         assert(isinstance(request_user, ndb.Key))
         if not request_user in self.friend_requests:
             raise Exception('No request from this person to delete.')
         del self.friend_requests[request_user]
+        self.key.put()
 
     @staticmethod
     def get_user_account():
