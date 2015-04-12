@@ -1,6 +1,14 @@
+var statusValue=-1;
+
+function setStatusValue(val){
+    statusValue=val;
+    console.log("statusValue is "+statusValue);
+}
 function joinGroup() {
     var name = document.getElementById("join_group_name").value;
-    var status = document.getElementById("join_status").value;
+    //var status = document.getElementById("join_status").value;
+    var status = statusValue;
+    console.log("status is "+status);
     var blurb = document.getElementById("join_blurb").value;
     
     var info = {"groupName":name,"status":status,"blurb":blurb};
