@@ -84,17 +84,33 @@
     background: rgba(255,255,255,0.2);
 }
 
+.group_name {
+    display: block;
+    text-decoration: none;
+    color: #999999;
+}
+.group_name:hover {
+    cursor:pointer;
+    text-decoration: none;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
+
 .sidebar-nav li a:active,
 .sidebar-nav li a:focus {
     text-decoration: none;
 }
 
 .sidebar-nav > .sidebar-brand {
-    height: 65px;
+    height: 40px;  /* this line */
     font-size: 18px;
-    line-height: 60px;
+    line-height: 50px;
 }
-
+.sidebar-nav > .sidebar-brand:hover {
+    cursor:pointer;
+    color: #fff;
+    background: rgba(255,255,255,0.2);
+}
 .sidebar-nav > .sidebar-brand a {
     color: #999999;
 }
