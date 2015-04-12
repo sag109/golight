@@ -1,5 +1,11 @@
 $(document).ready(function() {
     showPage();
+    $('#user_blurb').keypress(function(e){
+      if(e.keyCode==13){
+        $
+        $('#set_blurb').click();
+      } 
+    });
 });
 
 function showPage(){
@@ -11,7 +17,7 @@ function showPage(){
     else {
        var userInfo = requestInfo('get','group/user', {'groupName':mainView}, function(userInfo){
             showStatus(userInfo.status,userInfo.blurb);
-        }); 
+        });
     }
 }
 
@@ -30,7 +36,7 @@ function setGlobalStatus(st,bl) {
         //console.log("success: "+userInfo.success);
         //console.log("error : "+userInfo.error);
         $('#user_blurb').attr('placeholder', bl);
-        $('#user_blurb').html('');
+        $('#user_blurb').val('');
     });
 }
 
@@ -42,7 +48,7 @@ function setGroupStatus(st,bl) {
         //console.log("success: "+userInfo.success);
         //console.log("error : "+userInfo.error);
         $('#user_blurb').attr('placeholder', bl);
-        $('#user_blurb').html('');
+        $('#user_blurb').val('');
     });
 }
 
