@@ -42,18 +42,45 @@
   			</div>
 		</nav>
 		
-		
-            <h1>Add a friend:</h1>
-            <br>
-            <input type ="text" id="new_friend">
-            <input type= "submit" value= "Add Friend" onclick="addFriend()">
-
-            <h1>Remove a friend:</h1>
-            <br>
-            <input type ="text" id="old_friend">
-            <input type= "submit" value= "Remove Friend" onclick="removeFriend()">
-
-        <br>
+	<div class="row">	
+        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h4> Add a friend: </h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			Input the email of the friend you'd like to add.
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+			<input type ="text" id="new_friend">
+		</div>
+		<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+			<input type= "submit" value= "Add Friend" onclick="addFriend()">
+		</div>
+	</div>
+	<br>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			<h4> Remove a friend: </h4>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+			Input the email for the friend you'd like to remove.
+		</div>
+	</div>
+	<br>
+	<div class="row">
+        	<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+			<input type ="text" id="old_friend">
+		</div>
+        	<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+			<input type= "submit" value= "Remove Friend" onclick="removeFriend()">
+		</div>
+	</div>
         <h1 id="message"></h1>
 	</body>
 </html>
