@@ -9,10 +9,10 @@ class user_info(ndb.Model):
     email = ndb.StringProperty()
     friend_list = ndb.StringProperty(repeated=True)
     status = ndb.IntegerProperty()
-    availability = ndb.StringProperty()
     message = ndb.StringProperty()
     group_keys = ndb.KeyProperty(repeated=True)
-    
+    schedule = ndb.JsonProperty()
+
     @staticmethod
     def get_by_email(email):
         account_query = user_info.query(user_info.email == email)
