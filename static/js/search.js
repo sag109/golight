@@ -107,9 +107,9 @@ function fillGroups(){
     for(var i=0; i<allGroups.length; i++){
         if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
         {
-            fillString += "<tr><td><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
-            fillString += "<span id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td>"+allGroups[i].blurb;
-            fillString += "</td><td id=\""+allGroups[i].name+"\"></td></tr>";//should only be one type of data        
+            fillString += "<tr class=\"row\"><td class=\"col-lg-3\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
+            fillString += "<span id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
+            fillString += "</td><td class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></td></tr>";//should only be one type of data        
         }
         //console.log("on "+ info[i].email);
     }
@@ -123,9 +123,14 @@ function joinGroupBar(groupElement){
 
     var groupName = groupElement.innerHTML;
     var joinElement = document.getElementById(groupName);
-    globalGroupName = groupName;
-    var barText = "<span class=\"col-lg-6\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb\" class=\"form-control\" placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\"><span class=\"input-group-btn\"><button onclick=\"joinGroupWithBlurb(&quot "+groupName+"&quot);\" class=\"btn btn-default\" type=\"button\">Join</button></span></span></span>"
+    //globalGroupName = groupName;
+    for(var i = 0; i<allGroups.length; i++)
+    {
+        document.getElementById(allGroups[i].name).innerHTML= "";
+    }
+    var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb\" class=\"form-control\" placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\"><span class=\"input-group-btn\"><button onclick=\"joinGroupWithBlurb(&quot "+groupName+"&quot);\" class=\"btn btn-default\" type=\"button\">Join</button></span></span></span>"
     joinElement.innerHTML =barText;
+
     console.log(barText);
 }
 
@@ -142,11 +147,18 @@ function joinGroupWithBlurb(groupName){
         var createGroup = requestInfo('post','group/user',info, function(response) {
             if(response.success === false){
                 //document.getElementById('message').innerHTML = response.error;
-                console.log(response.error);
+                
+                var neat = document.getElementById(name);
+                
+                neat.innerHTML = response.error;
             }
             else
             {
                 console.log("successfullll");
+
+                var neat = document.getElementById(name);
+                
+                neat.innerHTML = "Joined";
                 // document.getElementById('message').innerHTML = "You joined the group!";
             }
             
