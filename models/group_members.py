@@ -105,4 +105,4 @@ class GroupMembers(ndb.Model):
         new_member.last_update_day = now.hour
         new_member.put()
         user.group_member_keys.append(new_member.key)
-        user.put()
+        user.key.put()

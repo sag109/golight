@@ -121,7 +121,7 @@ class user_info(ndb.Model):
         assert isinstance(friend_user, ndb.Key)
         if not friend_user:
             raise Exception('No friend specified for deletion.')
-        if not friend_  user in self.friend_list:
+        if not friend_user in self.friend_list:
             raise Exception('Friend to delete not in friends list.')
         self.friend_list.remove(friend_user)
 
