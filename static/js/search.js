@@ -14,7 +14,7 @@ function listAll(){
     var resultsElement = document.getElementById("searchResults");
     var fillFromFriends =fill();
     var fillFromGroup = fillGroups();
-    resultsElement.innerHTML = "<div class=\"col-lg-10 col-lg-offset-1\">"+
+    resultsElement.innerHTML = "<div class=\"col-lg-6\">"+
                     "<div class=\"panel panel-default\">"+
                       "<!-- Default panel contents -->"+
                         "<div class=\"panel-heading\">Friends</div>"+
@@ -24,7 +24,7 @@ function listAll(){
                                 fillFromFriends+
                             "</table>"+
                     "</div><br>"+
-                "</div><div class=\"col-lg-10 col-lg-offset-1\">"+
+                "</div><div class=\"col-lg-6\">"+
                     "<div class=\"panel panel-default\">"+
                       "<!-- Default panel contents -->"+
                         "<div class=\"panel-heading\">Groups- click a group to join</div>"+
@@ -67,6 +67,7 @@ function getGroups(){
 
 }
 function fill(){
+    var count=0;
     var resultsElement = document.getElementById("searchResults");
     var searchText = document.getElementById("searchText").value;
     var noText = false;
@@ -83,8 +84,13 @@ function fill(){
         //console.log("email is "+email);
         //console.log("name is "+name);
         //console.log("searchText is "+searchText);
+        if(count>10)
+        {
+            break;
+        }
         if((email.indexOf(searchText)>-1) || (name.indexOf(searchText)>-1)|| noText)
         {
+            count++;
             fillString += "<tr><td><span class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></span>&nbsp&nbsp"+allNonFriendUsers[i].name+"</td></tr>";//should only be one type of data        
             //console.log("on "+ info[i].email);
         }
@@ -96,6 +102,7 @@ function fill(){
 }
 
 function fillGroups(){
+    var count = 0;
     var resultsElement = document.getElementById("searchResults");
     var searchText = document.getElementById("searchText").value;
     var noText = false;
@@ -104,9 +111,15 @@ function fillGroups(){
     else
         searchText = searchText.toLowerCase();
     var fillString = "";
+    
     for(var i=0; i<allGroups.length; i++){
+        if(count>10)
+        {
+            break;
+        }
         if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
         {
+            count++;
             fillString += "<tr class=\"row\"><td class=\"col-lg-3\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
             fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
             fillString += "</td><td class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></td></tr>";//should only be one type of data        
@@ -121,12 +134,28 @@ function fillGroups(){
 
 function joinGroupBar(groupElement){
 
+    var count =0;
     var groupName = groupElement.innerHTML;
     var joinElement = document.getElementById(groupName);
     //globalGroupName = groupName;
+    var searchText = document.getElementById("searchText").value;
+    var noText = false;
+    if(!searchText)
+        noText = true;
+    else
+        searchText = searchText.toLowerCase();
+    
     for(var i = 0; i<allGroups.length; i++)
     {
-        document.getElementById(allGroups[i].name).innerHTML= "";
+        if(count>10)
+        {
+            break;
+        }
+        if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
+            {
+                document.getElementById(allGroups[i].name).innerHTML= "";
+                count++;
+            }
     }
     var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb\" class=\"form-control\" placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\"><span class=\"input-group-btn\"><button onclick=\"joinGroupWithBlurb(&quot "+groupName+"&quot);\" class=\"btn btn-default\" type=\"button\">Join</button></span></span></span>"
     joinElement.innerHTML =barText;
