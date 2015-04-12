@@ -60,7 +60,7 @@ class Group(ndb.Model):
                 raise Exception('This is a private group. An admin must invite you.')
         new_member = GroupMembers.new(self, cur_user, False)
         new_member.put()
-        self.put()
+        self.key.put()
 
     def update_name(self, name):
         assert isinstance(name, str)
@@ -70,7 +70,7 @@ class Group(ndb.Model):
         if not 0 < len(name) <= 20:
             raise Exception('Invalid name length.')
         self.name = name
-        self.put()
+        self.key.put()
 
     def update_blurb(self, blurb):
         assert isinstance(blurb, str)
@@ -80,7 +80,7 @@ class Group(ndb.Model):
         if not 0 <= len(blurb) <= 50:
             raise Exception('Blurb length must be between 0 and 50 chars.')
         self.blurb = blurb
-        self.put()
+        self.key.put()
 
     def add_admin(self, user_key):
         assert isinstance(user_key, ndb.Key)
@@ -95,7 +95,7 @@ class Group(ndb.Model):
                 member = member_key.get()
                 member.set_admin()
                 member.put()
-                self.put()
+                self.key.put()
                 return
         raise Exception('This person is not an admin for this group.')
 
@@ -115,7 +115,7 @@ class Group(ndb.Model):
                 member.admin = False
                 member.put()
                 self.admins.remove(user_key)
-                self.put()
+                self.key.put()
                 return
         raise Exception('Internal data inconsistency in group.delete_admin!')
 

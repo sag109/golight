@@ -23,13 +23,13 @@ class user_info(ndb.Model):
     #from the group to the group's description
     group_invites = ndb.JsonProperty()
 
-    #-1, 0, or 1, being unavailable, tentative, or available respectively
+    # -1, 0, or 1, being unavailable, tentative, or available respectively
     status = ndb.IntegerProperty()
 
-    #the user's status message, between 1 and 50 chars (inclusive)
+    # the user's status message, between 1 and 50 chars (inclusive)
     message = ndb.StringProperty()
 
-    #a list of the groups the user is in
+    # a list of the groups the user is in
     group_member_keys = ndb.KeyProperty(repeated=True)
 
     #a list of lists, with the first int being day of week (0-6) and second being hour (0-23)
@@ -49,7 +49,7 @@ class user_info(ndb.Model):
             raise Exception('Invalid day value.')
         if not 0 <= hour <= 23:
             raise Exception('Invalid hour value.')
-        self.schedule[(day - 1)%7, hour] = status
+        self.schedule[day][hour] = status
 
     def clear_schedule(self):
         self.schedule = [[-2 for _ in range(24)] for _ in range(7)]
@@ -88,8 +88,9 @@ class user_info(ndb.Model):
         if not -2 < status < 2:
             raise Exception('Invalid status value.')
         self.status = status
-        self.last_update_day = (datetime.weekday() + 1) % 7
-        self.last_update_hour = datetime.datetime.now().hour
+        now = datetime.now()
+        self.last_update_day = now.isoweekday() % 7
+        self.last_update_hour = now.hour
 
     def update_blurb(self, blurb):
         assert isinstance(blurb, str)
@@ -120,7 +121,7 @@ class user_info(ndb.Model):
         assert isinstance(friend_user, ndb.Key)
         if not friend_user:
             raise Exception('No friend specified for deletion.')
-        if not friend_user in self.friend_list:
+        if not friend_  user in self.friend_list:
             raise Exception('Friend to delete not in friends list.')
         self.friend_list.remove(friend_user)
 
