@@ -103,6 +103,7 @@ class user_info(ndb.Model):
             raise Exception('Invalid name length. Must be between 1 and 20 chars.')
         self.name = name
 
+
     def add_friend(self, friend_user):
         assert(isinstance(friend_user, ndb.Key))
         if not friend_user:

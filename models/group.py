@@ -6,10 +6,17 @@ from models.group_members import GroupMembers
 from models.account import user_info
 
 class Group(ndb.Model):
+    #the name of the group
     name = ndb.StringProperty()
+
+    #the list of the members of the group
     members = ndb.KeyProperty(repeated=True)
+
+    #the group's description
     blurb = ndb.StringProperty()
-    admin_email = ndb.StringProperty()
+
+    #the group's admins
+    admins = ndb.KeyProperty()
     
     @staticmethod
     def get_by_name(name):
