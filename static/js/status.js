@@ -2,23 +2,22 @@ $(document).ready(function() {
     showPage();
     $('#user_blurb').keypress(function(e){
       if(e.keyCode==13){
-        $
         $('#set_blurb').click();
       } 
     });
 });
 
 function showPage(){
-    if(mainView === 'Your Friends'){
         var userInfo = requestInfo('get','user', {}, function(userInfo){
             showStatus(userInfo.status,userInfo.blurb);
         });
-    }
+/*
     else {
        var userInfo = requestInfo('get','group/user', {'groupName':mainView}, function(userInfo){
             showStatus(userInfo.status,userInfo.blurb);
         });
     }
+    */
 }
 
 function showStatus(st,bl){
@@ -37,6 +36,7 @@ function setGlobalStatus(st,bl) {
         //console.log("error : "+userInfo.error);
         $('#user_blurb').attr('placeholder', bl);
         $('#user_blurb').val('');
+        showStatus(st,bl);
     });
 }
 
@@ -71,20 +71,21 @@ function changeBlurb(){
     var st = getStatus();
     //console.log("blurb to set is "+blurb);
 
-    if(mainView === 'Your Friends')
-        setGlobalStatus(st,blurb);
+    
+        setGlobalStatus(st,blurb); /*
     else
-        setGroupStatus(st,blurb);
+        setGroupStatus(st,blurb); */
 }
 
 function changeStatus(e) {
     var cls = e.className; //class of button -- color of status that has been selected
     $('#status_dropdown').attr('class',cls); //replace class for dropdown top button
     var st = getStatus();
+    console.log ('st is '+st);
     var blurb = $('#user_blurb').attr('placeholder');
-
-    if(mainView === 'Your Friends')
         setGlobalStatus(st,blurb);
+        /*
     else
         setGroupStatus(st,blurb); 
+    */
 }

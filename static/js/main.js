@@ -3,6 +3,7 @@ var updateProcedure;
 
 
 $(document).ready(function() {
+	//setInterval(fillWithFriends(), 3000);
 	fillWithFriends();
 });
 
@@ -59,6 +60,7 @@ function fillWithFriends(){
 
 }
 function fillFriends(friends){
+	console.log('filling with friends');
 	var friendTable = document.getElementById("myfriendspb");
 	var fillString= getStatusBar();
 	for(var i=0; i<friends.length; i++) {
