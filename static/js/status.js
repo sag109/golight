@@ -1,10 +1,3 @@
-$(document).ready(function() {
-    $('#user_blurb').keypress(function(e){
-      if(e.keyCode==13){
-        $('#set_blurb').click();
-      } 
-    });
-});
 function showPage(gname){
     if(gname === 'friend'){
         var userInfo = requestInfo('get','user', {}, function(userInfo){
