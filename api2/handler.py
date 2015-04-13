@@ -8,7 +8,7 @@ def json_reply(function):
         response = json.dumps({
             'error': e.message
         })
-        logging.error(e.message + e.args)
+        logging.error(e.message)
     return response
 
 success = {

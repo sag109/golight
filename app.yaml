@@ -11,6 +11,9 @@ handlers:
 - url: /css
   static_dir: static/css
 
+- url: /static
+  static_dir: static
+
 - url: /api2/.*
   script: api.app
   login: required
