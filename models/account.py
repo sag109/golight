@@ -156,11 +156,16 @@ class user_info(ndb.Model):
         self.key.put()
 
     @staticmethod
+    def get_by_email(email):
+        return user_info.query(user_info.email == email).get()
+
+    @staticmethod
     def get_user_account():
         user = users.get_current_user()
         account = user_info.get_by_email(user.email())
         if not account:
             account = user_info(email=user.email(), name=user.nickname())
+            account.userid = user.id
             account.update_status(0)
             account.user = user
             account.add_friend(account.key)
