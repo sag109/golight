@@ -53,6 +53,67 @@ class MemberList(webapp2.RequestHandler):
             })
         return info
 
+class GroupDescription(webapp2.RequestHandler):
+    def put(self, group_key):
+        self.group_key = group_key
+        response = handler.json_reply(self.put_desc)
+        self.response.out.write(response)
+
+    def put_desc(self):
+        data = json.loads(self.request.body)
+        group_key = ndb.Key(urlsafe=self.group_key)
+        group = group_key.get()
+        group.update_blurb(data['blurb'])
+        return handler.success
+
+class Admins(webapp2.RequestHandler):
+    def post(self, group_key, user_key):
+        self.user_key = user_key
+        self.group_key = group_key
+        response = handler.json_reply(self.post_admin)
+        self.response.out.write(response)
+
+    def delete(self, group_key, user_key):
+        self.group_key = group_key
+        self.user_key = user_key
+        response = handler.json_reply(self.del_admin)
+        self.response.out.write(response)
+
+    def del_admin(self):
+        group_key = ndb.Key(urlsafe=self.group_key)
+        user_key = ndb.Key(urlsafe=self.group_key)
+        group = group_key.get()
+        group.delete_admin(user_key)
+        return handler.success
+
+    def post_admin(self):
+        user_key = ndb.Key(urlsafe=self.user_key)
+        group_key = ndb.Key(urlsafe=self.group_key)
+        group = group_key.get()
+        group.add_admin(user_key)
+        return handler.success
+
+class AdminList(webapp2.RequestHandler):
+    def get(self, group_key):
+        self.group_key = group_key
+        response = handler.json_reply(self.get_admins)
+        self.response.out.write(response)
+
+    def get_admins(self):
+        group_key = ndb.Key(urlsafe=self.group_key)
+        group = group_key.get()
+        def admin_info(admin_key):
+            admin_user = admin_key.get()
+            for key in admin_user.group_member_keys():
+                if key in group.members:
+                    member_key = key
+            member = member_key.get()
+            return {
+                'name': member.name,
+                'key': member_key,
+            }
+        return map(admin_info, group.admins)
+
 class GroupStatus(webapp2.RequestHandler):
     def put(self, group_key):
         self.group_key = group_key

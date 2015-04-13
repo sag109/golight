@@ -49,6 +49,13 @@ All requests and responses in JSON format. Prefix all URI with /api2/.
 * __GET__ /groups
   * Gets a list of the groups the user is in.
 
+* __POST__ /groups
+  * Make a new group, with the user as the admin.
+  * Params:
+    * name: (Required) A nonempty name of the group, less than 20 chars.
+    * description: A description for the group, less than 50 chars.
+    * public: A boolean, should the group be publicly joinable? Presumed false.
+
 * __GET__ /groups/KEY/members
   * Gets a list of the members of a group, and a table of their availabilities for the group.
 
@@ -61,17 +68,10 @@ All requests and responses in JSON format. Prefix all URI with /api2/.
     * time: an object with two fields, day (an int 0-6, 0 being Sunday) and hour (an int 0-23) representing the time 
     which your request is for. If empty, the time returned is now.
 
-* __POST__ /groups
-  * Make a new group, with the user as the admin.
-  * Params:
-    * name: (Required) A nonempty name of the group, less than 20 chars.
-    * description: A description for the group, less than 50 chars.
-    * public: A boolean, should the group be publicly joinable? Presumed false.
-
 * __PUT__ /groups/KEY/description
   * Update the description for a group. Can only be done by an admin.
   * Params:
-    * description: What to set the description to.
+    * blurb: What to set the description to.
 
 * __GET__ /groups/KEY/admins
   * Returns a list of the admins for the groups.
