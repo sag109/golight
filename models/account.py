@@ -175,8 +175,8 @@ class user_info(ndb.Model):
             account = user_info(email=user.email(), name=user.nickname())
             account.update_status(0)
             account.user = user
-            account.add_friend(account.key)
             account.schedule = [[-2 for _ in range(24)] for _ in range(7)]
+            account.friend_list = []
             account.message = "I'm new here!"
             account.friend_requests = {}
             account.group_invites = {}

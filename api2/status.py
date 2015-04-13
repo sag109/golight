@@ -15,15 +15,25 @@ class Status(webapp2.RequestHandler):
 
     def get_status(self):
         user = user_info.get_user_account()
-        return {
-            'name': user.name,
-            'status': user.status,
-            'blurb': user.message
-        }
+        if self.request.get('day') and self.request.get('hour'):
+            return {
+                'name': user.name,
+                'blurb': user.message,
+                'status': user.status_at(int(self.request.get('day')), int(self.request.get('hour')))
+            }
+        else:
+            return {
+                'name': user.name,
+                'status': user.status,
+                'blurb': user.message
+            }
 
     def put_status(self):
         data = json.loads(self.request.body)
         user = user_info.get_user_account()
-        user.update_blurb(data['blurb'])
-        user.update_status(data['status'])
+        if 'time' in data:
+            user.schedule_status(data['status'], data['time']['day'], data['time']['hour'])
+        else:
+            user.update_blurb(str(data['blurb']))
+            user.update_status(data['status'])
         return handler.success

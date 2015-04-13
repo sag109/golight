@@ -65,7 +65,7 @@ class FriendRequests(webapp2.RequestHandler):
         user = user_info.get_user_account
         friend_key = ndb.Key(urlsafe=self.friend_key.get())
         friend = friend_key.get()
-        friend.add_friend_request(user.key, data['message'])
+        friend.friend_process(user.key, data['message'])
         return handler.success
 
     def delete_request(self):
