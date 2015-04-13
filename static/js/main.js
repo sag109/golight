@@ -4,6 +4,7 @@ var updateProcedure;
 
 $(document).ready(function() {
 	fillWithFriends();
+	updateGroupList();
 });
 
 function setMainView(target) {
@@ -13,15 +14,38 @@ function setMainView(target) {
 }
 
 function updateGroupList() {
+
 	requestInfo("get", "user/groups", {}, function(groups) {
-		var groupList = "<li onclick=\"setMainView(this)\" class=\"sidebar-brand group-link\">Your Friends</li>";
-		//groupList += "<li class=\"group-link\">Your Groups</li>";
+		var groupList = "";
 		for(var i=0; i<groups.length; i++) {
 			var cur = groups[i];
-			groupList += "<li onclick=\"setMainView(this)\" class=\"sidebar-brand group-link\">"+ cur.name +"</li>";
+			groupList += '<div class="panel panel-default">';
+				groupList += '<div class="panel-heading">';
+					groupList += '<h4 class="panel-title">';
+					groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'">';
+					groupList += cur.name;
+					groupList += '</a>';
+					groupList += '</h4>';
+				groupList += '</div>';
+				groupList += '<div id="group'+i+'" class="panel-collapse collapse">';
+					groupList += '<div class="panel-body" id="group'+i+'pb">';
+					groupList += '</div>';
+				groupList += '</div>';
+			groupList += '</div>';
 		}
-		groupList+= "<li><a href=\"/plus\"><h1>+</h1></a></li>";
-		$("#group_list").html(groupList);
+		$("#othergroups").html(groupList);
+
+		fillGroupPanels();
+	});
+}
+
+function fillGroupPanels(){
+	requestInfo("get", "user/groups", {}, function(groups) {
+		var groupList = "";
+		for(var i=0; i<groups.length; i++) {
+			var cur = groups[i];
+			fillWith("group"+i+"pb", cur.name);
+		}
 	});
 }
 
@@ -59,7 +83,7 @@ function fillWithFriends(){
 
 }
 function fillFriends(friends){
-	var friendTable = document.getElementById("myfriendspb");
+	var friendpanel = document.getElementById("myfriendspb");
 	var fillString= getStatusBar();
 	for(var i=0; i<friends.length; i++) {
 		fillString += "<div class='row'>";
@@ -68,36 +92,34 @@ function fillFriends(friends){
 		else if(friends[i].status === 0)
 			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+friends[i].name+"</span></h4></div>";
 		else
-			fillString += "<div class='col-cs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
 		fillString +="<div class='col-xs-7 col-sm-5 col-md-4 col-lg-4'><h4>"+ friends[i].message + "</h4></div>";
 		fillString +="</div>";
 	}
-	friendTable.innerHTML=fillString;
+	friendpanel.innerHTML=fillString;
 }
-function fillWith(){
-		var statuses = requestInfo("get", "group", {"groupName":mainView}, function(members){
-			fillGroup(members);
+function fillWith(groupid, groupname){
+		var str;
+		var statuses = requestInfo("get", "group", {"groupName":groupname}, function(members){
+			var grouppanel = document.getElementById(groupid);
+			grouppanel.innerHTML=fillGroup(members);
 		});
 }
 function fillGroup(members){
 
-var friendTable = document.getElementById("status_list");
-	var fillString= "<tr><td>";
-	//fillString = fillString+JSON.stringify(friends);
-	//fillString = fillString+"</td></tr>"
+	var fillString= "";
 	for(var i=0; i<members.length; i++) {
-		fillString += "<tr>";
-		//fillString += friends[i].name + "</td><td>";
-		//console.log('members[i].name is '+members[i].name);
+		fillString += "<div class='row'>";
 		if(members[i].status === 1)
-			fillString += "<td><h3><span class=\"label label-success\">"+members[i].email+"</span></h3></td>";
+			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+members[i].email+"</span></h4></div>";
 		else if(members[i].status === 0)
-			fillString += "<td><h3><span class=\"label label-warning\">"+members[i].email+"</span></h3></td>";
+			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+members[i].email+"</span></h4></div>";
 		else
-			fillString += "<td><h3><span class=\"label label-danger\">"+members[i].email+"</span></h3></td>";
-		fillString +="<td class=\"table_status\"><h3>"+ members[i].blurb + "</h3></td></tr>";
+			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+members[i].email+"</span></h4></div>";
+		fillString +="<div class='col-xs-7 col-sm-5 col-md-4 col-lg-4'><h4>"+ members[i].blurb + "</h4></div>";
+		fillString +="</div>";
 	}
-	friendTable.innerHTML=fillString;
+	return fillString;
 }
 
 function getFriends() {
