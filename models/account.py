@@ -116,6 +116,14 @@ class user_info(ndb.Model):
             member.put()
         self.put()
 
+    def friend_process(self, friend_user, message=''):
+        try:
+            self.add_friend(friend_user)
+            self.put()
+        except:
+            friend = friend_user.get()
+            friend.add_friend.request(self, message)
+            friend.put()
 
     def add_friend(self, friend_user):
         assert(isinstance(friend_user, ndb.Key))
