@@ -35,17 +35,17 @@ function updateGroupList() {
 		for(var i=0; i<groups.length; i++) {
 			var cur = groups[i];
 			groupList += '<div class="panel panel-default">';
-				groupList += '<div class="panel-heading">';
-					groupList += '<h4 class="panel-title">';
-					groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'">';
-					groupList += cur.name;
-					groupList += '</a>';
-					groupList += '</h4>';
-				groupList += '</div>';
-				groupList += '<div id="group'+i+'" class="panel-collapse collapse">';
-					groupList += '<div class="panel-body" id="group'+i+'pb">';
-					groupList += '</div>';
-				groupList += '</div>';
+			groupList += '<div class="panel-heading">';
+			groupList += '<h4 class="panel-title">';
+			groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'">';
+			groupList += cur.name;
+			groupList += '</a>';
+			groupList += '</h4>';
+			groupList += '</div>';
+			groupList += '<div id="group'+i+'" class="panel-collapse collapse">';
+			groupList += '<div class="panel-body" id="group'+i+'pb">';
+			groupList += '</div>';
+			groupList += '</div>';
 			groupList += '</div>';
 		}
 
@@ -113,7 +113,7 @@ function fillFriends(friends){
 			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+friends[i].name+"</span></h4></div>";
 		else
 			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
-		fillString +="<div class='col-xs-7 col-sm-5 col-md-4 col-lg-4'><h4>"+ friends[i].message + "</h4></div>";
+		fillString +="<div class='col-xs-12 col-sm-5 col-md-4 col-lg-4'><h4>"+ friends[i].message + "</h4></div>";
 		fillString +="</div>";
 	}
 	friendpanel.innerHTML=fillString;
@@ -122,7 +122,7 @@ function fillWith(groupid, groupname){
 		var str;
 		var statuses = requestInfo("get", "group", {"groupName":groupname}, function(members){
 			var grouppanel = document.getElementById(groupid);
-			grouppanel.innerHTML=fillGroup(members);
+			grouppanel.innerHTML= getStatusBar() + fillGroup(members);
 		});
 }
 function fillGroup(members){
@@ -136,7 +136,7 @@ function fillGroup(members){
 			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+members[i].email+"</span></h4></div>";
 		else
 			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+members[i].email+"</span></h4></div>";
-		fillString +="<div class='col-xs-7 col-sm-5 col-md-4 col-lg-4'><h4>"+ members[i].blurb + "</h4></div>";
+		fillString +="<div class='col-xs-12 col-sm-5 col-md-4 col-lg-4'><h4>"+ members[i].blurb + "</h4></div>";
 		fillString +="</div>";
 	}
 	return fillString;

@@ -14,9 +14,8 @@
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
 		
 		<!--Our code-->
-		<script src="/js/main.js"></script>
-		<script src="/js/status.js"></script>			
 		<link rel="stylesheet" type="text/css" href="/css/main.css"/>
+
 	</head>
 	<body>
 
@@ -208,7 +207,21 @@
                                         </div>
                                         <div id="collapse4" class="panel-collapse collapse">
                                                 <div class="panel-body">
-                                                        Test 4.
+							<div id ="search">
+								<div class="row">
+									<div class="col-lg-6 col-lg-offset-3">
+									<div class="input-group">
+									<input type="text" onkeyUp="listAll();" class="form-control" id="searchText" placeholder="Start typing to search for users or groups">
+									<span class="input-group-btn">
+										<button onclick="listAll();" class="btn btn-default" type="button">List All</button>
+									</span>
+									</div><!-- /input-group -->
+									</div><!-- /.col-lg-6 -->
+								</div><!-- /.row -->
+								<br>
+								<div id ="searchResults">
+								</div><!--to be filled with the search results!-->
+							</div>
                                                 </div>
                                         </div>
                                 </div>
@@ -230,9 +243,11 @@
 ======================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
-<script src="/js/profile.js"></script>
-<script src="/js/edit.js"></script>
-<script src="/js/main.js"></script>
 <script src="/js/plus.js"></script>
+<script src="/js/edit.js"></script>
+<script src="/js/profile.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script>
+
 	</body>
 </html>
