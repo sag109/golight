@@ -107,9 +107,13 @@ class user_info(ndb.Model):
         assert isinstance(name, str)
         if not name:
             raise Exception('Name not specified.')
-        if not 0 < len(name) <= 21:
+        if not 0 < len(name) <= 20:
             raise Exception('Invalid name length. Must be between 1 and 20 chars.')
         self.name = name
+        for member_key in self.group_member_keys:
+            member = member_key.get()
+            member.name = name
+            member.put()
         self.key.put()
 
 

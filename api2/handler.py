@@ -1,4 +1,5 @@
 import json
+import logging
 
 def json_reply(function):
     try:
@@ -7,6 +8,7 @@ def json_reply(function):
         response = json.dumps({
             'error': e.message
         })
+        logging.error(e.message + e.args)
     return response
 
 success = {
