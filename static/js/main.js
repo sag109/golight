@@ -3,6 +3,7 @@ var updateProcedure;
 
 
 $(document).ready(function() {
+	//setInterval(fillWithFriends(), 3000);
 	fillWithFriends();
 	updateGroupList();
 });
