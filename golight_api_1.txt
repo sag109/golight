@@ -5,11 +5,21 @@
 All responses come in JSON format. The parameters should be set in the parameters of the HTTP request.
 
 PUT /user
-	Set your status and blurb.
+	Set your status and blurb for now.
 		status: Integer value to set the status to.
 		blurb: String to set the blurb to. Maximum 50 characters.
 GET /user
-	Get your status and blurb.
+	Get your status and blurb for right now.
+
+PUT /user/schedule
+    Schedule your status and blurb.
+        status: Integer value for the status.
+        blurb: String to set the blurb to.
+        day: Day of week 0-6
+        hour: hour of day 0-23
+
+GET /user/schedule
+    User's availability at the given time.
 	
 GET /user/groups
     Get a list of the groups you are in.
