@@ -49,7 +49,7 @@ function updateGroupList() {
 
 		groupList += '</groupaccordion>';
 
-		console.log(groupList);
+		//console.log(groupList);
 		$("#groups").html(groupList);
 		fillWithFriends();
 		fillGroupPanels();
@@ -69,28 +69,33 @@ function fillGroupPanels(){
 
 function getStatusBar(groupName){
 	var str = "";
+	if( typeof groupName == 'undefined')
+		groupName = 'friend';
+	//console.log('groupName is '+groupName);
+	groupName.split(' ').join('_'); //change spaces to underscores because fuck ID naming convention
 
 	str+='<div class="row">';
 	str+='<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">';
 	str+='<div class="form-inline">';
 	str+='<div class="dropdown">';
-	str+='<button class="btn btn-default dropdown-toggle" type="button" id="status_dropdown" data-toggle="dropdown">Your Status<span class="caret"></span></button>';
-	str+='<ul class="dropdown-menu" role="menu" id="status_dropdown" aria-labelledby="menu">';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-success" id="suc" tabindex="0" onclick="changeStatus(this)">Available</a></li>';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-warning" id="war" tabindex="0" onclick="changeStatus(this)">Tentative</a></li>';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-danger"  id="dan" tabindex="0" onclick="changeStatus(this)">Busy</a></li>';
+	str+='<button class="btn btn-default dropdown-toggle" type="button" id="'+groupName+'_dropdown" data-toggle="dropdown">Your Status<span class="caret"></span></button>';
+	str+='<ul class="dropdown-menu" role="menu" id="'+groupName+'_dropdown" aria-labelledby="menu">';
+	str+='<li role="presentation"><a role="menuitem" class="btn btn-success" id="suc" tabindex="0" onclick="changeStatus(this,&quot;'+groupName+'&quot)">Available</a></li>';
+	str+='<li role="presentation"><a role="menuitem" class="btn btn-warning" id="war" tabindex="0" onclick="changeStatus(this,&quot;'+groupName+'&quot)">Tentative</a></li>';
+	str+='<li role="presentation"><a role="menuitem" class="btn btn-danger"  id="dan" tabindex="0" onclick="changeStatus(this,&quot;'+groupName+'&quot)">Busy</a></li>';
 	str+='</ul>';
 	str+='</div>';
 	str+='</div>';
 	str+='</div>';
 	str+='<div class="col-xs-5 col-sm-4 col-md-4 col-lg-2">';
-	str+='<input id="user_blurb" type="text" class="form-control" placeholder="Your blurb">';
+	str+='<input id="'+groupName+'_blurb" type="text" class="form-control" placeholder="Your blurb">';
 	str+='</div>';
 	str+='<div class="col-xs-2 col-sm-2 col-md-2 col-lg-1">';
-	str+='<button class="btn btn-default" type="button" id="set_blurb" onclick="changeBlurb()">Set blurb</button>';
+	str+='<button class="btn btn-default" type="button" id="set_'+groupName+'_blurb" onclick="changeBlurb(this,&quot;'+groupName+'&quot)">Set blurb</button>';
 	str+='</div>';
 	str+='</div>';
-
+	//console.log('calling showPage: '+groupName);
+	showPage(groupName);
 	return str;
 }
 
@@ -120,7 +125,7 @@ function fillWith(groupid, groupname){
 		var str;
 		var statuses = requestInfo("get", "group", {"groupName":groupname}, function(members){
 			var grouppanel = document.getElementById(groupid);
-			grouppanel.innerHTML= getStatusBar() + fillGroup(members);
+			grouppanel.innerHTML= getStatusBar(groupname) + fillGroup(members);
 		});
 }
 function fillGroup(members){
