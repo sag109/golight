@@ -4,7 +4,6 @@ var updateProcedure;
 
 $(document).ready(function() {
 	//setInterval(fillWithFriends(), 3000);
-	fillWithFriends();
 	updateGroupList();
 });
 
@@ -18,6 +17,21 @@ function updateGroupList() {
 
 	requestInfo("get", "user/groups", {}, function(groups) {
 		var groupList = "";
+
+		groupList += '<div class="panel-group" id="groupaccordion">';		
+
+		groupList += '<div class="panel panel-default">';
+		groupList += '<div class="panel-heading">';
+		groupList += '<h4 class="panel-title">';
+		groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#myfriends">My Friends</a>';
+		groupList += '</h4>';
+		groupList += '</div>';
+		groupList += '<div id="myfriends" class="panel-collapse collapse">';
+		groupList += '<div class="panel-body" id="myfriendspb">';
+		groupList += '</div>';
+		groupList += '</div>';
+		groupList += '</div>';
+
 		for(var i=0; i<groups.length; i++) {
 			var cur = groups[i];
 			groupList += '<div class="panel panel-default">';
@@ -34,9 +48,14 @@ function updateGroupList() {
 				groupList += '</div>';
 			groupList += '</div>';
 		}
-		$("#othergroups").html(groupList);
 
+		groupList += '</groupaccordion>';
+
+		console.log(groupList);
+		$("#groups").html(groupList);
+		fillWithFriends();
 		fillGroupPanels();
+
 	});
 }
 

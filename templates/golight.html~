@@ -212,7 +212,6 @@
                                                 </div>
                                         </div>
                                 </div>
-
 			</div>
 		</div>
 
@@ -237,8 +236,8 @@
 						</div>
 					</div>
 				</div>
-				<div id="othergroups">
-				</div>
+				<span id="othergroups">
+				</span>
 			</div>
 		</div>
 
