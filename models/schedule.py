@@ -11,6 +11,18 @@ class Schedule(ndb.Model):
     status = ndb.IntegerProperty()
     blurb = ndb.StringProperty()
 
+    def update_status(self, status, blurb):
+        if not -1 <= status <= 1:
+            raise Exception('Invalid status.')
+        if not len(blurb) <= 50:
+            raise Exception('Blurb too long')
+        self.status = status
+        self.blurb = blurb
+        now = dt.now()
+        self.last_day = now.isoweekday() % 7
+        self.last_hour = now.hour
+        self.put()
+
     def schedule_status(self, day, hour, status, blurb):
         if not 0 <= day < 7:
             raise Exception('Invalid day.')

@@ -9,3 +9,4 @@ class GroupMembers(ndb.Model):
     status = ndb.IntegerProperty()
     group_key = ndb.KeyProperty() #why do we use this here?
     name = ndb.StringProperty()
+    schedule = ndb.KeyProperty()

@@ -23,6 +23,8 @@ app = webapp2.WSGIApplication([
         ('/search/friends', 'controllers.search.SearchFriends'),
         ('/search/groups', 'controllers.search.SearchGroups'),
         ('/search', 'controllers.search.SearchPage'),
+        ('/user/schedule', 'controllers.schedule.Schedule'),
+        ('/group/user/schedule', 'controllers.schedule.GroupSchedule')
 	('/oneview', 'controllers.golight.Golight')
     ], debug=True)
 

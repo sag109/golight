@@ -20,6 +20,16 @@ PUT /user/schedule
 
 GET /user/schedule
     User's availability at the given time.
+        day: day of week 0-6
+        hour: hour of day 0-23
+
+DELETE /user/schedule
+    Clear user's schedule at this time.
+        day: day of week 0-6
+        hour: hour of day 0-23
+
+/group/user/schedule all do the same but for the group
+    
 	
 GET /user/groups
     Get a list of the groups you are in.
