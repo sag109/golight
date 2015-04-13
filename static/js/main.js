@@ -9,8 +9,6 @@ $(document).ready(function() {
 
 function setMainView(target) {
 	mainView = target.innerHTML;
-	showPage(); //added this
-	updateMainView();
 }
 
 function updateGroupList() {
@@ -23,7 +21,7 @@ function updateGroupList() {
 		groupList += '<div class="panel panel-default">';
 		groupList += '<div class="panel-heading">';
 		groupList += '<h4 class="panel-title">';
-		groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#myfriends">My Friends</a>';
+		groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#myfriends" onClick="setMainView(this)">My Friends</a>';
 		groupList += '</h4>';
 		groupList += '</div>';
 		groupList += '<div id="myfriends" class="panel-collapse collapse">';
@@ -37,7 +35,7 @@ function updateGroupList() {
 			groupList += '<div class="panel panel-default">';
 			groupList += '<div class="panel-heading">';
 			groupList += '<h4 class="panel-title">';
-			groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'">';
+			groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'" onClick="setMainView(this)">';
 			groupList += cur.name;
 			groupList += '</a>';
 			groupList += '</h4>';
@@ -69,7 +67,7 @@ function fillGroupPanels(){
 	});
 }
 
-function getStatusBar(){
+function getStatusBar(groupName){
 	var str = "";
 
 	str+='<div class="row">';

@@ -70,11 +70,10 @@ function changeBlurb(){
     var blurb = $('#user_blurb').val();
     var st = getStatus();
     //console.log("blurb to set is "+blurb);
-
-    
-        setGlobalStatus(st,blurb); /*
+    if(mainView === 'My Friends')    
+        setGlobalStatus(st,blurb);
     else
-        setGroupStatus(st,blurb); */
+        setGroupStatus(st,blurb);
 }
 
 function changeStatus(e) {
@@ -83,9 +82,8 @@ function changeStatus(e) {
     var st = getStatus();
     console.log ('st is '+st);
     var blurb = $('#user_blurb').attr('placeholder');
+    if(mainView === 'My Friends')
         setGlobalStatus(st,blurb);
-        /*
     else
         setGroupStatus(st,blurb); 
-    */
 }
