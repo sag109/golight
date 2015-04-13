@@ -25,7 +25,7 @@ class GroupMembers(ndb.Model):
         now = datetime.now()
         self.last_update_day = now.isoweekday() % 7
         self.last_update_hour = now.hour
-        self.key.put()
+        self.put()
 
     def update_status(self, status):
         assert isinstance(status, int)
@@ -34,7 +34,7 @@ class GroupMembers(ndb.Model):
         now = datetime.now()
         self.last_update_day = now.isoweekday() % 7
         self.last_update_hour = now.hour
-        self.key.put()
+        self.put()
 
 
     def status_at(self, day, hour):
@@ -59,7 +59,7 @@ class GroupMembers(ndb.Model):
 
     def clear_schedule(self):
         self.schedule = [[-2 for _ in range(24)] for _ in range(7)]
-        self.key.put()
+        self.put()
 
     def clear_schedule_at(self, day, hour):
         assert isinstance(day, int)
@@ -69,7 +69,7 @@ class GroupMembers(ndb.Model):
         if not 0 <= hour < 24:
             raise Exception('Invalid hour.')
         self.schedule[day][hour] = -2
-        self.key.put()
+        self.put()
 
     def schedule_status(self, status, day, hour):
         assert isinstance(status, int)
@@ -103,6 +103,6 @@ class GroupMembers(ndb.Model):
         now = datetime.now()
         new_member.last_update_day = now.isoweekday() % 7
         new_member.last_update_day = now.hour
-        new_member.key.put()
+        new_member.put()
         user.group_member_keys.append(new_member.key)
-        user.key.put()
+        user.put()
