@@ -1,3 +1,32 @@
+
+
+.navbar-default {
+    background-image: none;
+    background-color: #88A2AA;
+    border-color: #748891;
+}
+.navbar > .container-fluid > .navbar-header > .navbar-brand {
+    color: #020202;
+}
+
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #E4A66E;
+    color: #030027;
+}
+.panel-body {
+    background-color: #FFEAB7;
+}
+body {
+    background-color: #C0E4E8;
+}
+
+#username {
+    margin: 0px 0px 5px 30px;
+}
+
+
+
 .group-link {
 	color: #DDDDDD;
     height: 40px;  /* this line */
