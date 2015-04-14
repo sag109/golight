@@ -4,9 +4,17 @@ var updateProcedure;
 
 $(document).ready(function() {
 	//setInterval(fillWithFriends(), 3000);
+	LogoutLink();
 	updateGroupList();
+
 });
 
+//puts a logout link in the top right corner of screen
+function LogoutLink(){
+	requestInfo("get", "logout", {}, function(link) {
+		$('#logout_link').attr("href",link.url);
+	});
+}
 function setMainView(target) {
 	mainView = target.innerHTML;
 }

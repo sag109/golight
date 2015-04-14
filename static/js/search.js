@@ -27,7 +27,7 @@ function listAll(){
                 "</div><div class=\"col-lg-6\">"+
                     "<div class=\"panel panel-default\">"+
                       "<!-- Default panel contents -->"+
-                        "<div class=\"panel-heading\">Groups- click a group to join</div>"+
+                        "<div class=\"panel-heading\">Groups - click a group to join</div>"+
 
                       "<!-- Table -->"+
                             "<table class=\"table table\">"+
@@ -47,8 +47,8 @@ function getFriends(){
     
     xmlHttp.open("GET", "/search/friends", true); // true is for async communication
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlHttp.send(); 
-    console.log("getFriends");     
+    xmlHttp.send();
+    console.log("getFriends");
 
 }
 

@@ -8,7 +8,14 @@
 .navbar > .container-fluid > .navbar-header > .navbar-brand {
     color: #020202;
 }
+.navbar-right li a {
+    color: #020202;
+}
 
+
+td {
+    background-color:#FFF5DD;
+}
 .panel > .panel-heading {
     background-image: none;
     background-color: #E4A66E;
@@ -17,6 +24,13 @@
 }
 .panel-body {
     background-color: #FFEAB7;
+}
+
+.panel > .panel-heading:hover {
+    background-image: none;
+    background-color: #CCB47C;
+    color: #030027;
+    cursor: pointer;
 }
 body {
     background-color: #C0E4E8;

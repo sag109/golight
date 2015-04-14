@@ -3,8 +3,8 @@
 	<head>
 		<title>Golight</title>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-
+		<!--<meta name="viewport" content="width=device-width, initial-scale=1">  apparently disables horizontal scrolling vv-->
+		<meta name="viewport" content="width=device-width, initial-scale = 1, maximum-scale=1, user-scalable=no" />
 		
 		<!--JQuery-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -29,6 +29,9 @@
 				<div class="navbar-header">
       				<a class="navbar-brand" href="/">GoLight</a>
     			</div>
+    			<ul class="nav navbar-nav navbar-right">
+        			<li><a id="logout_link">Logout</a></li>
+        		</ul>
 			</div>
 		</nav>
 
