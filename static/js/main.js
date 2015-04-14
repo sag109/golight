@@ -19,7 +19,7 @@ function updateGroupList() {
 		groupList += '<div class="panel-group" id="groupaccordion">';		
 
 		groupList += '<div class="panel panel-default">';
-		groupList += '<div class="panel-heading">';
+		groupList += '<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#myfriends">';
 		groupList += '<h4 class="panel-title">';
 		groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#myfriends" onClick="setMainView(this)">My Friends</a>';
 		groupList += '</h4>';
@@ -33,7 +33,7 @@ function updateGroupList() {
 		for(var i=0; i<groups.length; i++) {
 			var cur = groups[i];
 			groupList += '<div class="panel panel-default">';
-			groupList += '<div class="panel-heading">';
+			groupList += '<div class="panel-heading" data-toggle="collapse" data-parent="#accordion" data-target="#group'+i+'">'; ///
 			groupList += '<h4 class="panel-title">';
 			groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'" onClick="setMainView(this)">';
 			groupList += cur.name;
