@@ -100,7 +100,7 @@ if( typeof(allNonFriendUsers) !== 'undefined') {
             count++;
             fillString += "<tr><td><span class=\"glyphicon glyphicon-user\" ";
             fillString += "aria-hidden=\"true\"></span>&nbsp&nbsp<span id='"+allNonFriendUsers[i].email+"' onclick='addSearchedFriend(this);' class=\"group-name-hover\">";
-            fillString += allNonFriendUsers[i].name+"</span></td></tr>";//should only be one type of data        
+            fillString += allNonFriendUsers[i].name+"</span><span id='"+allNonFriendUsers[i].email+"-response'></span></td></tr>";//should only be one type of data        
             
         }
     }
@@ -217,11 +217,14 @@ function addSearchedFriend(friendElement){
     var friendEmail = friendElement.id;
     var info = {"email":friendEmail};
     var putUser = requestInfo('post','friend',info, function(response) {
+        var responseElement = document.getElementById(friendEmail+"-response");
         if(response.success === false){
             //document.getElementById('message').innerHTML = response.error;
+            responseElement.innerHTML=response.error;
             console.log(response.error);
         }
         else{
+            responseElement.innerHTML="Friend added";
             console.log("successful");
             //document.getElementById('message').innerHTML = "";
         }
