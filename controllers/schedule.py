@@ -9,6 +9,23 @@ from models.account import user_info
 from models.group import Group
 from models.group_members import GroupMembers
 
+class GroupScheduleAll(webapp2.RequestHandler):
+    def get(self):
+        try:
+            day = int(self.request.get('day'))
+            hour = int(self.request.get('hour'))
+            group_name = str(self.request.get('groupName'))
+            group = Group.get_by_name(group_name)
+            def availability(member_key):
+                member = member_key.get()
+                schedule = member.schedule.get()
+                return schedule.get_status_at(day, hour)
+            data = map(availability, group.members)
+            self.response.out.write(json.dumps(data))
+        except Exception as e:
+            self.response.out.write(json.dumps(error_obj(e.message)))
+
+
 class WholeSchedule(webapp2.RequestHandler):
     def get(self):
         user = user_info.get_user_account()
@@ -76,8 +93,10 @@ class Schedule(webapp2.RequestHandler):
 
     def delete(self):
         try:
+            '''
             day = int(self.request.get('day'))
             hour = int(self.request.get('hour'))
+            '''
             user = user_info.get_user_account()
             schedule = user.schedule.get()
             schedule.clear_schedule()

@@ -25,6 +25,7 @@ app = webapp2.WSGIApplication([
         ('/search', 'controllers.search.SearchPage'),
         ('/user/schedule', 'controllers.schedule.Schedule'),
         ('/group/user/schedule', 'controllers.schedule.GroupSchedule'),
+        ('/group/schedule', 'controllers.schedule.GroupScheduleAll'),
     	('/oneview', 'controllers.golight.Golight'),
         ('/user/schedule/whole', 'controllers.schedule.WholeSchedule')
     ], debug=True)

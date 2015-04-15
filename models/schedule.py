@@ -51,7 +51,7 @@ class Schedule(ndb.Model):
         self.put()
 
     def clear_schedule(self):
-        self.schedule = [[-2 for _ in range(24)] for _ in range(7)]
+        self.schedule = [[{'status':-2, 'blurb':''} for _ in range(24)] for _ in range(7)]
         self.put()
 
     def get_current_status(self):

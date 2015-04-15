@@ -20,7 +20,7 @@ class Group(ndb.Model):
             admin_email = user.email
         )
         admin = GroupMembers.make_new(user)
-        group.admin_email = admin.email
+        group.admin_email = user.email
         group.members.append(admin.key)
         group.put()
         return group
