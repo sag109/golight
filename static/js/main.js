@@ -6,7 +6,7 @@ var currentGroup= "qxz7";
 $(document).ready(function() {
 	setInterval(function () {
     	updateGroupList();
-	}, 10000);
+	}, 20000);
 	showPage();
 	LogoutLink();
 	updateGroupList();
