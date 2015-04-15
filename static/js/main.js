@@ -22,7 +22,7 @@ function setMainView(target) {
 }
 
 function updateGroupList() {
-	
+
     	console.log('updating grouplist');
 	requestInfo("get", "user/groups", {}, function(groups) {
 		var groupList = "";
@@ -86,7 +86,7 @@ function getStatusBar(groupName){
 	groupName.split(' ').join('_'); //change spaces to underscores because fuck ID naming convention
 
 	str+='<div class="row">';
-	str+='<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">';
+	str+='<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">';
 	str+='<div class="form-inline">';
 	str+='<div class="dropdown">';
 	str+='<button class="btn btn-default dropdown-toggle" type="button" id="'+groupName+'_dropdown" data-toggle="dropdown">Your Status<span class="caret"></span></button>';
@@ -122,11 +122,11 @@ function fillFriends(friends){
 	for(var i=0; i<friends.length; i++) {
 		fillString += "<div class='row'>";
 		if(friends[i].status === 1)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+friends[i].name+"</span></h4></div>";
 		else if(friends[i].status === 0)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+friends[i].name+"</span></h4></div>";
 		else
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
 		fillString +="<div class='col-xs-12 col-sm-5 col-md-4 col-lg-4'><h4>"+ friends[i].message + "</h4></div>";
 		fillString +="</div>";
 	}
@@ -145,11 +145,11 @@ function fillGroup(members){
 	for(var i=0; i<members.length; i++) {
 		fillString += "<div class='row'>";
 		if(members[i].status === 1)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+members[i].email+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+members[i].email+"</span></h4></div>";
 		else if(members[i].status === 0)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+members[i].email+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+members[i].email+"</span></h4></div>";
 		else
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+members[i].email+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+members[i].email+"</span></h4></div>";
 		fillString +="<div class='col-xs-12 col-sm-5 col-md-4 col-lg-4'><h4>"+ members[i].blurb + "</h4></div>";
 		fillString +="</div>";
 	}
