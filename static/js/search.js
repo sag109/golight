@@ -133,7 +133,7 @@ function fillGroups(){
                 count++;
                 fillString += "<div class=\"row\"><div class=\"col-lg-5\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
                 fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></div><div class=\"col-lg-5\">"+allGroups[i].blurb;
-            	fillString += "</div><br><div class=\"col-lg-6\" id=\""+allGroups[i].name.split('_').join(' ')+"\"></div></div><br>";//should only be one type of data        
+            	fillString += "</div><br><div class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></div></div><br>";//should only be one type of data        
 
             }
         }
@@ -184,7 +184,9 @@ function joinGroupWithBlurb(groupName){
     console.log("name is "+name);
     var status =0;//doesn't matter anyway
     var blurb = document.getElementById("join_blurb").value;
-    if(blurb)
+    console.log("blurb is "+blurb);
+    console.log(document.getElementById("join_blurb").innerHTML);
+    if(!!blurb)
     {
         console.log("why nnot making request");
         var info = {"groupName":name,"status":status,"blurb":blurb};
@@ -209,7 +211,7 @@ function joinGroupWithBlurb(groupName){
         }); 
     }
     else
-        document.getElementById("join_blurb").value = "Enter a blurb first";
+        document.getElementById(name).innerHTML= "Enter a blurb first";
 }
 
 function addSearchedFriend(friendElement){

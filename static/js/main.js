@@ -56,7 +56,7 @@ function updateGroupList() {
 			groupList += '<div class="panel-heading text-center" data-toggle="collapse" data-parent="#accordion" data-target="#group'+i+'">'; ///
 			groupList += '<h4 class="panel-title">';
 			groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'" onClick="setMainView(this)">';
-			groupList += cur.name.split("_").join(" ");
+			groupList += cur.name;
 			groupList += '</a>';
 			groupList += '</h4>';
 			groupList += '</div>';
