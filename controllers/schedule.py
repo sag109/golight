@@ -20,14 +20,14 @@ class GroupSchedule(webapp2.RequestHandler):
         try:
             day = int(self.request.get('day'))
             hour = int(self.request.get('hour'))
-            group_name = str(self.request.get('group'))
+            group_name = str(self.request.get('groupName'))
             user = user_info.get_user_account()
             group = Group.get_by_name(group_name)
             group_member = group.get_member(user.email)
             schedule = group_member.schedule.get()
             self.response.out.write(json.dumps(schedule.get_status_at(day, hour)))
         except Exception as e:
-            self.response.our.write(json.dumps(error_obj(e.message)))
+            self.response.out.write(json.dumps(error_obj(e.message)))
 
     def delete(self):
         try:
@@ -35,7 +35,7 @@ class GroupSchedule(webapp2.RequestHandler):
             day = int(self.request.get('day'))
             hour = int(self.request.get('hour'))
             '''
-            group_name = str(self.request.get('group'))
+            group_name = str(self.request.get('groupName'))
             user = user_info.get_user_account()
             group = Group.get_by_name(group_name)
             group_member = group.get_member(user.email)
@@ -43,16 +43,16 @@ class GroupSchedule(webapp2.RequestHandler):
             schedule.clear_schedule()
             self.response.out.write(json.dumps(success_obj()))
         except Exception as e:
-            self.response.our.write(json.dumps(error_obj(e.message)))
+            self.response.out.write(json.dumps(error_obj(e.message)))
 
 
     def put(self):
         try:
             day = int(self.request.get('day'))
             hour = int(self.request.get('hour'))
-            group_name = str(self.request.get('group'))
+            group_name = str(self.request.get('groupName'))
             status = int(self.request.get('status'))
-            blurb = int(self.request.get('blurb'))
+            blurb = self.request.get('blurb')
             user = user_info.get_user_account()
             group = Group.get_by_name(group_name)
             group_member = group.get_member(user.email)
@@ -60,7 +60,7 @@ class GroupSchedule(webapp2.RequestHandler):
             schedule.schedule_status(day, hour, status, blurb)
             self.response.out.write(success_obj())
         except Exception as e:
-            self.response.our.write(json.dumps(error_obj(e.message)))
+            self.response.out.write(json.dumps(error_obj(e.message)))
 
 class Schedule(webapp2.RequestHandler):
 
@@ -83,7 +83,7 @@ class Schedule(webapp2.RequestHandler):
             schedule.clear_schedule()
             self.response.out.write(json.dumps(success_obj()))
         except Exception as e:
-            self.response.our.write(json.dumps(error_obj(e.message)))
+            self.response.out.write(json.dumps(error_obj(e.message)))
 
 
     def put(self):
@@ -97,7 +97,7 @@ class Schedule(webapp2.RequestHandler):
             schedule.schedule_status(day, hour, status, blurb)
             self.response.out.write(json.dumps(success_obj()))
         except Exception as e:
-            self.response.our.write(json.dumps(error_obj(e.message)))
+            self.response.out.write(json.dumps(error_obj(e.message)))
 
 def success_obj():
     """Dict for a success message"""
