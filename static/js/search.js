@@ -3,68 +3,73 @@ var allGroups;
 var globalGroupName;
 
 $(document).ready(function() {
-    //get friends
+    //get friends and groups
     getFriends();
-    //get groups
-    getGroups();
-    //storeeee
+        getGroups();
+    setInterval(function () {
+        getFriends();
+        getGroups();
+    }, 60000);
+
 });
 
 function listAll(){
     var resultsElement = document.getElementById("searchResults");
-    var fillFromFriends =fill();
+    var fillFromFriends = fill();
     var fillFromGroup = fillGroups();
     resultsElement.innerHTML = "<div class=\"col-lg-6\">"+
-                    "<div class=\"panel panel-default\">"+
-                      "<!-- Default panel contents -->"+
-                        "<div class=\"panel-heading\">Friends</div>"+
+    "<div class=\"panel panel-default\">"+
+    "<!-- Default panel contents -->"+
+    "<div class=\"panel-heading\">Friends</div>"+
 
-                      "<!-- Table -->"+
-                            "<table class=\"table table\">"+
-                                fillFromFriends+
-                            "</table>"+
-                    "</div><br>"+
-                "</div><div class=\"col-lg-6\">"+
-                    "<div class=\"panel panel-default\">"+
-                      "<!-- Default panel contents -->"+
-                        "<div class=\"panel-heading\">Groups- click a group to join</div>"+
+    "<!-- Table -->"+
+    "<table class=\"table table\">"+
+    fillFromFriends+
+    "</table>"+
+    "</div><br>"+
+    "</div><div class=\"col-lg-6\">"+
+    "<div class=\"panel panel-default\">"+
+    "<!-- Default panel contents -->"+
+    "<div class=\"panel-heading\">Groups - click a group to join</div>"+
 
-                      "<!-- Table -->"+
-                            "<table class=\"table table\">"+
-                                fillFromGroup+
-                            "</table>"+
-                    "</div>"+
-                "</div>";
+    "<!-- Table -->"+
+    "<table class=\"table table\">"+
+    fillFromGroup+
+    "</table>"+
+    "</div>"+
+    "</div>";
     
 }
 function getFriends(){
-        var xmlHttp = new XMLHttpRequest();
+    var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
       if (xmlHttp.readyState == 4) {
-            allNonFriendUsers = JSON.parse(xmlHttp.responseText);
-      }
+        allNonFriendUsers = JSON.parse(xmlHttp.responseText);
     }
-    
+}
+
     xmlHttp.open("GET", "/search/friends", true); // true is for async communication
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlHttp.send(); 
-    console.log("getFriends");     
+    xmlHttp.send();
+    //console.log("getFriends");
 
 }
 
 function getGroups(){
-        var xmlHttp = new XMLHttpRequest();
+
+    console.log('getting groups...');
+    var xmlHttp = new XMLHttpRequest();
     xmlHttp.onreadystatechange = function() {
       if (xmlHttp.readyState == 4) {
-            allGroups = JSON.parse(xmlHttp.responseText);
-      }
+        allGroups = JSON.parse(xmlHttp.responseText);
+        console.log('allGroups is '+allGroups);
     }
-    
+}
+
     xmlHttp.open("GET", "/search/groups", true); // true is for async communication
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
-    xmlHttp.send();      
-    console.log("getGroups");
-
+    xmlHttp.send();
+    //console.log("getGroups");
 }
 function fill(){
     var count=0;
@@ -77,6 +82,8 @@ function fill(){
         searchText = searchText.toLowerCase()
 
     var fillString="";
+
+if( typeof(allNonFriendUsers) !== 'undefined') {
     for(var i=0; i<allNonFriendUsers.length; i++){
         //console.log(info[i].email.indexOf());
         var email = allNonFriendUsers[i].email.toLowerCase();
@@ -91,12 +98,16 @@ function fill(){
         if((email.indexOf(searchText)>-1) || (name.indexOf(searchText)>-1)|| noText)
         {
             count++;
-            fillString += "<tr><td><span class=\"glyphicon glyphicon-user\" aria-hidden=\"true\"></span>&nbsp&nbsp"+allNonFriendUsers[i].name+"</td></tr>";//should only be one type of data        
-            //console.log("on "+ info[i].email);
+            fillString += "<tr><td><span class=\"glyphicon glyphicon-user\" ";
+            fillString += "aria-hidden=\"true\"></span>&nbsp&nbsp<span id='"+allNonFriendUsers[i].email+"' onclick='addSearchedFriend(this);' class=\"group-name-hover\">";
+            fillString += allNonFriendUsers[i].name+"</span><span id='"+allNonFriendUsers[i].email+"-response'></span></td></tr>";//should only be one type of data        
+            
         }
     }
+}
     //fillString+= "</ul>";
     return fillString;
+
     //console.log("why no work? "+ fillString);
     //resultsElement.innerHTML = fillString;
 }
@@ -111,18 +122,19 @@ function fillGroups(){
     else
         searchText = searchText.toLowerCase();
     var fillString = "";
-    
-    for(var i=0; i<allGroups.length; i++){
-        if(count>10)
-        {
-            break;
-        }
-        if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
-        {
-            count++;
-            fillString += "<tr class=\"row\"><td class=\"col-lg-3\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
-            fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
+    if(typeof(allGroups) !== 'undefined') {
+        for(var i=0; i<allGroups.length; i++){
+            if(count>10)
+            {
+                break;
+            }
+            if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
+            {
+                count++;
+                fillString += "<tr class=\"row\"><td class=\"col-lg-3\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
+                fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
             fillString += "</td><td class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></td></tr>";//should only be one type of data        
+            }
         }
         //console.log("on "+ info[i].email);
     }
@@ -152,12 +164,14 @@ function joinGroupBar(groupElement){
             break;
         }
         if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
-            {
-                document.getElementById(allGroups[i].name).innerHTML= "";
-                count++;
-            }
+        {
+            document.getElementById(allGroups[i].name).innerHTML= "";
+            count++;
+        }
     }
-    var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb\" class=\"form-control\" placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\"><span class=\"input-group-btn\"><button onclick=\"joinGroupWithBlurb(&quot "+groupName+"&quot);\" class=\"btn btn-default\" type=\"button\">Join</button></span></span></span>"
+    var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb\" class=\"form-control\" placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\">";
+        barText += "<span class=\"input-group-btn\"><button onclick=\"joinGroupWithBlurb(&quot ";
+        barText += groupName+"&quot);\" class=\"btn btn-default\" type=\"button\">Join</button></span></span></span>";
     joinElement.innerHTML =barText;
 
     console.log(barText);
@@ -195,6 +209,26 @@ function joinGroupWithBlurb(groupName){
     }
     else
         document.getElementById("join_blurb").value = "Enter a blurb first";
+}
+
+function addSearchedFriend(friendElement){
+
+    console.log("adding friends");
+    var friendEmail = friendElement.id;
+    var info = {"email":friendEmail};
+    var putUser = requestInfo('post','friend',info, function(response) {
+        var responseElement = document.getElementById(friendEmail+"-response");
+        if(response.success === false){
+            //document.getElementById('message').innerHTML = response.error;
+            responseElement.innerHTML=response.error;
+            console.log(response.error);
+        }
+        else{
+            responseElement.innerHTML="Friend added";
+            console.log("successful");
+            //document.getElementById('message').innerHTML = "";
+        }
+    }); 
 }
 
 function requestInfo(method, endpoint, parameters, success) {

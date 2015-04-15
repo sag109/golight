@@ -1,29 +1,47 @@
-var mainView= "Your Friends";
+var mainView= "My Friends";
 var updateProcedure;
+var currentGroup= "qxz7";
 
 
 $(document).ready(function() {
-	//setInterval(fillWithFriends(), 3000);
+	setInterval(function () {
+    	updateGroupList();
+	}, 10000);
+	showPage();
+	LogoutLink();
 	updateGroupList();
 });
 
+//puts a logout link in the top right corner of screen
+function LogoutLink(){
+	requestInfo("get", "logout", {}, function(link) {
+		$('#logout_link').attr("href",link.url);
+	});
+}
 function setMainView(target) {
 	mainView = target.innerHTML;
-	showPage(); //added this
-	updateMainView();
+	if(mainView === currentGroup)
+    {
+        currentGroup = "qxz7";
+    }
+    else
+    {
+        currentGroup = mainView;
+    }
 }
 
 function updateGroupList() {
 
+    	console.log('updating grouplist');
 	requestInfo("get", "user/groups", {}, function(groups) {
 		var groupList = "";
 
 		groupList += '<div class="panel-group" id="groupaccordion">';		
 
 		groupList += '<div class="panel panel-default">';
-		groupList += '<div class="panel-heading">';
+		groupList += '<div class="panel-heading text-center" data-toggle="collapse" data-parent="#accordion" data-target="#myfriends">';
 		groupList += '<h4 class="panel-title">';
-		groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#myfriends">My Friends</a>';
+		groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#myfriends" onClick="setMainView(this)">My Friends</a>';
 		groupList += '</h4>';
 		groupList += '</div>';
 		groupList += '<div id="myfriends" class="panel-collapse collapse">';
@@ -35,9 +53,9 @@ function updateGroupList() {
 		for(var i=0; i<groups.length; i++) {
 			var cur = groups[i];
 			groupList += '<div class="panel panel-default">';
-			groupList += '<div class="panel-heading">';
+			groupList += '<div class="panel-heading text-center" data-toggle="collapse" data-parent="#accordion" data-target="#group'+i+'">'; ///
 			groupList += '<h4 class="panel-title">';
-			groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'">';
+			groupList += '<a data-toggle="collapse" data-parent="#groupaccordion" href="#group'+i+'" onClick="setMainView(this)">';
 			groupList += cur.name;
 			groupList += '</a>';
 			groupList += '</h4>';
@@ -51,10 +69,32 @@ function updateGroupList() {
 
 		groupList += '</groupaccordion>';
 
-		console.log(groupList);
+		//console.log(groupList);
 		$("#groups").html(groupList);
 		fillWithFriends();
 		fillGroupPanels();
+
+		if(!(currentGroup === "qxz7"))//no group open
+        {
+        	if(currentGroup === "My Friends")
+        	{
+        		document.getElementById("myfriends").className = "panel-collapse collapse in";
+        	}
+        	else
+        	{
+        		console.log("is a group");
+            	var gName = "";
+            	for(var i = 0; i< groups.length; i++){
+                	gName = groups[i].name;
+                	if(gName === currentGroup)
+                	{
+                		console.log("opening");
+	                    document.getElementById("group"+i).className = "panel-collapse collapse in";
+                	}
+	            }
+        	}
+            //is 
+        }
 
 	});
 }
@@ -69,30 +109,35 @@ function fillGroupPanels(){
 	});
 }
 
-function getStatusBar(){
+function getStatusBar(groupName){
 	var str = "";
+	if( typeof groupName == 'undefined')
+		groupName = 'friend';
+	//console.log('groupName is '+groupName);
+	groupName.split(' ').join('_'); //change spaces to underscores because fuck ID naming convention
 
 	str+='<div class="row">';
-	str+='<div class="col-xs-3 col-sm-2 col-md-2 col-lg-2">';
+	str+='<div class="col-xs-12 col-sm-2 col-md-2 col-lg-2">';
 	str+='<div class="form-inline">';
 	str+='<div class="dropdown">';
-	str+='<button class="btn btn-default dropdown-toggle" type="button" id="status_dropdown" data-toggle="dropdown">Your Status<span class="caret"></span></button>';
-	str+='<ul class="dropdown-menu" role="menu" id="status_dropdown" aria-labelledby="menu">';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-success" id="suc" tabindex="0" onclick="changeStatus(this)">Available</a></li>';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-warning" id="war" tabindex="0" onclick="changeStatus(this)">Tentative</a></li>';
-	str+='<li role="presentation"><a role="menuitem" class="btn btn-danger"  id="dan" tabindex="0" onclick="changeStatus(this)">Busy</a></li>';
+	str+='<button class="btn btn-default dropdown-toggle" type="button" id="'+groupName+'_dropdown" data-toggle="dropdown">Your Status<span class="caret"></span></button>';
+	str+='<ul class="dropdown-menu" role="menu" id="'+groupName+'_dropdown" aria-labelledby="menu">';
+	str+='<li role="presentation"><a role="menuitem" class="btn btn-success" id="suc" tabindex="0" onclick="changeStatus(this,&quot;'+groupName+'&quot)">Available</a></li>';
+	str+='<li role="presentation"><a role="menuitem" class="btn btn-warning" id="war" tabindex="0" onclick="changeStatus(this,&quot;'+groupName+'&quot)">Tentative</a></li>';
+	str+='<li role="presentation"><a role="menuitem" class="btn btn-danger"  id="dan" tabindex="0" onclick="changeStatus(this,&quot;'+groupName+'&quot)">Busy</a></li>';
 	str+='</ul>';
 	str+='</div>';
 	str+='</div>';
 	str+='</div>';
 	str+='<div class="col-xs-5 col-sm-4 col-md-4 col-lg-2">';
-	str+='<input id="user_blurb" type="text" class="form-control" placeholder="Your blurb">';
+	str+='<input id="'+groupName+'_blurb" type="text" class="form-control" placeholder="Your blurb">';
 	str+='</div>';
 	str+='<div class="col-xs-2 col-sm-2 col-md-2 col-lg-1">';
-	str+='<button class="btn btn-default" type="button" id="set_blurb" onclick="changeBlurb()">Set blurb</button>';
+	str+='<button class="btn btn-default" type="button" id="set_'+groupName+'_blurb" onclick="changeBlurb(this,&quot;'+groupName+'&quot)">Set blurb</button>';
 	str+='</div>';
 	str+='</div>';
-
+	//console.log('calling showPage: '+groupName);
+	showPage(groupName);
 	return str;
 }
 
@@ -108,11 +153,11 @@ function fillFriends(friends){
 	for(var i=0; i<friends.length; i++) {
 		fillString += "<div class='row'>";
 		if(friends[i].status === 1)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+friends[i].name+"</span></h4></div>";
 		else if(friends[i].status === 0)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+friends[i].name+"</span></h4></div>";
 		else
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+friends[i].name+"</span></h4></div>";
 		fillString +="<div class='col-xs-12 col-sm-5 col-md-4 col-lg-4'><h4>"+ friends[i].message + "</h4></div>";
 		fillString +="</div>";
 	}
@@ -122,7 +167,7 @@ function fillWith(groupid, groupname){
 		var str;
 		var statuses = requestInfo("get", "group", {"groupName":groupname}, function(members){
 			var grouppanel = document.getElementById(groupid);
-			grouppanel.innerHTML= getStatusBar() + fillGroup(members);
+			grouppanel.innerHTML= getStatusBar(groupname) + fillGroup(members);
 		});
 }
 function fillGroup(members){
@@ -131,11 +176,11 @@ function fillGroup(members){
 	for(var i=0; i<members.length; i++) {
 		fillString += "<div class='row'>";
 		if(members[i].status === 1)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+members[i].email+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-success\">"+members[i].email+"</span></h4></div>";
 		else if(members[i].status === 0)
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+members[i].email+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-warning\">"+members[i].email+"</span></h4></div>";
 		else
-			fillString += "<div class='col-xs-5 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+members[i].email+"</span></h4></div>";
+			fillString += "<div class='col-xs-12 col-sm-4 col-md-3 col-lg-3'><h4><span class=\"label label-danger\">"+members[i].email+"</span></h4></div>";
 		fillString +="<div class='col-xs-12 col-sm-5 col-md-4 col-lg-4'><h4>"+ members[i].blurb + "</h4></div>";
 		fillString +="</div>";
 	}

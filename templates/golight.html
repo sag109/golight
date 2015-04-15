@@ -3,7 +3,8 @@
 	<head>
 		<title>Golight</title>
 
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<!-- <meta name="viewport" content="width=device-width, initial-scale=1"> apparently disables horizontal scrolling vv -->
+		<meta name="viewport" content="width=device-width, initial-scale = 1, maximum-scale=1, user-scalable=no" />
 		
 		<!--JQuery-->
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
@@ -15,6 +16,7 @@
 		
 		<!--Our code-->
 		<link rel="stylesheet" type="text/css" href="/css/main.css"/>
+		
 
 	</head>
 	<body>
@@ -24,9 +26,12 @@
 
 		<nav class="navbar navbar-default" syle="margin:0px;">
 			<div class="container-fluid">
-			<div class="navbar-header">
+				<div class="navbar-header">
       				<a class="navbar-brand" href="/">GoLight</a>
     			</div>
+    			<div class="nav navbar-nav navbar-right">
+        			<a class="navbar-brand" id="logout_link">Logout</a>
+        		</div>
 			</div>
 		</nav>
 
@@ -43,7 +48,7 @@
 		<div class="container">
 			<div class="panel-group" id="accordion">
 				<div class="panel panel-default">
-					<div class="panel-heading">
+					<div class="panel-heading text-center" data-toggle="collapse" data-parent="#accordion" data-target="#collapse1">
 						<h4 class="panel-title">
 							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Profile</a>
 						</h4>
@@ -54,20 +59,20 @@
 								<div class-"col-xs-2 col-sm-2 col-med-2 col-lg-2"> 
 									<h5 id="username"></h5>
 								</div>
-						        </div>
+						    </div>
 							<div class="row">
 								<div class="col-xs-5 col-sm-3 col-med-2 col-lg-2">
-									<input type ="text" id="new_username">
+									<input type="text" class="form-control" id="new_username">
            							</div>
 								<div class="col-xs-5 col-sm-3 col-med-2 col-lg-2">
-									<input type= "submit" value= "Save Username" onclick="editUsername()">
+									<input type= "button" class="btn btn-default" value= "Save Username" onclick="editUsername()">
 								</div>
 							</div>
 						</div>
 					</div>
 				</div>
 				 <div class="panel panel-default">
-                                        <div class="panel-heading">
+                                        <div class="panel-heading text-center" data-toggle="collapse" data-parent="#accordion" data-target="#collapse2">
                                                 <h4 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Edit Friends</a>
                                                 </h4>
@@ -81,16 +86,16 @@
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
-									Input the email of the friend you'd like to add.
+									If you know your friend's email, add them here. If not, check out the Search tab!
 									</div>
 								</div>
 								<br>
 								<div class="row">
-									<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-									<input type ="text" id="new_friend">
+									<div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+									<input type="email" class="form-control" id="new_friend">
 									</div>
 									<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-									<input type= "submit" value= "Add Friend" onclick="addFriend()">
+									<input type="button" class="btn btn-default" value= "Add Friend" onclick="addFriend()">
 									</div>
 								</div>
 								<br>
@@ -106,11 +111,11 @@
 								</div>
 								<br>
 								<div class="row">
-        								<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-									<input type ="text" id="old_friend">
+        								<div class="col-xs-6 col-sm-3 col-md-2 col-lg-2">
+									<input type="email" class="form-control" id="old_friend">
 									</div>
         								<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
-									<input type= "submit" value= "Remove Friend" onclick="removeFriend()">
+									<input type="button" class="btn btn-default" value= "Remove Friend" onclick="removeFriend()">
 									</div>
 								</div>
         							<h5 id="message"></h5>
@@ -118,7 +123,7 @@
                                         </div>
                                 </div>
 				 <div class="panel panel-default">
-                                        <div class="panel-heading">
+                                        <div class="panel-heading text-center" data-toggle="collapse" data-parent="#accordion" data-target="#collapse3">
                                                 <h4 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Edit Groups</a>
                                                 </h4>
@@ -135,32 +140,24 @@
 									<br>
 								</div>
 								<div class="row">
-									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
 									Group name:
 									</div>
-									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
-									<input type="text" id="join_group_name">
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" class="form-control" id="join_group_name">
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
-									Status:
-									</div>
-									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
-									<input type="text" id="join_status">
-									</div>
-								</div>
-								<div class="row">
-									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
 									Blurb:
 									</div>
-									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
-									<input type="text" id="join_blurb">
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" class="form-control" id="join_blurb">
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-med-12 col-lg-12">
-									<br><input type="button" id="join" onclick="joinGroup();" class="btn btn-warning" value="Join Group">
+									<br><input type="button" id="join" onclick="joinGroup();" class="btn btn-default" value="Join Group">
 									</div>
 								</div>
 								<div class="row">
@@ -168,31 +165,31 @@
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-med-12 col-lg-12">
-									Create a new group by filling out the form below!
+									Are the other groups too lame? Create a new group by filling out the form below!
 									</div>
 								</div>
 								<div class="row">
 									<br>
 								</div>
 								<div class="row">
-									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
 									Group name:
 									</div>
-									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
-									<input type="text" id="create_group_name">
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" class="form-control" id="create_group_name">
 									</div>
 								</div>
 								<div class="row">
-									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
 									Group blurb:					
 									</div>
-									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
-									<input type="text" id="create_group_blurb">					
+									<div class="col-xs-12 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" class="form-control" id="create_group_blurb">					
 									</div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-sm-12 col-med-12 col-lg-12">
-									<br><input type="button" id="create" onclick="createGroup();" class="btn btn-warning" value="Create Group">
+									<br><input type="button" id="create" onclick="createGroup();" class="btn btn-default" value="Create Group">
 									</div>
 								</div>
 					            	</div>
@@ -200,7 +197,7 @@
                                         </div>
                                 </div>
 				 <div class="panel panel-default">
-                                        <div class="panel-heading">
+                                        <div class="panel-heading text-center" data-toggle="collapse" data-parent="#accordion" data-target="#collapse4">
                                                 <h4 class="panel-title">
                                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Search</a>
                                                 </h4>
@@ -243,11 +240,12 @@
 ======================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 
+		
 <script src="/js/plus.js"></script>
 <script src="/js/edit.js"></script>
 <script src="/js/profile.js"></script>
 <script src="/js/main.js"></script>
 <script src="/js/search.js"></script>
-
+<script src="/js/status.js"></script>
 	</body>
 </html>

@@ -41,6 +41,7 @@ class user_info(ndb.Model):
             account = user_info(email=user.email(), name=user.nickname(), status=0, availability='0')
             account.friend_list = [user.email()]
             account.message = "I'm new here!"
+<<<<<<< HEAD
             schedule = Schedule.make_new()
             schedule.update_status(0, "I'm new here!")
             account.schedule = schedule.key
@@ -55,6 +56,27 @@ class user_info(ndb.Model):
 \/.-.\_______________________\/.-.\____\/.-.\
  ( @ )                        ( @ )  =  ( @ )
   `-'                          `-'       `-' 
+=======
+            mail.send_mail("golightapp@gmail.com", account.email, 'Welcome to Golight', """
+
+		Welcome to GoLight!
+
+		www.golight-app.appspot.com
+
+		Our site is dedicated to providing spontaneous availibilities to
+		make it easier to coordinate activities and plans with your friends,
+		coworkers, and family.
+
+		We endevour to create a friendly and intuitive service that people
+		will enjoy using. Please feel free to contact us with any questions,
+		concerns, or feedback.
+
+		Thanks for using GoLight!
+
+		Kindest regards,
+			The GoLight development team.
+
+>>>>>>> 29495962b420cae1cbd450c84ac64718b6393288
             """)
             account.put()
         return account
