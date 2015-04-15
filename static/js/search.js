@@ -132,7 +132,7 @@ function fillGroups(){
             {
                 count++;
                 fillString += "<tr class=\"row\"><td class=\"col-lg-3\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
-                fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
+                fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name.split('_').join(' ')+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
             fillString += "</td><td class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></td></tr>";//should only be one type of data        
             }
         }
