@@ -24,7 +24,7 @@ app = webapp2.WSGIApplication([
         ('/search/groups', 'controllers.search.SearchGroups'),
         ('/search', 'controllers.search.SearchPage'),
         ('/logout', 'controllers.logout.LogoutLink'),
-	('/oneview', 'controllers.golight.Golight')
+	    ('/oneview', 'controllers.golight.Golight')
     ], debug=True)
 
 def main():
