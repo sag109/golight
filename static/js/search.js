@@ -98,9 +98,9 @@ if( typeof(allNonFriendUsers) !== 'undefined') {
         if((email.indexOf(searchText)>-1) || (name.indexOf(searchText)>-1)|| noText)
         {
             count++;
-            fillString += "<tr><td><span class=\"glyphicon glyphicon-user\" ";
+            fillString += "<div><div><span class=\"glyphicon glyphicon-user\" ";
             fillString += "aria-hidden=\"true\"></span>&nbsp&nbsp<span id='"+allNonFriendUsers[i].email+"' onclick='addSearchedFriend(this);' class=\"group-name-hover\">";
-            fillString += allNonFriendUsers[i].name+"</span><span id='"+allNonFriendUsers[i].email+"-response'></span></td></tr>";//should only be one type of data        
+            fillString += allNonFriendUsers[i].name+"</div><div id='"+allNonFriendUsers[i].email+"-response'></span></div></div>";//should only be one type of data        
             
         }
     }
@@ -131,9 +131,10 @@ function fillGroups(){
             if(allGroups[i].name.toLowerCase().indexOf(searchText)>-1 || noText)
             {
                 count++;
-                fillString += "<tr class=\"row\"><td class=\"col-lg-3\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
-                fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name.split('_').join(' ')+"</span></td><td class=\"col-lg-3\">"+allGroups[i].blurb;
-            fillString += "</td><td class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></td></tr>";//should only be one type of data        
+                fillString += "<div class=\"row\"><div class=\"col-lg-5\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
+                fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></div><div class=\"col-lg-5\">"+allGroups[i].blurb;
+            	fillString += "</div><br><div class=\"col-lg-6\" id=\""+allGroups[i].name.split('_').join(' ')+"\"></div></div><br>";//should only be one type of data        
+
             }
         }
         //console.log("on "+ info[i].email);
