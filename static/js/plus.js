@@ -6,12 +6,9 @@ function setStatusValue(val){
 }
 function joinGroup() {
     var name = document.getElementById("join_group_name").value;
-    //var status = document.getElementById("join_status").value;
-    var status = statusValue;
-    console.log("status is "+status);
     var blurb = document.getElementById("join_blurb").value;
     
-    var info = {"groupName":name,"status":status,"blurb":blurb};
+    var info = {"groupName":name,"status":0,"blurb":blurb};
     var createGroup = requestInfo('post','group/user',info, function(response) {
         if(response.success === false){
             document.getElementById('message').innerHTML = response.error;

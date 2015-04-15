@@ -6,8 +6,6 @@ function showPage(gname){
     }
     else {
        var userInfo = requestInfo('get','group/user', {'groupName':gname}, function(userInfo){
-            //console.log("success: "+userInfo.success);
-            //console.log("error!!!!!! : "+userInfo.error);
             showStatus(userInfo.status,userInfo.blurb,gname);
         });
     }

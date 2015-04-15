@@ -3,10 +3,12 @@ var updateProcedure;
 
 
 $(document).ready(function() {
-	//setInterval(fillWithFriends(), 3000);
+	setInterval(function () {
+    	updateGroupList();
+	}, 10000);
+	showPage();
 	LogoutLink();
 	updateGroupList();
-
 });
 
 //puts a logout link in the top right corner of screen
@@ -20,7 +22,8 @@ function setMainView(target) {
 }
 
 function updateGroupList() {
-
+	
+    	console.log('updating grouplist');
 	requestInfo("get", "user/groups", {}, function(groups) {
 		var groupList = "";
 

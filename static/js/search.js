@@ -3,11 +3,12 @@ var allGroups;
 var globalGroupName;
 
 $(document).ready(function() {
-    //get friends
-    getFriends();
-    //get groups
-    getGroups();
-    //storeeee
+    //get friends and groups
+    setInterval(function () {
+        getFriends();
+        getGroups();
+    }, 60000);
+
 });
 
 function listAll(){
@@ -48,7 +49,7 @@ function getFriends(){
     xmlHttp.open("GET", "/search/friends", true); // true is for async communication
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlHttp.send();
-    console.log("getFriends");
+    //console.log("getFriends");
 
 }
 
@@ -63,7 +64,7 @@ function getGroups(){
     xmlHttp.open("GET", "/search/groups", true); // true is for async communication
     xmlHttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
     xmlHttp.send();      
-    console.log("getGroups");
+    //console.log("getGroups");
 
 }
 function fill(){

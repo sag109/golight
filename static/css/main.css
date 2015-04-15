@@ -11,26 +11,26 @@
 }
 
 td {
-    background-color:#FFF5DD;
+    background-color:#CEEAF7;
 }
 .panel > .panel-heading {
     background-image: none;
-    background-color: #E4A66E;
-    color: #030027;
+    background-color: #37669C;
+    color: #ffffff;
     cursor: pointer;
 }
 .panel-body {
-    background-color: #FFEAB7;
+    background-color: #6D9DC5;
 }
 
 .panel > .panel-heading:hover {
     background-image: none;
-    background-color: #B58256;
+    background-color: #56638A;
     color: #030027;
     cursor: pointer;
 }
 body {
-    background-color: #C0E4E8;
+    background-color: #CEEAF7;
 }
 
 #username {
