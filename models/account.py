@@ -1,4 +1,5 @@
 import webapp2
+from models.schedule import Schedule
 
 from google.appengine.api import users
 from google.appengine.ext import ndb
@@ -12,7 +13,19 @@ class user_info(ndb.Model):
     availability = ndb.StringProperty()
     message = ndb.StringProperty()
     group_keys = ndb.KeyProperty(repeated=True)
-    
+    schedule = ndb.KeyProperty()
+
+    def set_name(self, name):
+        if not 0 < len(name) <= 20:
+            raise Exception('Invalid name length.')
+        for key in self.group_keys:
+            group = key.get()
+            member = group.get_member(self.email)
+            member.name = name
+            member.put()
+        self.name = name
+        self.put()
+
     @staticmethod
     def get_by_email(email):
         account_query = user_info.query(user_info.email == email)
@@ -28,6 +41,9 @@ class user_info(ndb.Model):
             account = user_info(email=user.email(), name=user.nickname(), status=0, availability='0')
             account.friend_list = [user.email()]
             account.message = "I'm new here!"
+            schedule = Schedule.make_new()
+            schedule.update_status(0, "I'm new here!")
+            account.schedule = schedule.key
             mail.send_mail("golightapp@gmail.com", account.email, 'Welcome to Golight', """
 
 		Welcome to GoLight!
@@ -46,7 +62,7 @@ class user_info(ndb.Model):
 
 		Kindest regards,
 			The GoLight development team.
-
+            golight.app@gmail.com
             """)
             account.put()
         return account

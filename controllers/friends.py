@@ -23,12 +23,14 @@ def friend_list(account):
     for person in account.friend_list:
         cur_account = user_info.get_by_email(person)
         if cur_account:
+            schedule = cur_account.schedule.get()
+            now = schedule.get_current_status()
             friend_infos.append({
                 'name': cur_account.name,
                 'email': cur_account.email,
-                'message': cur_account.message,
-                'status': cur_account.status,
-                'availability': cur_account.availability
+                'message': now['blurb'],
+                'status': now['status'],
+                'availability': now['status']
             })
     return friend_infos
     

@@ -41,18 +41,18 @@ class User(webapp2.RequestHandler):
             return
         if len(new_blurb) > 50:
             self.response.out.write(json.dumps(error_obj('Blurb cannot be more than 50 characters.')))
-        user_account.status = int(new_status)
-        user_account.availability = new_status
-        user_account.message = new_blurb
-        user_account.put()
+        schedule = user_account.schedule.get()
+        schedule.update_status(int(new_status), new_blurb)
         self.response.out.write(json.dumps(success_obj()))
     
 def account_info(account):
     """Make a dict of the status information for an account."""
+    schedule = account.schedule.get()
+    now = schedule.get_current_status()
     return {
-        'status': account.status,
-        'availability': account.availability,
-        'blurb': account.message,
+        'status': now['status'],
+        'availability': now['status'],
+        'blurb': now['blurb'],
         'email': account.email,
         'name': account.name,
         'success': True

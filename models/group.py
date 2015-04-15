@@ -10,7 +10,21 @@ class Group(ndb.Model):
     members = ndb.KeyProperty(repeated=True)
     blurb = ndb.StringProperty()
     admin_email = ndb.StringProperty()
-    
+
+    @staticmethod
+    def make_new(name, blurb):
+        user = user_info.get_user_account()
+        group = Group(
+            name = name,
+            blurb = blurb,
+            admin_email = user.email
+        )
+        admin = GroupMembers.make_new(user)
+        group.admin_email = user.email
+        group.members.append(admin.key)
+        group.put()
+        return group
+
     @staticmethod
     def get_by_name(name):
         name_query = Group.query(Group.name == name)
@@ -22,7 +36,7 @@ class Group(ndb.Model):
             account = user_info.get_by_email(member.email)
             account.group_keys.remove(self.key)
             account.put()
-            member.key.delete()
+            member.remove_self()
         self.key.delete()
         
     def get_member(self, email):

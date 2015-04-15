@@ -134,6 +134,7 @@ function fillGroups(){
                 fillString += "<div class=\"row\"><div class=\"col-lg-5\"><span class=\"glyphicon glyphicon-th-list\" aria-hidden=\"true\"></span>&nbsp&nbsp";
                 fillString += "<span class=\"group-name-hover\" id=\"group"+i+"\" onclick=\"joinGroupBar(this)\">"+allGroups[i].name+"</span></div><div class=\"col-lg-5\">"+allGroups[i].blurb;
             	fillString += "</div><br><div class=\"col-lg-6\" id=\""+allGroups[i].name+"\"></div></div><br>";//should only be one type of data        
+
             }
         }
         //console.log("on "+ info[i].email);
@@ -169,7 +170,8 @@ function joinGroupBar(groupElement){
             count++;
         }
     }
-    var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb\" class=\"form-control\" placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\">";
+    var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb_text\" class=\"form-control\"";
+        barText +="placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\">";
         barText += "<span class=\"input-group-btn\"><button onclick=\"joinGroupWithBlurb(&quot ";
         barText += groupName+"&quot);\" class=\"btn btn-default\" type=\"button\">Join</button></span></span></span>";
     joinElement.innerHTML =barText;
@@ -178,12 +180,17 @@ function joinGroupBar(groupElement){
 }
 
 function joinGroupWithBlurb(groupName){
+     var blurb = document.getElementById("join_blurb_text").value;
     console.log("called joinGroupWithBlurb");
     var name = groupName.substring(1);
     console.log("name is "+name);
     var status =0;//doesn't matter anyway
-    var blurb = document.getElementById("join_blurb").value;
-    if(blurb)
+    var blurbElement = document.getElementById("join_blurb");
+   
+    console.dir(blurbElement);
+    console.log("blurb is "+blurb);
+    console.log(document.getElementById("join_blurb").innerHTML);
+    if(!!blurb)
     {
         console.log("why nnot making request");
         var info = {"groupName":name,"status":status,"blurb":blurb};
@@ -208,7 +215,10 @@ function joinGroupWithBlurb(groupName){
         }); 
     }
     else
-        document.getElementById("join_blurb").value = "Enter a blurb first";
+    {
+        console.log("life mean ");
+        document.getElementById(name).innerHTML= "Enter a blurb first";
+    }
 }
 
 function addSearchedFriend(friendElement){

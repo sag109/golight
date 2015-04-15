@@ -23,8 +23,12 @@ app = webapp2.WSGIApplication([
         ('/search/friends', 'controllers.search.SearchFriends'),
         ('/search/groups', 'controllers.search.SearchGroups'),
         ('/search', 'controllers.search.SearchPage'),
-        ('/logout', 'controllers.logout.LogoutLink'),
-	    ('/oneview', 'controllers.golight.Golight')
+        ('/user/schedule', 'controllers.schedule.Schedule'),
+        ('/group/user/schedule', 'controllers.schedule.GroupSchedule'),
+        ('/group/schedule', 'controllers.schedule.GroupScheduleAll'),
+    	('/oneview', 'controllers.golight.Golight'),
+        ('/user/schedule/whole', 'controllers.schedule.WholeSchedule'),
+        ('/logout', 'controllers.logout.LogoutLink')
     ], debug=True)
 
 def main():
