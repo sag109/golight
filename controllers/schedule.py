@@ -25,15 +25,17 @@ class GroupSchedule(webapp2.RequestHandler):
 
     def delete(self):
         try:
+            '''
             day = int(self.request.get('day'))
             hour = int(self.request.get('hour'))
+            '''
             group_name = str(self.request.get('group'))
             user = user_info.get_user_account()
             group = Group.get_by_name(group_name)
             group_member = group.get_member(user.email)
             schedule = group_member.schedule.get()
-            schedule.unschedule(day, hour)
-            self.response.out.write(success_obj())
+            schedule.clear_schedule()
+            self.response.out.write(json.dumps(success_obj()))
         except Exception as e:
             self.response.our.write(json.dumps(error_obj(e.message)))
 
@@ -72,7 +74,7 @@ class Schedule(webapp2.RequestHandler):
             hour = int(self.request.get('hour'))
             user = user_info.get_user_account()
             schedule = user.schedule.get()
-            schedule.unschedule(day, hour)
+            schedule.clear_schedule()
             self.response.out.write(json.dumps(success_obj()))
         except Exception as e:
             self.response.our.write(json.dumps(error_obj(e.message)))

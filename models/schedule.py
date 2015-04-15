@@ -49,7 +49,7 @@ class Schedule(ndb.Model):
         }
         self.put()
 
-    def clear_schedule(self, day, hour):
+    def clear_schedule(self):
         self.schedule = [[-2 for _ in range(24)] for _ in range(7)]
         self.put()
 
