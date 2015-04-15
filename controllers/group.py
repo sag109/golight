@@ -39,15 +39,7 @@ def post_group(parameters):
         return json.dumps(error_obj('Group with this name already exists.'))
     user = users.get_current_user()
     user_account = user_info.get_user_account()
-    new_group = GroupModel(name=parameters['groupName'],blurb=parameters['blurb'])
-    new_group.admin_email = user.email()
-    
-    # Making the creator a member
-    creator_member = GroupMembers(status=0,group_key=new_group.key,email=user.email(),name=user_account.name)
-    creator_member.blurb = 'Let there be a group.'
-    creator_member.put()
-    new_group.members.append(creator_member.key)
-    new_group.put()
+    new_group = GroupModel.make_new(parameters['groupName'], parameters['blurb'])
     
     # Putting the group in the member's group list
     user_account.group_keys.append(new_group.key)
@@ -91,10 +83,12 @@ def group_info(group):
     info = []
     for member_key in group.members:
         member = member_key.get()
+        schedule = member.schedule.get()
+        now = schedule.get_current_status()
         info.append({
             'email': member.email,
-            'blurb': member.blurb,
-            'status': member.status,
+            'blurb': now['blurb'],
+            'status': now['status'],
             'name': member.name
         })
     return info

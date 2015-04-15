@@ -19,7 +19,10 @@ class Group(ndb.Model):
             blurb = blurb,
             admin_email = user.email
         )
-        admin = GroupMembers()
+        admin = GroupMembers.make_new(user)
+        group.admin_email = admin.key
+        group.put()
+        return group
 
     @staticmethod
     def get_by_name(name):
@@ -32,7 +35,7 @@ class Group(ndb.Model):
             account = user_info.get_by_email(member.email)
             account.group_keys.remove(self.key)
             account.put()
-            member.key.delete()
+            member.remove_self()
         self.key.delete()
         
     def get_member(self, email):

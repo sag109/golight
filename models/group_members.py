@@ -12,10 +12,16 @@ class GroupMembers(ndb.Model):
     name = ndb.StringProperty()
     schedule = ndb.KeyProperty()
 
+    def remove_self(self):
+        self.schedule.delete()
+        self.key.delete()
+
     @staticmethod
-    def make_new():
+    def make_new(guy):
         member = GroupMembers()
         schedule = Schedule.make_new()
         member.schedule = schedule.key
+        member.email = guy.email
+        member.name = guy.name
         member.put()
         return member
