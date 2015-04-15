@@ -1,4 +1,5 @@
 import webapp2
+import logging
 from datetime import datetime as dt
 
 from google.appengine.api import users
@@ -86,6 +87,10 @@ class Schedule(ndb.Model):
                     'status': self.schedule[cur_day][cur_hour]['status'],
                     'blurb': self.schedule[cur_day][cur_hour]['blurb']
                 }
+            cur_hour -= 1
+            if cur_hour < 0:
+                cur_hour %= 24
+                cur_day = (cur_day - 1) % 7
         return {
             'status': self.status,
             'blurb': self.blurb

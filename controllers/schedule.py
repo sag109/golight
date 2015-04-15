@@ -9,6 +9,12 @@ from models.account import user_info
 from models.group import Group
 from models.group_members import GroupMembers
 
+class WholeSchedule(webapp2.RequestHandler):
+    def get(self):
+        user = user_info.get_user_account()
+        schedule = user.schedule.get()
+        self.response.out.write(json.dumps(schedule.schedule))
+
 class GroupSchedule(webapp2.RequestHandler):
     def get(self):
         try:
