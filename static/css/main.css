@@ -1,3 +1,53 @@
+/*
+    search hovering
+*/
+.group-name-hover:hover{
+    cursor:pointer;
+    color:#6d9dc5;
+
+}
+
+.navbar-default {
+    background-image: none;
+    background-color: #88A2AA;
+    border-color: #748891;
+}
+.navbar > .container-fluid > .navbar-header > .navbar-brand {
+    color: #020202;
+}
+.navbar > .container-fluid > .navbar-header > .navbar-brand:hover {
+    background-color: #6A7EA4;
+}
+
+td {
+    background-color:#CEEAF7;
+}
+.panel > .panel-heading {
+    background-image: none;
+    background-color: #37669C;
+    color: #ffffff;
+    cursor: pointer;
+}
+.panel-body {
+    background-color: #6D9DC5;
+}
+
+.panel > .panel-heading:hover {
+    background-image: none;
+    background-color: #56638A;
+    color: #030027;
+    cursor: pointer;
+}
+body {
+    background-color: #CEEAF7;
+}
+
+#username {
+    margin: 0px 0px 5px 30px;
+}
+
+
+
 .group-link {
 	color: #DDDDDD;
     height: 40px;  /* this line */

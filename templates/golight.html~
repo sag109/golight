@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<title>Golight</title>
+
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		
+		<!--JQuery-->
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+		
+		<!--Bootstrap-->
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap-theme.min.css">
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+		
+		<!--Our code-->
+		<script src="/js/main.js"></script>
+		<script src="/js/status.js"></script>			
+		<link rel="stylesheet" type="text/css" href="/css/main.css"/>
+	</head>
+	<body>
+
+<!--	Navbar
+===================================== -->
+
+		<nav class="navbar navbar-default" syle="margin:0px;">
+			<div class="container-fluid">
+			<div class="navbar-header">
+      				<a class="navbar-brand" href="/">GoLight</a>
+    			</div>
+			</div>
+		</nav>
+
+<!--	Settings/Profile management
+====================================== -->
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h4 class="text-center"> My Settings </h4>
+			</div>
+		</div>
+
+
+		<div class="container">
+			<div class="panel-group" id="accordion">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapse1">Profile</a>
+						</h4>
+					</div>
+					<div id="collapse1" class="panel-collapse collapse">
+						<div class="panel-body">
+							<div class="row">
+								<div class-"col-xs-2 col-sm-2 col-med-2 col-lg-2"> 
+									<h5 id="username"></h5>
+								</div>
+						        </div>
+							<div class="row">
+								<div class="col-xs-5 col-sm-3 col-med-2 col-lg-2">
+									<input type ="text" id="new_username">
+           							</div>
+								<div class="col-xs-5 col-sm-3 col-med-2 col-lg-2">
+									<input type= "submit" value= "Save Username" onclick="editUsername()">
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				 <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse2">Edit Friends</a>
+                                                </h4>
+                                        </div>
+                                        <div id="collapse2" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                        	<div class="row">	
+							        	<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<h4> Add a friend: </h4>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									Input the email of the friend you'd like to add.
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+									<input type ="text" id="new_friend">
+									</div>
+									<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+									<input type= "submit" value= "Add Friend" onclick="addFriend()">
+									</div>
+								</div>
+								<br>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									<h4> Remove a friend: </h4>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+									Input the email for the friend you'd like to remove.
+									</div>
+								</div>
+								<br>
+								<div class="row">
+        								<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+									<input type ="text" id="old_friend">
+									</div>
+        								<div class="col-xs-4 col-sm-3 col-md-2 col-lg-2">
+									<input type= "submit" value= "Remove Friend" onclick="removeFriend()">
+									</div>
+								</div>
+        							<h5 id="message"></h5>
+                                                </div>
+                                        </div>
+                                </div>
+				 <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse3">Edit Groups</a>
+                                                </h4>
+                                        </div>
+                                        <div id="collapse3" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                        <div class="container-fluid">
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-med-12 col-lg-12">
+									Add yourself to an existing group by entering the group name below!
+									</div>
+								</div>
+								<div class="row">
+									<br>
+								</div>
+								<div class="row">
+									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									Group name:
+									</div>
+									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" id="join_group_name">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									Status:
+									</div>
+									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" id="join_status">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									Blurb:
+									</div>
+									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" id="join_blurb">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-med-12 col-lg-12">
+									<br><input type="button" id="join" onclick="joinGroup();" class="btn btn-warning" value="Join Group">
+									</div>
+								</div>
+								<div class="row">
+									<br><br>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-med-12 col-lg-12">
+									Create a new group by filling out the form below!
+									</div>
+								</div>
+								<div class="row">
+									<br>
+								</div>
+								<div class="row">
+									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									Group name:
+									</div>
+									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" id="create_group_name">
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-3 col-sm-4 col-med-2 col-lg-2">
+									Group blurb:					
+									</div>
+									<div class="col-xs-5 col-sm-4 col-med-2 col-lg-2">
+									<input type="text" id="create_group_blurb">					
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-sm-12 col-med-12 col-lg-12">
+									<br><input type="button" id="create" onclick="createGroup();" class="btn btn-warning" value="Create Group">
+									</div>
+								</div>
+					            	</div>
+                                                </div>
+                                        </div>
+                                </div>
+				 <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                                <h4 class="panel-title">
+                                                        <a data-toggle="collapse" data-parent="#accordion" href="#collapse4">Search</a>
+                                                </h4>
+                                        </div>
+                                        <div id="collapse4" class="panel-collapse collapse">
+                                                <div class="panel-body">
+                                                        Test 4.
+                                                </div>
+                                        </div>
+                                </div>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+				<h4 class="text-center"> My Groups </h4>
+			</div>
+		</div>
+
+<!-- Group listings.
+=======================================	-->
+		<div class="container">
+			<div class="panel-group" id="groupaccordion">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#groupaccordion" href="#myfriends">My Friends</a>
+						</h4>
+					</div>
+					<div id="myfriends" class="panel-collapse collapse">
+						<div class="panel-body" id="myfriendspb">
+						</div>
+					</div>
+				</div>
+				<span id="othergroups">
+				</span>
+			</div>
+		</div>
+
+<!-- Scripts
+======================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+
+<script src="/js/profile.js"></script>
+<script src="/js/edit.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/plus.js"></script>
+	</body>
+</html>

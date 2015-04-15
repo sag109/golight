@@ -6,7 +6,7 @@ from google.appengine.ext.webapp import template
 
 
 app = webapp2.WSGIApplication([
-        ('/','controllers.main.Main'),
+        ('/','controllers.golight.Golight'),
         ('/profile','controllers.profile.RenderProfile'),
         ('/edit', 'controllers.editFriends.RenderEdit'), 
         ('/user','controllers.user.User'), 
@@ -22,7 +22,9 @@ app = webapp2.WSGIApplication([
         ('/plus', 'controllers.plus.Plus'),
         ('/search/friends', 'controllers.search.SearchFriends'),
         ('/search/groups', 'controllers.search.SearchGroups'),
-        ('/search', 'controllers.search.SearchPage')
+        ('/search', 'controllers.search.SearchPage'),
+        ('/logout', 'controllers.logout.LogoutLink'),
+	    ('/oneview', 'controllers.golight.Golight')
     ], debug=True)
 
 def main():
