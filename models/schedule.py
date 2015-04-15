@@ -95,6 +95,8 @@ class Schedule(ndb.Model):
     def make_new(cls):
         sched = Schedule()
         sched.schedule = [[{'status':-2, 'blurb':''} for _ in range(24)] for _ in range(7)]
+        sched.blurb = 'I\'m new here!'
+        sched.status = 0
         now = dt.now()
         last_day = now.isoweekday() % 7
         last_hour = now.hour

@@ -38,9 +38,9 @@ def post_user(parameters):
     user_account.put()
     
     # Making the new group member
-    user_member = GroupMembers(email=user_account.email, status=0,name=user_account.name)
-    user_member.blurb = parameters['blurb']
-    user_member.name = user_account.name; #added this in to add name with group_user
+    user_member = GroupMembers.make_new(user_account)
+    schedule = user_member.schedule.get()
+    schedule.update_status(0, parameters['blurb'])
     user_member.group_key = to_join.key
     user_member.put()
     
@@ -65,7 +65,7 @@ def delete_user(parameters):
     to_leave.put()
     user_account.group_keys.remove(to_leave.key)
     user_account.put()
-    user_member.key.delete()
+    user_member.remove_self()
     return json.dumps(success_obj())
 
 def put_user(parameters):
@@ -79,9 +79,8 @@ def put_user(parameters):
     user_member = to_update.get_member(user_account.email)
     if not user_member:
         return json.dumps(error_obj('Server error.'))
-    user_member.blurb = parameters['blurb']
-    user_member.status = int(parameters['status']) #workaround?
-    user_member.put() #save dis shiz
+    schedule = user_member.schedule.get()
+    schedule.update_status(int(parameters['s']), str(parameters['blurb']))
     return json.dumps(success_obj())
 
 def get_user(parameters):
@@ -93,10 +92,12 @@ def get_user(parameters):
     if not group.key in user_account.group_keys:
         return json.dumps(error_obj('The user is not in this group.'))
     member = group.get_member(user_account.email)
+    schedule = member.schedule.get()
+    now = schedule.get_current_status()
     info = {
         'email': member.email,
-        'status': member.status,
-        'blurb': member.blurb,
+        'status': now['status'],
+        'blurb': now['blurb'],
         'name': user_account.name,
         'groupName': group.name
     }
