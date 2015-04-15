@@ -1,5 +1,6 @@
-var mainView= "Your Friends";
+var mainView= "My Friends";
 var updateProcedure;
+var currentGroup= "qxz7";
 
 
 $(document).ready(function() {
@@ -19,6 +20,14 @@ function LogoutLink(){
 }
 function setMainView(target) {
 	mainView = target.innerHTML;
+	if(mainView === currentGroup)
+    {
+        currentGroup = "qxz7";
+    }
+    else
+    {
+        currentGroup = mainView;
+    }
 }
 
 function updateGroupList() {
@@ -64,6 +73,28 @@ function updateGroupList() {
 		$("#groups").html(groupList);
 		fillWithFriends();
 		fillGroupPanels();
+
+		if(!(currentGroup === "qxz7"))//no group open
+        {
+        	if(currentGroup === "My Friends")
+        	{
+        		document.getElementById("myfriends").className = "panel-collapse collapse in";
+        	}
+        	else
+        	{
+        		console.log("is a group");
+            	var gName = "";
+            	for(var i = 0; i< groups.length; i++){
+                	gName = groups[i].name;
+                	if(gName === currentGroup)
+                	{
+                		console.log("opening");
+	                    document.getElementById("group"+i).className = "panel-collapse collapse in";
+                	}
+	            }
+        	}
+            //is 
+        }
 
 	});
 }
