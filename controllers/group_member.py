@@ -32,9 +32,7 @@ def post_member(parameters):
         return json.dumps(error_obj('This email not associated with a user.'))
     
     # Making the new member
-    member = GroupMembers(email=new_user.email, status=0, blurb="Just got added!")
-    member.group_key = group.key
-    member.put()
+    member = GroupMembers.make_new(new_user)
     
     # Updating the group
     group.members.append(member.key)
@@ -63,7 +61,7 @@ def delete_user(parameters):
     del_account.put()
     group.members.remove(del_user.key)
     group.put()
-    del_user.key.delete()
+    del_user.remove_self()
     return json.dumps(success_obj())
 
 def handle_as_user(handler, function, required_parameters):
