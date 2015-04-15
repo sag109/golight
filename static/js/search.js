@@ -170,7 +170,8 @@ function joinGroupBar(groupElement){
             count++;
         }
     }
-    var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb\" class=\"form-control\" placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\">";
+    var barText = "<span class=\"col-lg-12\"><span class=\"input-group\"><input type=\"text\" id=\"join_blurb_text\" class=\"form-control\"";
+        barText +="placeholder=\"Set blurb in group\" aria-describedby=\"basic-addon1\">";
         barText += "<span class=\"input-group-btn\"><button onclick=\"joinGroupWithBlurb(&quot ";
         barText += groupName+"&quot);\" class=\"btn btn-default\" type=\"button\">Join</button></span></span></span>";
     joinElement.innerHTML =barText;
@@ -179,11 +180,14 @@ function joinGroupBar(groupElement){
 }
 
 function joinGroupWithBlurb(groupName){
+     var blurb = document.getElementById("join_blurb_text").value;
     console.log("called joinGroupWithBlurb");
     var name = groupName.substring(1);
     console.log("name is "+name);
     var status =0;//doesn't matter anyway
-    var blurb = document.getElementById("join_blurb").value;
+    var blurbElement = document.getElementById("join_blurb");
+   
+    console.dir(blurbElement);
     console.log("blurb is "+blurb);
     console.log(document.getElementById("join_blurb").innerHTML);
     if(!!blurb)
@@ -211,7 +215,10 @@ function joinGroupWithBlurb(groupName){
         }); 
     }
     else
+    {
+        console.log("life mean ");
         document.getElementById(name).innerHTML= "Enter a blurb first";
+    }
 }
 
 function addSearchedFriend(friendElement){
