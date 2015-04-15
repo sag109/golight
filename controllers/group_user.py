@@ -80,7 +80,7 @@ def put_user(parameters):
     if not user_member:
         return json.dumps(error_obj('Server error.'))
     schedule = user_member.schedule.get()
-    schedule.update_status(int(parameters['s']), str(parameters['blurb']))
+    schedule.update_status(int(parameters['status']), str(parameters['blurb']))
     return json.dumps(success_obj())
 
 def get_user(parameters):

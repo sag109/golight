@@ -28,7 +28,8 @@ function joinGroup() {
 function createGroup() {
     var crName = document.getElementById("create_group_name").value;
     var crBlurb = document.getElementById("create_group_blurb").value;
-    
+    crName = crName.split(" ").join("_");
+    console.log(crName +"crName");
     var info = {"groupName":crName,"blurb":crBlurb};
     var createGroup = requestInfo('post','group',info, function(response) {
         if(response.success === false){

@@ -27,7 +27,8 @@ app = webapp2.WSGIApplication([
         ('/group/user/schedule', 'controllers.schedule.GroupSchedule'),
         ('/group/schedule', 'controllers.schedule.GroupScheduleAll'),
     	('/oneview', 'controllers.golight.Golight'),
-        ('/user/schedule/whole', 'controllers.schedule.WholeSchedule')
+        ('/user/schedule/whole', 'controllers.schedule.WholeSchedule'),
+        ('/logout', 'controllers.logout.LogoutLink')
     ], debug=True)
 
 def main():
