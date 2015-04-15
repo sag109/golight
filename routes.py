@@ -6,7 +6,7 @@ from google.appengine.ext.webapp import template
 
 
 app = webapp2.WSGIApplication([
-        ('/','controllers.main.Main'),
+        ('/','controllers.golight.Golight'),
         ('/profile','controllers.profile.RenderProfile'),
         ('/edit', 'controllers.editFriends.RenderEdit'), 
         ('/user','controllers.user.User'), 
