@@ -32,7 +32,7 @@ function SCHEDULESTATUS(groupName){
 function reportChange(groupName){
 	var responseElement = document.getElementById("scheduleResponse"+groupName);
 	console.log(groupName);
-	responseElement.innerHTML = "<h4>Status scheduled!</h4>";
+	responseElement.innerHTML = "<h4>&nbsp&nbspStatus scheduled!</h4>";
 	alert(response);
 }
 function setStatusAt(status, blurb, day, hour, success) {
