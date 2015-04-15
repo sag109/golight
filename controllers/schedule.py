@@ -66,7 +66,7 @@ class Schedule(webapp2.RequestHandler):
             schedule = user.schedule.get()
             self.response.out.write(json.dumps(schedule.get_status_at(day, hour)))
         except Exception as e:
-            self.response.our.write(json.dumps(error_obj(e.message)))
+            self.response.out.write(json.dumps(error_obj(e.message)))
 
     def delete(self):
         try:
