@@ -2,14 +2,39 @@ var weekday = 0;
 var time = 0;
 var scheduledStatus = 0;
 
-function setScheduleDay(day){
+function setScheduleDay(day,gname){
 	weekday = day;
+	$('#'+gname+'_schedule_day').html(''+getDay(day)+' <span class="caret"></span>');
 }
-function setScheduleTime(t){
+
+function getDay(numDay){
+	if(numDay == 0)
+		return 'Sunday';
+	else if(numDay == 1)
+		return 'Monday';
+	else if(numDay == 2)
+		return 'Tuesday';
+	else if(numDay == 3)
+		return 'Wednesday';
+	else if(numDay == 4)
+		return 'Thursday';
+	else if(numDay == 5)
+		return 'Friday';
+	else if(numDay == 6)
+		return 'Saturday';
+}
+
+function setScheduleTime(t,gname){
 	time = t;
+	$('#'+gname+'_schedule_time').html(''+t+':00 <span class="caret"></span>');
 }
-function setScheduleStatus(status){
+function setScheduleStatus(status,gname){
 	scheduledStatus = status;
+	var st;
+	if(status === -1) st = 'btn btn-danger';
+	else if(status === 0) st = 'btn btn-warning';
+	else st = 'btn btn-success';
+	$('#'+gname+'_schedule_status').attr('class',st);
 }
 
 function getStatusAt(day, hour, success) {
