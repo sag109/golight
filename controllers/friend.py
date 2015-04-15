@@ -75,10 +75,12 @@ class Friend(webapp2.RequestHandler):
 
 def account_info(account):
     """Make a dict of the status information for an account."""
+    schedule = account.schedule.get()
+    current = schedule.get_current_status()
     return {
-        'status': account.status,
-        'availability': account.availability,
-        'blurb': account.message,
+        'status': current['status'],
+        'availability': current['status'],
+        'blurb': current['blurb'],
         'email': account.email,
         'name': account.name,
         'success': True

@@ -29,7 +29,6 @@ DELETE /user/schedule
         hour: hour of day 0-23
 
 /group/user/schedule all do the same but for the group
-    
 	
 GET /user/groups
     Get a list of the groups you are in.
