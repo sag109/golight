@@ -41,22 +41,9 @@ class user_info(ndb.Model):
             account = user_info(email=user.email(), name=user.nickname(), status=0, availability='0')
             account.friend_list = [user.email()]
             account.message = "I'm new here!"
-<<<<<<< HEAD
             schedule = Schedule.make_new()
             schedule.update_status(0, "I'm new here!")
             account.schedule = schedule.key
-            mail.send_mail("golightapp@gmail.com", account.email, 'Welcome to Golight', r"""
-      ____________________
-      |\                   \      l____
-      | \___________________\     |\   \
-      | |                    |    |\l___\___
- [__]_[ |    Welcome to      |[\\]| |__|_\__\
-/\[__]\ |      Golight       |\[\\]\|. | |===\
-\ \[__]\[____________________] \[__]|__|..___]
-\/.-.\_______________________\/.-.\____\/.-.\
- ( @ )                        ( @ )  =  ( @ )
-  `-'                          `-'       `-' 
-=======
             mail.send_mail("golightapp@gmail.com", account.email, 'Welcome to Golight', """
 
 		Welcome to GoLight!
@@ -75,8 +62,6 @@ class user_info(ndb.Model):
 
 		Kindest regards,
 			The GoLight development team.
-
->>>>>>> 29495962b420cae1cbd450c84ac64718b6393288
             """)
             account.put()
         return account
