@@ -216,10 +216,10 @@ function getScheduleBar(groupName){
 	str+='</div>';
 	str+='</div>';
 	str+='</div>';
-	str+='<div class="col-xs-6 col-sm-2 col-md-2 col-lg-1">';
-	str+='<button class="btn btn-default" type="button" id="set_'+groupName+'_blurb" onclick="SCHEDULESTATUS(&quot;'+groupName+'&quot)">Set blurb</button>';
+	str+='<div class="col-xs-6 col-sm-2 col-md-2 col-lg-2">';
+	str+='<button class="btn btn-default" type="button" id="set_'+groupName+'_blurb" onclick="SCHEDULESTATUS(&quot;'+groupName+'&quot)">Set Schedule</button>';
 	str+='</div>';
-	str+='<span id="scheduleResponse'+groupName+'" class="col-xs-6 col-sm-2 col-md-2 col-lg-2 col-center"></span>';
+	str+='<span id="scheduleResponse'+groupName+'" class="col-xs-6 col-sm-2 col-md-2 col-lg-2"></span>';
 	str+='</div>';
 	//console.log('calling showPage: '+groupName);
 	showPage(groupName);

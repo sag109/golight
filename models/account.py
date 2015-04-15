@@ -62,6 +62,7 @@ class user_info(ndb.Model):
 
 		Kindest regards,
 			The GoLight development team.
+            golight.app@gmail.com
             """)
             account.put()
         return account
