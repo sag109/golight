@@ -1,2 +1,2 @@
 # golight
-sup fuckers?
+sup friends?
